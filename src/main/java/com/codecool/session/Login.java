@@ -22,6 +22,10 @@ public class Login extends Dao {
         this.userPassword = userPassword;
     }
 
+    public boolean getIsUserAdmin() {
+        return isUserAdmin;
+    }
+
     public boolean loginAttempt() throws SQLException {
         connect();
         boolean adminMatch = adminLoginAttempt(userEmail, userPassword);
@@ -29,18 +33,19 @@ public class Login extends Dao {
         return adminMatch || customerMatch;
     }
 
-    public boolean adminLoginAttempt(String userEmail, String userPassword) throws SQLException {
+    private boolean adminLoginAttempt(String userEmail, String userPassword) throws SQLException {
         ResultSet emailResult = statement
                 .executeQuery("SELECT * FROM Admins WHERE Email = " + userEmail + "AND Password = " + userPassword + ";");
         if (!emailResult.first()) {
             isUserAdmin = false;
             return false;
         } else {
+            isUserAdmin = true;
             return true;
         }
     }
 
-    public boolean customerLoginAttempt(String userEmail, String userPassword) throws SQLException {
+    private boolean customerLoginAttempt(String userEmail, String userPassword) throws SQLException {
         ResultSet emailResult = statement
                 .executeQuery("SELECT * FROM Customers WHERE Email = " + userEmail + "AND Password = " + userPassword + ";");
         return emailResult.first();
