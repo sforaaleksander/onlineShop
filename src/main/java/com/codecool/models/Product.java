@@ -1,14 +1,14 @@
 package com.codecool.models;
 
 public class Product {
-    int id;
-    String name;
-    float price;
-    int quantity;
-    int rate;
-    String description;
-    String category;
-    Boolean is_available;
+    private int id;
+    private String name;
+    private float price;
+    private int quantity;
+    private int rate;
+    private String description;
+    private String category;
+    private Boolean is_available;
 
     public Product(int id, String name, float price, int quantity, int rate, String description,
                     String category, Boolean is_available) {

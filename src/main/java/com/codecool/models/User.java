@@ -1,12 +1,12 @@
 package com.codecool.models;
 
 public class User {
-    int id;
-    String name;
-    String surname;
-    String phone;
-    String email;
-    String password;
+    private int id;
+    private String name;
+    private String surname;
+    private String phone;
+    private String email;
+    private String password;
 
     public User(int id, String name, String surname, String email, String password, String phone) {
         this.id = id;
