@@ -16,7 +16,7 @@ public class OrderDao extends Dao {
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Order;");
+            ResultSet results = statement.executeQuery("SELECT * FROM Orders;");
             while (results.next()) {
                 int id = results.getInt("id");
                 OrderProductsDao orderProductsDao = new OrderProductsDao();

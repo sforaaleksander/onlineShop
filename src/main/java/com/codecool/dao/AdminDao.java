@@ -14,7 +14,7 @@ public class AdminDao extends Dao {
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Users;");
+            ResultSet results = statement.executeQuery("SELECT * FROM Admins;");
             while (results.next()) {
                 int id = results.getInt("id");
                 String email = results.getString("email");
