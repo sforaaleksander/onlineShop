@@ -1,6 +1,6 @@
 package com.codecool.dao;
 
-import com.codecool.models.User;
+import com.codecool.models.Customer;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -8,8 +8,8 @@ import java.util.List;
 
 public class UserDao extends Dao {
 
-    public List<User> getUsers() {
-        List<User> users = new ArrayList<>();
+    public List<Customer> getUsers() {
+        List<Customer> customers = new ArrayList<>();
         connect();
 
         try {
@@ -22,8 +22,8 @@ public class UserDao extends Dao {
                 String password = results.getString("password");
                 String phone = results.getString("phone");
 
-                User user = new User(id, name, surname, email, password, phone);
-                users.add(user);
+                Customer customer = new Customer(id, name, surname, email, password, phone);
+                customers.add(customer);
             }
             results.close();
             statement.close();
@@ -32,6 +32,6 @@ public class UserDao extends Dao {
             e.printStackTrace();
         }
 
-        return users;
+        return customers;
     }
 }

@@ -6,9 +6,7 @@ import com.codecool.models.OrderStatus;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-//import java.util.Date;
 import java.time.LocalDateTime;
 import java.util.List;
 
