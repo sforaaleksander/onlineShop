@@ -1,6 +1,8 @@
 package com.codecool;
 
+import com.codecool.dao.ProductDao;
 import com.codecool.dao.UserDao;
+import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.jakewharton.fliptables.FlipTableConverters;
 
@@ -18,5 +20,11 @@ public class App {
         // pretty table
         System.out.println(FlipTableConverters.fromIterable(users, User.class));
 
+
+        ProductDao productDao = new ProductDao();
+        List<Product> products = productDao.getProducts();
+
+        // pretty table
+        System.out.println(FlipTableConverters.fromIterable(products, Product.class));
     }
 }
