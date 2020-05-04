@@ -1,7 +1,22 @@
 package com.codecool.models;
 
 public abstract class User {
+    private int id;
     private String email;
+    private String password;
+
+    public User (int id, String email, String password) {
+        this.id = id;
+        this.email = email;
+        this.password = password;
+    }
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public String getEmail() {
         return email;
@@ -16,13 +31,6 @@ public abstract class User {
     }
 
     public void setPassword(String password) {
-        this.password = password;
-    }
-
-    private String password;
-
-    public User (String email, String password) {
-        this.email = email;
         this.password = password;
     }
 }

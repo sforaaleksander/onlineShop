@@ -1,25 +1,15 @@
 package com.codecool.models;
 
 public class Customer extends User {
-    private int id;
     private String name;
     private String surname;
     private String phone;
 
     public Customer(int id, String name, String email, String password, String surname, String phone) {
-        super(email, password);
-        this.id = id;
+        super(id, email, password);
         this.name = name;
         this.surname = surname;
         this.phone = phone;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getName() {
