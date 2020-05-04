@@ -11,7 +11,8 @@ public class IO {
         scan.useDelimiter(System.lineSeparator());
     }
 
-    public String gatherInput() {
+    public String gatherInput(String title) {
+        System.out.println(title);
         boolean validInput = true;
         String userInput;
         do {

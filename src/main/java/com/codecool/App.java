@@ -5,6 +5,7 @@ import com.codecool.dao.CustomerDao;
 import com.codecool.models.Product;
 import com.codecool.models.Customer;
 import com.codecool.session.Login;
+import com.codecool.session.Session;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.util.List;
@@ -27,5 +28,7 @@ public class App {
 
         // pretty table
         System.out.println(FlipTableConverters.fromIterable(products, Product.class));
+
+        Session session = new Session();
     }
 }
