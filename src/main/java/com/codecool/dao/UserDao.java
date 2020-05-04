@@ -20,8 +20,9 @@ public class UserDao extends Dao {
                 String surname = results.getString("surname");
                 String email = results.getString("email");
                 String password = results.getString("password");
+                String phone = results.getString("phone");
 
-                User user = new User(id, name, surname, email, password);
+                User user = new User(id, name, surname, email, password, phone);
                 users.add(user);
             }
             results.close();
