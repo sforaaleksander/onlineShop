@@ -20,11 +20,10 @@ public class ProductDao extends Dao {
                 float price = results.getFloat("price");
                 int quantity = results.getInt("quantity");
                 int rate = results.getInt("rate");
-                String description = results.getString("description");
                 String category = results.getString("category");
                 Boolean is_available = results.getBoolean("is_available");
 
-                Product product = new Product(id, name, price, quantity, rate, description, category, is_available);
+                Product product = new Product(id, name, price, quantity, rate, category, is_available);
                 products.add(product);
             }
             results.close();
