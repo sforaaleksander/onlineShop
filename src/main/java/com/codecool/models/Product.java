@@ -6,18 +6,16 @@ public class Product {
     private float price;
     private int quantity;
     private int rate;
-    private String description;
     private String category;
     private Boolean is_available;
 
-    public Product(int id, String name, float price, int quantity, int rate, String description,
+    public Product(int id, String name, float price, int quantity, int rate,
                     String category, Boolean is_available) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.rate = rate;
-        this.description = description;
         this.category = category;
         this.is_available = is_available;
     }
@@ -60,14 +58,6 @@ public class Product {
 
     public void setRate(int rate) {
         this.rate = rate;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     public String getCategory() {
