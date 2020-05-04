@@ -7,14 +7,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao extends Dao {
+public class CustomerDao extends Dao {
 
-    public List<Customer> getUsers() {
+    public List<Customer> getCustomers() {
         List<Customer> customers = new ArrayList<>();
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Users;");
+            ResultSet results = statement.executeQuery("SELECT * FROM Customers;");
             while (results.next()) {
                 int id = results.getInt("id");
                 String name = results.getString("name");

@@ -1,17 +1,18 @@
 package com.codecool;
 
 import com.codecool.dao.ProductDao;
-import com.codecool.dao.UserDao;
+import com.codecool.dao.CustomerDao;
 import com.codecool.models.Product;
 import com.codecool.models.Customer;
+import com.codecool.session.Login;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 import java.util.List;
 
 public class App {
     public static void main(String[] args) {
-        UserDao userDao = new UserDao();
-        List<Customer> customers = userDao.getUsers();
+        CustomerDao customerDao = new CustomerDao();
+        List<Customer> customers = customerDao.getCustomers();
 
         for (Customer customer : customers) {
             System.out.println(customer.getName() + " " + customer.getEmail());

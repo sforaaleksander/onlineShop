@@ -9,7 +9,7 @@ import java.util.List;
 
 public class AdminDao extends Dao {
 
-    public List<Admin> getUsers() {
+    public List<Admin> getAdmins() {
         List<Admin> admins = new ArrayList<>();
         connect();
 
