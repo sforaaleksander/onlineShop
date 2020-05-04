@@ -6,18 +6,18 @@ public class Product {
     private float price;
     private int quantity;
     private int rate;
-    private String category;
-    private Boolean is_available;
+    private int categoryId;
+    private Boolean isAvailable;
 
     public Product(int id, String name, float price, int quantity, int rate,
-                    String category, Boolean is_available) {
+                   int categoryId, Boolean isAvailable) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
         this.rate = rate;
-        this.category = category;
-        this.is_available = is_available;
+        this.categoryId = categoryId;
+        this.isAvailable = isAvailable;
     }
 
     public int getId() {
@@ -60,19 +60,19 @@ public class Product {
         this.rate = rate;
     }
 
-    public String getCategory() {
-        return category;
+    public int getCategoryId() {
+        return categoryId;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setCategoryId(int categoryId) {
+        this.categoryId = categoryId;
     }
 
-    public Boolean getIs_available() {
-        return is_available;
+    public Boolean getIsAvailable() {
+        return isAvailable;
     }
 
-    public void setIs_available(Boolean is_available) {
-        this.is_available = is_available;
+    public void setIsAvailable(Boolean isAvailable) {
+        this.isAvailable = isAvailable;
     }
 }
