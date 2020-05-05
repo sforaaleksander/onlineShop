@@ -3,7 +3,6 @@ package com.codecool;
 import com.codecool.dao.ProductDao;
 import com.codecool.dao.UserDao;
 import com.codecool.models.Product;
-import com.codecool.models.Customer;
 import com.codecool.models.User;
 import com.codecool.session.Session;
 import com.codecool.ui.TableSupport;

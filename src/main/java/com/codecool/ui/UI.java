@@ -9,16 +9,26 @@ public class UI {
         io = new IO();
     }
 
-    public void displayMenu() {
+    public void displayMenu(boolean loggedAsAdmin) {
+        if (loggedAsAdmin) {
+            displayAdminMenu();
+        } else {
+            displayCustomerMenu();
+        }
+    }
+
+    private void displayCustomerMenu() {
+    }
+
+    private void displayAdminMenu() {
         print(new String[] { "(1) Start new game",
-                             "(2) How to play",
-                             "(3) About authors",
-                             "(0) Exit" });
+                "(2) How to play",
+                "(3) About authors",
+                "(0) Exit" });
     }
 
     public void print(Collection<String> collection) {
-        collection.stream()
-                  .forEach(System.out::println);
+        collection.forEach(System.out::println);
     }
 
     public void print(String[] toPrint) {
