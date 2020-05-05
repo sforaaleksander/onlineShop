@@ -27,6 +27,7 @@ public class HandleMenuOperation {
         }
     }
 
+
     private void createCustomerMainMenuMap() {
         mainMenuMap = new HashMap<>();
         // mainMenuMap.put("1", this::showMyInfo);
@@ -98,5 +99,21 @@ public class HandleMenuOperation {
 
     public void setMainMenuMap(Map<String, Runnable> mainMenuMap) {
         this.mainMenuMap = mainMenuMap;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public UI getUi() {
+        return ui;
+    }
+
+    public void setUi(UI ui) {
+        this.ui = ui;
     }
 }

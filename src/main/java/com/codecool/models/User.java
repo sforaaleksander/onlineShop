@@ -2,9 +2,6 @@ package com.codecool.models;
 
 import com.codecool.dao.ProductDao;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 public abstract class User {
     private int id;
@@ -61,5 +58,9 @@ public abstract class User {
 
     public void setSurname(String surname) {
         this.surname = surname;
+    }
+
+    public ProductDao getProductDao() {
+        return productDao;
     }
 }
