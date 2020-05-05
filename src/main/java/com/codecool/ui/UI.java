@@ -42,4 +42,7 @@ public class UI {
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
     }
+    public void printFlipTable(Iterable i, Class obj) {
+        System.out.println(TableSupport.fromIterable(i,obj));
+    }
 }

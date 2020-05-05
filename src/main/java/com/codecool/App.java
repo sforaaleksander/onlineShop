@@ -5,6 +5,7 @@ import com.codecool.dao.CustomerDao;
 import com.codecool.models.Product;
 import com.codecool.models.Customer;
 import com.codecool.session.Session;
+import com.codecool.session.Browser;
 import com.codecool.ui.TableSupport;
 
 import java.util.List;
@@ -26,5 +27,7 @@ public class App {
         List<Product> products = productDao.getProducts("");
 
         System.out.println(TableSupport.fromIterable(products, Product.class));
+        Browser browser = new Browser();
+        browser.browse();
     }
 }
