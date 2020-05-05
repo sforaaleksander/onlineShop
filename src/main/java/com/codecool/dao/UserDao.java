@@ -26,7 +26,7 @@ public class UserDao extends Dao {
                 String password = results.getString("password");
                 String phone = results.getString("phone");
 
-                if (results.getInt("role") == Role.CUSTOMER.getRoleId()) {
+                if (results.getInt("Id_role") == Role.CUSTOMER.getRoleId()) {
                     User customer = new Customer(id, email, password, name, surname, phone);
                     users.add(customer);
                 } else {

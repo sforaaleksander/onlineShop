@@ -4,6 +4,7 @@ import com.codecool.dao.ProductDao;
 import com.codecool.dao.UserDao;
 import com.codecool.models.Product;
 import com.codecool.models.Customer;
+import com.codecool.models.User;
 import com.codecool.session.Session;
 import com.codecool.ui.TableSupport;
 
@@ -18,9 +19,9 @@ public class App {
 
     private static void testTablePrint() {
         UserDao userDao = new UserDao();
-        List<Customer> customers = userDao.getCustomers("");
+        List<User> users = userDao.getUsers("");
 
-        System.out.println(TableSupport.fromIterable(customers, Customer.class));
+        System.out.println(TableSupport.fromIterable(users, User.class));
 
         ProductDao productDao = new ProductDao();
         List<Product> products = productDao.getProducts("");
