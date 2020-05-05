@@ -18,7 +18,7 @@ public class App {
 
     private static void testTablePrint() {
         CustomerDao customerDao = new CustomerDao();
-        List<Customer> customers = customerDao.getCustomers();
+        List<Customer> customers = customerDao.getCustomers("");
 
         System.out.println(TableSupport.fromIterable(customers, Customer.class));
 
