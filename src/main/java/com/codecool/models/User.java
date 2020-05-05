@@ -2,7 +2,9 @@ package com.codecool.models;
 
 import com.codecool.dao.ProductDao;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public abstract class User {
     private int id;
@@ -19,14 +21,6 @@ public abstract class User {
         this.name = name;
         this.surname = surname;
         productDao = new ProductDao();
-    }
-
-    public List<Product> getProductsContaining(String column, String toSearch) {
-        return productDao.getProducts("WHERE " + column + " LIKE '%" + toSearch + "%'");
-    }
-
-    public List<Product> getProductsByCategory(String category) {
-        return productDao.getProducts("JOIN Category ON Products.Id_category = Category.Id WHERE Category.Name = '" + category + "'");
     }
 
     public int getId() {

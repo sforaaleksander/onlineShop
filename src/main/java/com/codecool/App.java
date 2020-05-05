@@ -18,12 +18,12 @@ public class App {
 
     private static void testTablePrint() {
         UserDao userDao = new UserDao();
-        List<User> users = userDao.getUsers("");
+        List<User> users = userDao.getUsers("SELECT * FROM Users;");
 
         System.out.println(TableSupport.fromIterable(users, User.class));
 
         ProductDao productDao = new ProductDao();
-        List<Product> products = productDao.getProducts("");
+        List<Product> products = productDao.getProducts("SELECT * FROM Products;");
 
         System.out.println(TableSupport.fromIterable(products, Product.class));
     }

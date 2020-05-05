@@ -18,12 +18,18 @@ public class UI {
     }
 
     private void displayCustomerMenu() {
+        print(new String[] { "    Admin menu",
+                             "(1) Display all products",
+                             "(2) Browse by category",
+                             "(3) Search for products by column",
+                             "(0) Exit" });
     }
 
     private void displayAdminMenu() {
-        print(new String[] { "(1) Start new game",
-                             "(2) How to play",
-                             "(3) About authors",
+        print(new String[] { "    Admin menu",
+                             "(1) Display all products",
+                             "(2) Browse by category",
+                             "(3) Search for products by column",
                              "(0) Exit" });
     }
 
@@ -33,6 +39,10 @@ public class UI {
 
     public void print(Collection<String> collection) {
         collection.forEach(System.out::println);
+    }
+
+    public void print(String toPrint) {
+        System.out.print(toPrint);
     }
 
     public void print(String[] toPrint) {
