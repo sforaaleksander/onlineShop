@@ -12,7 +12,7 @@ import java.util.List;
 public class App {
     public static void main(String[] args) {
         testTablePrint();
-        Session session = new Session();
+        new Session();
     }
 
 
