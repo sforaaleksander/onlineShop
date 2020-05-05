@@ -22,9 +22,13 @@ public class UI {
 
     private void displayAdminMenu() {
         print(new String[] { "(1) Start new game",
-                "(2) How to play",
-                "(3) About authors",
-                "(0) Exit" });
+                             "(2) How to play",
+                             "(3) About authors",
+                             "(0) Exit" });
+    }
+
+    public <T> void printTable(Iterable<T> rows, Class<T> rowType) {
+        System.out.println(TableSupport.fromIterable(rows, rowType));
     }
 
     public void print(Collection<String> collection) {
