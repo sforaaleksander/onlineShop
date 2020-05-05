@@ -1,7 +1,7 @@
 package com.codecool;
 
 import com.codecool.dao.ProductDao;
-import com.codecool.dao.CustomerDao;
+import com.codecool.dao.UserDao;
 import com.codecool.models.Product;
 import com.codecool.models.Customer;
 import com.codecool.session.Session;
@@ -17,8 +17,8 @@ public class App {
 
 
     private static void testTablePrint() {
-        CustomerDao customerDao = new CustomerDao();
-        List<Customer> customers = customerDao.getCustomers("");
+        UserDao userDao = new UserDao();
+        List<Customer> customers = userDao.getCustomers("");
 
         System.out.println(TableSupport.fromIterable(customers, Customer.class));
 
