@@ -23,7 +23,7 @@ public class App {
         System.out.println(TableSupport.fromIterable(customers, Customer.class));
 
         ProductDao productDao = new ProductDao();
-        List<Product> products = productDao.getProducts();
+        List<Product> products = productDao.getProducts("");
 
         System.out.println(TableSupport.fromIterable(products, Product.class));
     }
