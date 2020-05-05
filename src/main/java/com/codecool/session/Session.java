@@ -92,4 +92,14 @@ public class Session {
     public UI getUi() {
         return ui;
     }
+
+    public List<Product> getCart() {
+        return cart;
+    }
+
+
+    public MenuOperator getMenuOperator() {
+        return menuOperator;
+    }
+    
 }
