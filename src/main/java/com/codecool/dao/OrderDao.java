@@ -11,13 +11,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 public class OrderDao extends Dao {
-    public List<Order> getOrder() {
+    public List<Order> getOrders(String query) {
         List<Order> orders = new ArrayList<>();
         connect();
 
         try {
             // TODO select orders only for logged user
-            ResultSet results = statement.executeQuery("SELECT * FROM Orders;");
+            ResultSet results = statement.executeQuery("SELECT * FROM Orders" + query + ";");
             while (results.next()) {
                 int id = results.getInt("id");
                 OrderProductsDao orderProductsDao = new OrderProductsDao();
