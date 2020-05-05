@@ -20,8 +20,8 @@ public class Session {
         String userEmail;
         Login login;
         do {
-            userEmail = ui.getIo().gatherInput("Email: ");
-            String userPassword = ui.getIo().gatherInput("Password: ");
+            userEmail = ui.gatherInput("Email: ");
+            String userPassword = ui.gatherInput("Password: ");
             login = new Login(userEmail, userPassword);
             try {
                 logged = login.loginAttempt();
