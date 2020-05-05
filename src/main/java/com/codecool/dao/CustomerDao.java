@@ -23,7 +23,7 @@ public class CustomerDao extends Dao {
                 String password = results.getString("password");
                 String phone = results.getString("phone");
 
-                Customer customer = new Customer(id, name, surname, email, password, phone);
+                Customer customer = new Customer(id, email, password, name, surname, phone);
                 customers.add(customer);
             }
             results.close();
