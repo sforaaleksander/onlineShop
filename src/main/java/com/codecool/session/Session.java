@@ -26,7 +26,7 @@ public class Session {
             String userPassword = ui.gatherInput("Password: ");
             login = new Login(userEmail, userPassword);
             try {
-                loggedUser = login.loginAttempt();
+                loggedUser = login.loginAttempt(userEmail, userPassword);
             } catch (SQLException e) {
                 e.printStackTrace();
             }
