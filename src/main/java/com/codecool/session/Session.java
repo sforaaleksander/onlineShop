@@ -1,16 +1,19 @@
 package com.codecool.session;
 
 import com.codecool.models.Admin;
+import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 import java.sql.SQLException;
+import java.util.List;
 
 public class Session {
     private String loggedAs;
     private boolean loggedAsAdmin;
     private long sessionTime;
     private final UI ui;
+    private List<Product> cart;
     private HandleMenuOperation handleMenuOperation;
 
     public Session() {
@@ -35,10 +38,10 @@ public class Session {
         ui.print("Logged in");
         loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
-        choseAction(loggedUser);
+        mainMenuChoice(loggedUser);
     }
 
-    private void choseAction(User loggedUser) {
+    private void mainMenuChoice(User loggedUser) {
         handleMenuOperation = new HandleMenuOperation(loggedUser, ui);
         boolean isRunning = true;
         do {
