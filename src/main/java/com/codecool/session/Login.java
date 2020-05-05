@@ -43,13 +43,13 @@ public class Login extends Dao {
     }
 
     private List<Admin> adminLoginAttempt(String userEmail, String userPassword) throws SQLException {
-        return new AdminDao().getAdmins("where email = '" + userEmail + "' AND password = '" + userPassword + "';");
+        return new AdminDao().getAdmins("WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
 
     }
 
     private List<Customer> customerLoginAttempt(String userEmail, String userPassword) throws SQLException {
         return new CustomerDao()
-                .getCustomers("where email = '" + userEmail + "' AND password = '" + userPassword + "';");
+                .getCustomers("WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
     }
 
 }
