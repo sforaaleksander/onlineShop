@@ -1,6 +1,6 @@
 package com.codecool.session;
 
-import com.codecool.ui.IO;
+import com.codecool.ui.UI;
 
 import java.sql.SQLException;
 
@@ -8,10 +8,10 @@ public class Session {
     private String loggedAs;
     private boolean loggedAsAdmin;
     private long sessionTime;
-    private IO io;
+    private final UI ui;
 
     public Session() {
-        io = new IO();
+        ui = new UI();
         loggingIn();
     }
 
@@ -20,8 +20,8 @@ public class Session {
         String userEmail;
         Login login;
         do {
-            userEmail = io.gatherInput("Email: ");
-            String userPassword = io.gatherInput("Password: ");
+            userEmail = ui.getIo().gatherInput("Email: ");
+            String userPassword = ui.getIo().gatherInput("Password: ");
             login = new Login(userEmail, userPassword);
             try {
                 logged = login.loginAttempt();
@@ -57,11 +57,7 @@ public class Session {
         this.sessionTime = sessionTime;
     }
 
-    public IO getIo() {
-        return io;
-    }
-
-    public void setIo(IO io) {
-        this.io = io;
+    public UI getUi() {
+        return ui;
     }
 }
