@@ -35,8 +35,8 @@ public class Login extends Dao {
 
     private boolean adminLoginAttempt(String userEmail, String userPassword) throws SQLException {
         ResultSet emailResult = statement
-                .executeQuery("SELECT * FROM Admins WHERE Email = " + userEmail + "AND Password = " + userPassword + ";");
-        if (!emailResult.first()) {
+                .executeQuery("SELECT * FROM Admins WHERE Email = '" + userEmail + "'AND Password = '" + userPassword + "';");
+        if (!emailResult.next()) {
             isUserAdmin = false;
             return false;
         } else {
@@ -47,8 +47,8 @@ public class Login extends Dao {
 
     private boolean customerLoginAttempt(String userEmail, String userPassword) throws SQLException {
         ResultSet emailResult = statement
-                .executeQuery("SELECT * FROM Customers WHERE Email = " + userEmail + "AND Password = " + userPassword + ";");
-        return emailResult.first();
+                .executeQuery("SELECT * FROM Customers WHERE Email = '" + userEmail + "' AND Password = '" + userPassword + "';");
+        return emailResult.next();
     }
 
 

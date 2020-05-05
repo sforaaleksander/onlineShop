@@ -11,7 +11,7 @@ public class Session {
     private IO io;
 
     public Session() {
-        IO io = new IO();
+        io = new IO();
         loggingIn();
     }
 
