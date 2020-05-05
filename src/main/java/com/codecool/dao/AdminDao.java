@@ -9,12 +9,12 @@ import java.util.List;
 
 public class AdminDao extends Dao {
 
-    public List<Admin> getAdmins() {
+    public List<Admin> getAdmins(String query) {
         List<Admin> admins = new ArrayList<>();
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Admins;");
+            ResultSet results = statement.executeQuery("SELECT * FROM Admins " + query + ";");
             while (results.next()) {
                 int id = results.getInt("id");
                 String email = results.getString("email");

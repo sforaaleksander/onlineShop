@@ -9,12 +9,12 @@ import java.util.List;
 
 public class CustomerDao extends Dao {
 
-    public List<Customer> getCustomers() {
+    public List<Customer> getCustomers(String query) {
         List<Customer> customers = new ArrayList<>();
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Customers;");
+            ResultSet results = statement.executeQuery("SELECT * FROM Customers " + query + ";");
             while (results.next()) {
                 int id = results.getInt("id");
                 String name = results.getString("name");

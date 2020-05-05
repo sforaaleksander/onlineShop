@@ -1,5 +1,7 @@
 package com.codecool.session;
 
+import com.codecool.models.Admin;
+import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 import java.sql.SQLException;
@@ -16,21 +18,21 @@ public class Session {
     }
 
     private void loggingIn() {
-        boolean logged = false;
+        User loggedUser = null;
         String userEmail;
         Login login;
         do {
-            userEmail = ui.gatherInput("Email: ");
+            userEmail = ui.gatherInput("Email: ").toLowerCase();
             String userPassword = ui.gatherInput("Password: ");
             login = new Login(userEmail, userPassword);
             try {
-                logged = login.loginAttempt();
+                loggedUser = login.loginAttempt();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
-        } while (!logged);
+        } while (loggedUser == null);
         loggedAs = userEmail;
-        loggedAsAdmin = login.getIsUserAdmin();
+        loggedAsAdmin = loggedUser instanceof Admin;
     }
 
     public String getLoggedAs() {
