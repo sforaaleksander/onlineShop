@@ -14,14 +14,24 @@ public class Session {
     private long sessionTime;
     private final UI ui;
     private List<Product> cart;
-    private HandleMenuOperation handleMenuOperation;
+    private MenuOperator menuOperator;
 
     public Session() {
         ui = new UI();
-        loggingIn();
+        User user = loggingIn();
+        setMenuOperator(user);
     }
 
-    private void loggingIn() {
+    private void setMenuOperator(User user) {
+        if (loggedAsAdmin) {
+            menuOperator = new AdminMenuOperator(user, ui) {
+            };
+        } else {
+            menuOperator = new CustomerMenuOperator(user, ui);
+        }
+    }
+
+    private User loggingIn() {
         User loggedUser = null;
         String userEmail;
         Login login;
@@ -39,16 +49,16 @@ public class Session {
         loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
         mainMenuChoice(loggedUser);
+        return loggedUser;
     }
 
     private void mainMenuChoice(User loggedUser) {
-        handleMenuOperation = new HandleMenuOperation(loggedUser, ui);
         boolean isRunning = true;
         do {
             ui.displayMenu(loggedAsAdmin);
             String input = ui.gatherInput("What to do?: ");
             try {
-                handleMenuOperation.getMainMenuMap().get(input).run();
+                // handleMenuOperation.getMainMenuMap().get(input).run();
             } catch (NullPointerException e) {
                 System.out.println("No such option");
             }

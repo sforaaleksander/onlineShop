@@ -3,15 +3,21 @@ package com.codecool.session;
 import java.util.List;
 import java.util.Map;
 
+import com.codecool.dao.OrderDao;
 import com.codecool.dao.ProductDao;
+import com.codecool.models.Admin;
+import com.codecool.models.Order;
 import com.codecool.models.Product;
+import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-public abstract class MenuOperator {
+public class MenuOperator {
     protected Map<String, Runnable> browseProductsMap;
     protected UI ui;
+    protected User user;
 
-    MenuOperator(UI ui) {
+    MenuOperator(User user, UI ui) {
+        this.user = user;
         this.ui = ui;
         createBrowseProducts();
     }
@@ -26,6 +32,10 @@ public abstract class MenuOperator {
         browseProductsMap.put("3", this::getProductsByCategory);
         browseProductsMap.put("4", this::getProductsContaining);
         browseProductsMap.put("c", this::openCart);
+    }
+
+    protected void browseProducts(){
+        //TODO
     }
 
     public Map<String, Runnable> getBrowseProductsMap() {
@@ -50,11 +60,24 @@ public abstract class MenuOperator {
         return new ProductDao().getProducts("SELECT * FROM Products JOIN Category ON Products.Id_category = Category.Id WHERE Category.Name = '" + category + "';");
     }
 
-    protected void openCart(){
+    protected List<Order> getOrdersByUserId() {
+        String userId;
 
+        if (user instanceof Admin) {
+        userId = ui.gatherInput("Provide userId: ");
+        } else {
+            userId = Integer.toString(user.getId());
+        }
+        
+        return new OrderDao().getOrders("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders"
+                                        + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON"
+                                        + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
     }
 
-    private void exitProgram() {
+    protected void openCart(){
+    }
+
+    protected void exitProgram() {
 
     }
     
