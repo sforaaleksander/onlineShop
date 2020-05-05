@@ -1,7 +1,6 @@
 package com.codecool.session;
 
 import com.codecool.models.Admin;
-import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
