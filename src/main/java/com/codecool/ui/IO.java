@@ -28,11 +28,13 @@ public class IO {
         return userInput;
     }
 
-    public void gatherEmptyInput() {
+    public void gatherEmptyInput(String message) {
+        System.out.println(message);
         scan.next();
     }
 
-    public int gatherIntInput(int rangeMin, int rangeMax) {
+    public int gatherIntInput(String message, int rangeMin, int rangeMax) {
+        System.out.println(message);
         String userInput = "";
         boolean validInput = false;
         while (!validInput) {
