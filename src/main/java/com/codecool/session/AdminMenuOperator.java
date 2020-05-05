@@ -42,9 +42,6 @@ public abstract class AdminMenuOperator extends MenuOperator {
         return new OrderDao().getOrders("SELECT * FROM Orders;");
     }
 
-    private void getOrdersByUserId(){
-        //TODO
-    }
 
     private List<Order> getOrdersContaining() {
         String column;
