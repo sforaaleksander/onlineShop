@@ -20,7 +20,7 @@ public class IO {
                 System.out.println("Your input must contain at least one character. Enter again: ");
             }
             validInput = false;
-            userInput = scan.next().toUpperCase();
+            userInput = scan.next();
             if (!userInput.equals("")) {
                 validInput = true;
             }
