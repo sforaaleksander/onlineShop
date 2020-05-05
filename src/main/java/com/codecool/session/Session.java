@@ -1,6 +1,7 @@
 package com.codecool.session;
 
 import com.codecool.models.Admin;
+import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
@@ -33,6 +34,7 @@ public class Session {
         } while (loggedUser == null);
         loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
+        ui.printTable(loggedUser.getProductsContaining("Name", "brea"), Product.class);
     }
 
     public String getLoggedAs() {

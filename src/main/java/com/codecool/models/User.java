@@ -1,11 +1,16 @@
 package com.codecool.models;
 
+import com.codecool.dao.ProductDao;
+
+import java.util.List;
+
 public abstract class User {
     private int id;
     private String email;
     private String password;
     private String name;
     private String surname;
+    private ProductDao productDao;
 
     public User(int id, String email, String password, String name, String surname) {
         this.id = id;
@@ -13,6 +18,15 @@ public abstract class User {
         this.password = password;
         this.name = name;
         this.surname = surname;
+        productDao = new ProductDao();
+    }
+
+    public List<Product> getProductsContaining(String column, String toSearch) {
+        return productDao.getProducts("WHERE " + column + " LIKE '%" + toSearch + "%'");
+    }
+
+    public List<Product> getProductsByCategory(String category) {
+        return productDao.getProducts("JOIN Category ON Products.Id_category = Category.Id WHERE Category.Name = '" + category + "'");
     }
 
     public int getId() {
