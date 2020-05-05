@@ -12,6 +12,7 @@ public class Session {
     private boolean loggedAsAdmin;
     private long sessionTime;
     private final UI ui;
+    private HandleMenuOperation handleMenuOperation;
 
     public Session() {
         ui = new UI();
@@ -32,9 +33,24 @@ public class Session {
                 e.printStackTrace();
             }
         } while (loggedUser == null);
+        ui.print("Logged in");
         loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
-        ui.printTable(loggedUser.getProductsContaining("Name", "brea"), Product.class);
+        choseAction(loggedUser);
+    }
+
+    private void choseAction(User loggedUser) {
+        handleMenuOperation = new HandleMenuOperation(loggedUser, ui);
+        boolean isRunning = true;
+        do {
+            ui.displayMenu(loggedAsAdmin);
+            String input = ui.gatherInput("What to do?: ");
+            try {
+                handleMenuOperation.getMainMenuMap().get(input).run();
+            } catch (NullPointerException e) {
+                System.out.println("No such option");
+            }
+        } while (isRunning);
     }
 
     public String getLoggedAs() {

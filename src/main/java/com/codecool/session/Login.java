@@ -29,6 +29,6 @@ public class Login extends Dao {
     }
 
     private List<User> matchUser(String userEmail, String userPassword) throws SQLException {
-        return new UserDao().getUsers("WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
+        return new UserDao().getUsers("SELECT * FROM Users WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
     }
 }

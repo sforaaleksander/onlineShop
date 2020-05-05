@@ -13,7 +13,7 @@ public class ProductDao extends Dao {
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Products " + query + ";");
+            ResultSet results = statement.executeQuery(query);
 
             while (results.next()) {
                 int id = results.getInt("id");

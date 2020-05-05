@@ -17,7 +17,7 @@ public class OrderDao extends Dao {
 
         try {
             // TODO select orders only for logged user
-            ResultSet results = statement.executeQuery("SELECT * FROM Orders" + query + ";");
+            ResultSet results = statement.executeQuery(query);
             while (results.next()) {
                 int id = results.getInt("id");
                 OrderProductsDao orderProductsDao = new OrderProductsDao();
