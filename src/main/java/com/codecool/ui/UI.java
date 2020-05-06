@@ -21,11 +21,27 @@ public class UI {
                              "(0) Back" });
     }
 
+    public void displayBrowseOrdersMenu() {
+        print(new String[] { " Browse Orders Menu",
+                             "(1) Show all Orders",
+                             "(2) Browse Orders by Id",
+                             "(3) Search for orders by column",
+                             "(0) Back" });
+    }
+
     public void displayBrowseUsersMenu() {
         print(new String[] { " Browse Users Menu",
                              "(1) Show all users",
                              "(2) Browse users by Id",
                              "(3) Browse users by name",
+                             "(0) Back" });
+    }
+
+    public void displayBrowseProductsMenu() {
+        print(new String[] { " Browse Products Menu",
+                             "(1) Display all products",
+                             "(2) Browse by category",
+                             "(3) Search for products by column",
                              "(0) Back" });
     }
 
@@ -35,14 +51,6 @@ public class UI {
                              "(2) Browse by category",
                              "(3) Search for products by column",
                              "(0) Exit" });
-    }
-
-    private void displayBrowseProductsMenu() {
-        print(new String[] { " Browse Products Menu",
-                             "(1) Display all products",
-                             "(2) Browse by category",
-                             "(3) Search for products by column",
-                             "(0) Back" });
     }
 
     public void displayAdminMainMenu() {
