@@ -85,9 +85,9 @@ public abstract class MenuOperator extends Dao {
     protected void getProductsByCategory() {
         String category;
         category = ui.gatherInput("Provide category: ");
-        printFromDB("SELECT * FROM Products JOIN Category" + 
-                    "ON Products.Id_category = Category.Id WHERE Category.Name = '"
-                        + category + "';");
+        printFromDB("SELECT * FROM Products JOIN Category" 
+                    + " ON Products.Id_category = Category.Id WHERE Category.Name = '"
+                    + category + "';");
     }
 
     protected void getOrdersByUserId() {
