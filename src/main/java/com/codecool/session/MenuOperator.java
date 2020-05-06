@@ -16,7 +16,7 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public abstract class MenuOperator extends Dao {
-    protected Map<String, Runnable> browseProductsMap;
+    protected Map<String, Runnable> productsMenuMap;
     protected Map<String, Runnable> mainMenuMap;
     protected UI ui;
     protected User user;
@@ -33,11 +33,15 @@ public abstract class MenuOperator extends Dao {
     }
 
     private void createBrowseProducts() {
-        browseProductsMap = new HashMap<>();
-        browseProductsMap.put("2", this::getAllProducts);
-        browseProductsMap.put("3", this::getProductsByCategory);
-        browseProductsMap.put("4", this::getProductsContaining);
-        browseProductsMap.put("c", this::openCart);
+        productsMenuMap = new HashMap<>();
+        productsMenuMap.put("1", this::getAllProducts);
+        productsMenuMap.put("2", this::getProductsByCategory);
+        productsMenuMap.put("3", this::getProductsContaining);
+        productsMenuMap.put("c", this::openCart);
+    }
+
+    protected void browseProducts() {
+        handleMenu(productsMenuMap, ui::displayBrowseProductsMenu);
     }
 
     public void handleMenu(Map<String, Runnable> menuMap, Runnable uiMenu) {
@@ -57,12 +61,8 @@ public abstract class MenuOperator extends Dao {
         } while (isRunning);
     }
 
-    protected void browseProducts() {
-        printFromDB("SELECT * FROM Products;");
-    }
-
     public Map<String, Runnable> getBrowseProductsMap() {
-        return browseProductsMap;
+        return productsMenuMap;
     }
 
     private void getAllProducts() {
