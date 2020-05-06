@@ -40,7 +40,7 @@ public abstract class MenuOperator extends Dao {
     }
 
     protected void browseProducts() {
-        printProducts("SELECT * FROM Products;");
+        printFromDB("SELECT * FROM Products;");
     }
 
     public Map<String, Runnable> getBrowseProductsMap() {
@@ -48,10 +48,10 @@ public abstract class MenuOperator extends Dao {
     }
 
     private void getAllProducts() {
-        printProducts("SELECT * FROM Products;");
+        printFromDB("SELECT * FROM Products;");
     }
 
-    protected void printProducts(String query) {
+    protected void printFromDB(String query) {
         connect();
         try {
             ResultSet results = statement.executeQuery(query);
