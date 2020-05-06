@@ -90,7 +90,7 @@ public abstract class MenuOperator extends Dao {
                     + category + "';");
     }
 
-    protected void getOrdersById() {
+    protected void getOrdersByUserId() {
         String userId;
 
         if (user instanceof Admin) {
