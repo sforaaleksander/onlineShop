@@ -20,6 +20,7 @@ public class Session {
         ui = new UI();
         User user = loggingIn();
         setMenuOperator(user);
+        mainMenuChoice(user);
     }
 
     private void setMenuOperator(User user) {
@@ -48,7 +49,6 @@ public class Session {
         ui.print("Logged in");
         loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
-        mainMenuChoice(loggedUser);
         return loggedUser;
     }
 
@@ -58,11 +58,7 @@ public class Session {
             ui.displayMenu(loggedAsAdmin);
             String input = ui.gatherInput("What to do?: ");
             try {
-                if (loggedAsAdmin) {
-                    new AdminMenuOperator(loggedUser, ui).getMainMenuMap().get(input).run();
-                } else {
-                    new CustomerMenuOperator(loggedUser, ui).getMainMenuMap().get(input).run();
-                }
+                menuOperator.getMainMenuMap().get(input).run();
             } catch (NullPointerException e) {
                 System.out.println("No such option");
             }
