@@ -20,14 +20,15 @@ public class Session {
         ui = new UI();
         User user = loggingIn();
         setMenuOperator(user);
+        mainMenuChoice(user);
     }
 
     private void setMenuOperator(User user) {
         if (loggedAsAdmin) {
-            menuOperator = new AdminMenuOperator(user, ui) {
+            this.menuOperator = new AdminMenuOperator(user, ui) {
             };
         } else {
-            menuOperator = new CustomerMenuOperator(user, ui);
+            this.menuOperator = new CustomerMenuOperator(user, ui);
         }
     }
 
@@ -48,7 +49,6 @@ public class Session {
         ui.print("Logged in");
         loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
-        mainMenuChoice(loggedUser);
         return loggedUser;
     }
 
