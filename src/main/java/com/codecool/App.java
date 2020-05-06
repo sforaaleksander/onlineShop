@@ -5,7 +5,7 @@ import com.codecool.dao.UserDao;
 import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.session.Session;
-import com.codecool.ui.TableSupport;
+import com.codecool.ui.UI;
 
 import java.util.List;
 
@@ -19,11 +19,12 @@ public class App {
         UserDao userDao = new UserDao();
         List<User> users = userDao.getUsers("SELECT * FROM Users;");
 
-        System.out.println(TableSupport.fromIterable(users, User.class));
+        UI ui = new UI();
+        ui.printTable(users, User.class);
 
         ProductDao productDao = new ProductDao();
         List<Product> products = productDao.getProducts("SELECT * FROM Products;");
 
-        System.out.println(TableSupport.fromIterable(products, Product.class));
+        ui.printTable(products, Product.class);
     }
 }

@@ -14,7 +14,6 @@ import com.codecool.models.Order;
 import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
-import com.jakewharton.fliptables.FlipTableConverters;
 
 public abstract class MenuOperator extends Dao {
     protected Map<String, Runnable> browseProductsMap;
@@ -41,6 +40,23 @@ public abstract class MenuOperator extends Dao {
         browseProductsMap.put("c", this::openCart);
     }
 
+    public void handleMenu(Map<String, Runnable> menuMap, Runnable uiMenu) {
+        boolean isRunning = true;
+        do {
+            uiMenu.run();
+            String input = ui.gatherInput("What to do?: ");
+            if (input.equals("0")) {
+                isRunning = false;
+                continue;
+            }
+            try {
+                menuMap.get(input).run();
+            } catch (NullPointerException e) {
+                System.out.println("No such option");
+            }
+        } while (isRunning);
+    }
+
     protected void browseProducts() {
         printFromDB("SELECT * FROM Products;");
     }
@@ -57,7 +73,7 @@ public abstract class MenuOperator extends Dao {
         connect();
         try {
             ResultSet results = statement.executeQuery(query);
-            System.out.println(FlipTableConverters.fromResultSet(results));
+            ui.printTableFromDB(results);
         } catch (SQLException e) {
             e.printStackTrace();
         }

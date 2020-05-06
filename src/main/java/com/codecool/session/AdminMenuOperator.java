@@ -52,24 +52,7 @@ public class AdminMenuOperator extends MenuOperator {
         usersMenuMap.put("1", this::printAllUsers);
         usersMenuMap.put("2", this::printuUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
-        browse(usersMenuMap, ui::displayBrowseUsersMenu);
-    }
-
-    private void browse(Map<String, Runnable> menuMap, Runnable uiMenu) {
-        boolean isRunning = true;
-        do {
-            uiMenu.run();
-            String input = ui.gatherInput("What to do?: ");
-            if (input.equals("0")) {
-                isRunning = false;
-                continue;
-            }
-            try {
-                menuMap.get(input).run();
-            } catch (NullPointerException e) {
-                System.out.println("No such option");
-            }
-        } while (isRunning);
+        handleMenu(usersMenuMap, ui::displayBrowseUsersMenu);
     }
 
     private List<Order> getAllOrders() {

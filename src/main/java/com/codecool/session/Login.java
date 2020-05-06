@@ -9,26 +9,20 @@ import java.util.List;
 
 public class Login extends Dao {
 
-
-    public Login(String userEmail, String userPassword) {
+    public User loginAttempt(String userEmail, String userPassword) {
+        connect();
+        List<User> users = null;
         try {
-            loginAttempt(userEmail, userPassword);
+            users = getMatchingUser(userEmail, userPassword);
         } catch (SQLException e) {
             e.printStackTrace();
         }
+        return users.isEmpty() ? null : users.get(0);
+
     }
 
-
-    public User loginAttempt(String userEmail, String userPassword) throws SQLException {
-        connect();
-        List<User> users = matchUser(userEmail, userPassword);
-        if (!users.isEmpty()) {
-            return users.get(0);
-        }
-        return null;
-    }
-
-    private List<User> matchUser(String userEmail, String userPassword) throws SQLException {
-        return new UserDao().getUsers("SELECT * FROM Users WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
+    private List<User> getMatchingUser(String userEmail, String userPassword) throws SQLException {
+        return new UserDao().getUsers(
+                "SELECT * FROM Users WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
     }
 }

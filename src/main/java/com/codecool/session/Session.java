@@ -5,7 +5,6 @@ import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-import java.sql.SQLException;
 import java.util.List;
 
 public class Session {
@@ -18,33 +17,23 @@ public class Session {
 
     public Session() {
         ui = new UI();
-        User user = loggingIn();
+        User user = logIn();
         setMenuOperator(user);
         mainMenuChoice(user);
     }
 
     private void setMenuOperator(User user) {
-        if (loggedAsAdmin) {
-            menuOperator = new AdminMenuOperator(user, ui) {
-            };
-        } else {
-            menuOperator = new CustomerMenuOperator(user, ui);
-        }
+        menuOperator = loggedAsAdmin ? new AdminMenuOperator(user, ui) : new CustomerMenuOperator(user, ui);
     }
 
-    private User loggingIn() {
+    private User logIn() {
         User loggedUser = null;
         String userEmail;
-        Login login;
+        Login login = new Login();
         do {
             userEmail = ui.gatherInput("Email: ").toLowerCase();
             String userPassword = ui.gatherInput("Password: ");
-            login = new Login(userEmail, userPassword);
-            try {
-                loggedUser = login.loginAttempt(userEmail, userPassword);
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            loggedUser = login.loginAttempt(userEmail, userPassword);
         } while (loggedUser == null);
         ui.print("Logged in");
         loggedAs = userEmail;
@@ -53,16 +42,8 @@ public class Session {
     }
 
     private void mainMenuChoice(User loggedUser) {
-        boolean isRunning = true;
-        do {
-            ui.displayMainMenu(loggedAsAdmin);
-            String input = ui.gatherInput("What to do?: ");
-            try {
-                menuOperator.getMainMenuMap().get(input).run();
-            } catch (NullPointerException e) {
-                System.out.println("No such option");
-            }
-        } while (isRunning);
+        menuOperator.handleMenu(
+            menuOperator.getMainMenuMap(), loggedAsAdmin ? ui::displayAdminMainMenu : ui::displayCustomerMainMenu);
     }
 
     public String getLoggedAs() {
