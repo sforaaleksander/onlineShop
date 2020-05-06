@@ -32,7 +32,6 @@ public abstract class MenuOperator extends Dao {
         productsMenuMap.put("1", this::getAllProducts);
         productsMenuMap.put("2", this::getProductsByCategory);
         productsMenuMap.put("3", this::getProductsContaining);
-        productsMenuMap.put("c", this::openCart);
     }
 
     protected void browseProducts() {
@@ -106,9 +105,6 @@ public abstract class MenuOperator extends Dao {
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                     + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                     + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
-    }
-
-    protected void openCart() {
     }
 
     protected void exitProgram() {

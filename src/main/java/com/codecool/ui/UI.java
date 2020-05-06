@@ -43,6 +43,7 @@ public class UI {
                              "(2) Browse by category",
                              "(3) Search for products by column",
                              "(4) Add to cart by product's ID",
+                             "(9) Open Cart",
                              "(0) Back" });
     }
 
@@ -59,6 +60,7 @@ public class UI {
                              "(1) View profile",
                              "(2) View order history",
                              "(3) Browse products",
+                             "(9) Open Cart",
                              "(0) Exit" });
     }
 

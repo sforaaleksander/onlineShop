@@ -17,13 +17,14 @@ public class CustomerMenuOperator extends MenuOperator {
         this.cart = new Cart();
         createMainMenuMap();
         productsMenuMap.put("4", this::addToCart);
+        productsMenuMap.put("9", this::openCart);
     }
 
     private void createMainMenuMap() {
         mainMenuMap.put("1", this::customerProfileDetails);
         mainMenuMap.put("2", this::getOrdersByUserId);
         mainMenuMap.put("3", this::browseProducts);
-        mainMenuMap.put("c", this::openCart);
+        mainMenuMap.put("9", this::openCart);
         mainMenuMap.put("0", this::exitProgram);
     }
 
@@ -58,7 +59,10 @@ public class CustomerMenuOperator extends MenuOperator {
         for (int i = 0; i < productAmount; i++) {
             this.cart.addToCart(productsList.get(0));
         }
+    }
 
+    private void openCart(){
+        ui.printTable(cart.getProducts(), Product.class);
     }
 
 }
