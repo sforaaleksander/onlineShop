@@ -11,7 +11,7 @@ import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-public class MenuOperator {
+public abstract class MenuOperator {
     protected Map<String, Runnable> browseProductsMap;
     protected UI ui;
     protected User user;
