@@ -17,7 +17,7 @@ public class CustomerMenuOperator extends MenuOperator {
         mainMenuMap.put("1", this::customerProfileDetails);
         mainMenuMap.put("2", this::getOrdersByUserId);
         mainMenuMap.put("3", this::browseProducts);
-        // mainMenuMap.put("c", this::openCart);
+        mainMenuMap.put("c", this::openCart);
         mainMenuMap.put("0", this::exitProgram);
     }
 
