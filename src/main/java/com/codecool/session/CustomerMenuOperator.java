@@ -17,7 +17,7 @@ public class CustomerMenuOperator extends MenuOperator {
     private void createMainMenuMap() {
         mainMenuMap = new HashMap<>();
         mainMenuMap.put("1", this::customerProfileDetails);
-        mainMenuMap.put("2", this::customerHistoryOrder);
+        mainMenuMap.put("2", this::getOrdersByUserId);
         mainMenuMap.put("3", this::browseProducts);
         // mainMenuMap.put("c", this::openCart);
         mainMenuMap.put("0", this::exitProgram);
@@ -25,10 +25,6 @@ public class CustomerMenuOperator extends MenuOperator {
 
     private void customerProfileDetails() {
         // TODO profile defails - with possibility of edition?
-    }
-
-    private void customerHistoryOrder() {
-        // TODO view previous orders
     }
 
     public Map<String, Runnable> getMainMenuMap() {
