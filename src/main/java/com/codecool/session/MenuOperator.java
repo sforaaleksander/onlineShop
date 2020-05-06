@@ -36,7 +36,11 @@ public abstract class MenuOperator extends Dao {
     }
 
     protected void browseProducts() {
-        handleMenu(productsMenuMap, ui::displayBrowseProductsMenu);
+        if (user instanceof Admin) {
+        handleMenu(productsMenuMap, ui::displayAdminBrowseProductsMenu);
+        } else {
+            handleMenu(productsMenuMap, ui::displayCustomerBrowseProductsMenu);
+        }
     }
 
     public void handleMenu(Map<String, Runnable> menuMap, Runnable uiMenu) {

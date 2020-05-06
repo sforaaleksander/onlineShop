@@ -9,6 +9,7 @@ public class CustomerMenuOperator extends MenuOperator {
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
         createMainMenuMap();
+        productsMenuMap.put("4", this::addToCart);
     }
 
     private void createMainMenuMap() {
@@ -25,5 +26,10 @@ public class CustomerMenuOperator extends MenuOperator {
 
     public UI getUi() {
         return ui;
+    }
+
+    private void addToCart(){
+        System.out.println("ADDING TO CART");
+
     }
 }

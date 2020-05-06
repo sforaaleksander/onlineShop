@@ -37,7 +37,16 @@ public class UI {
                              "(0) Back" });
     }
 
-    public void displayBrowseProductsMenu() {
+    public void displayCustomerBrowseProductsMenu() {
+        print(new String[] { " Browse Products Menu",
+                             "(1) Display all products",
+                             "(2) Browse by category",
+                             "(3) Search for products by column",
+                             "(4) Add to cart by product's ID",
+                             "(0) Back" });
+    }
+
+    public void displayAdminBrowseProductsMenu() {
         print(new String[] { " Browse Products Menu",
                              "(1) Display all products",
                              "(2) Browse by category",
