@@ -47,9 +47,9 @@ public class UI {
 
     public void displayCustomerMainMenu() {
         print(new String[] { " Main Menu     Logged as Customer",
-                             "(1) Display all products",
-                             "(2) Browse by category",
-                             "(3) Search for products by column",
+                             "(1) View profile",
+                             "(2) View order history",
+                             "(3) Browse products",
                              "(0) Exit" });
     }
 
