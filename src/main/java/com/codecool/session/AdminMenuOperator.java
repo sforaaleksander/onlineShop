@@ -16,6 +16,8 @@ public class AdminMenuOperator extends MenuOperator {
     public AdminMenuOperator(User user, UI ui) {
         super(user, ui);
         createMainMenuMap();
+        createUsersMenuMap();
+        createOrdersMenuMap();
     }
 
     private void createMainMenuMap() {
@@ -24,12 +26,28 @@ public class AdminMenuOperator extends MenuOperator {
         mainMenuMap.put("3", this::browseOrders);
     }
 
-    private void browseOrders() {
+    private void createOrdersMenuMap() {
         ordersMenuMap = new HashMap<>();
         ordersMenuMap.put("1", this::getAllOrders);
         ordersMenuMap.put("2", this::getOrdersByUserId);
         ordersMenuMap.put("3", this::getOrdersContaining);
-        ordersMenuMap.put("0", this::exitProgram);
+    }
+
+    private void createUsersMenuMap() {
+        usersMenuMap = new HashMap<>();
+        usersMenuMap.put("1", this::printAllUsers);
+        usersMenuMap.put("2", this::printuUsersByUserId);
+        usersMenuMap.put("3", this::printUsersContaining);
+    }
+    
+    private void browseUsers() {
+        createUsersMenuMap();
+        handleMenu(usersMenuMap, ui::displayBrowseUsersMenu);
+    }
+
+    private void browseOrders() {
+        createOrdersMenuMap();
+        handleMenu(ordersMenuMap, ui::displayBrowseOrdersMenu);
     }
 
     private void printAllUsers() {
@@ -45,14 +63,6 @@ public class AdminMenuOperator extends MenuOperator {
         String column = ui.gatherInput("Provide column: ");
         String toSearch = ui.gatherInput("What to look for?: ");
         printFromDB("SELECT * FROM Users WHERE " + column + " LIKE '%" + toSearch + "%';");
-    }
-
-    private void browseUsers() {
-        usersMenuMap = new HashMap<>();
-        usersMenuMap.put("1", this::printAllUsers);
-        usersMenuMap.put("2", this::printuUsersByUserId);
-        usersMenuMap.put("3", this::printUsersContaining);
-        handleMenu(usersMenuMap, ui::displayBrowseUsersMenu);
     }
 
     private List<Order> getAllOrders() {
