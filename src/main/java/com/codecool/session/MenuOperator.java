@@ -17,6 +17,7 @@ import com.codecool.ui.UI;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 public abstract class MenuOperator extends Dao {
+    protected Map<String, Runnable> mainMenuMap;
     protected Map<String, Runnable> browseProductsMap;
     protected UI ui;
     protected User user;
@@ -24,6 +25,7 @@ public abstract class MenuOperator extends Dao {
     MenuOperator(User user, UI ui) {
         this.user = user;
         this.ui = ui;
+        mainMenuMap = new HashMap<>();
         createBrowseProducts();
     }
 
@@ -96,5 +98,9 @@ public abstract class MenuOperator extends Dao {
 
     protected void exitProgram() {
 
+    }
+
+    public Map<String, Runnable> getMainMenuMap() {
+        return mainMenuMap;
     }
 }

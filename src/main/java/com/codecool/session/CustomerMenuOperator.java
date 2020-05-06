@@ -7,7 +7,6 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public class CustomerMenuOperator extends MenuOperator {
-    private Map<String, Runnable> mainMenuMap;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
@@ -15,7 +14,6 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void createMainMenuMap() {
-        mainMenuMap = new HashMap<>();
         mainMenuMap.put("1", this::customerProfileDetails);
         mainMenuMap.put("2", this::customerHistoryOrder);
         mainMenuMap.put("3", this::browseProducts);
@@ -29,14 +27,6 @@ public class CustomerMenuOperator extends MenuOperator {
 
     private void customerHistoryOrder() {
         // TODO view previous orders
-    }
-
-    public Map<String, Runnable> getMainMenuMap() {
-        return mainMenuMap;
-    }
-
-    public void setMainMenuMap(Map<String, Runnable> mainMenuMap) {
-        this.mainMenuMap = mainMenuMap;
     }
 
     public UI getUi() {

@@ -10,7 +10,6 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public class AdminMenuOperator extends MenuOperator {
-    private Map<String, Runnable> mainMenuMap;
     private Map<String, Runnable> ordersMenuMap;
     private Map<String, Runnable> usersMenuMap;
 
@@ -20,7 +19,6 @@ public class AdminMenuOperator extends MenuOperator {
     }
 
     private void createMainMenuMap() {
-        mainMenuMap = new HashMap<>();
         mainMenuMap.put("1", this::browseProducts);
         mainMenuMap.put("2", this::browseUsers);
         mainMenuMap.put("3", this::browseOrders);
@@ -54,16 +52,20 @@ public class AdminMenuOperator extends MenuOperator {
         usersMenuMap.put("1", this::printAllUsers);
         usersMenuMap.put("2", this::printuUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
+        browse(usersMenuMap, ui::displayBrowseUsersMenu);
+    }
+
+    private void browse(Map<String, Runnable> menuMap, Runnable uiMenu) {
         boolean isRunning = true;
         do {
-            ui.displayBrowseUsersMenu();
+            uiMenu.run();
             String input = ui.gatherInput("What to do?: ");
             if (input.equals("0")) {
                 isRunning = false;
                 continue;
             }
             try {
-                usersMenuMap.get(input).run();
+                menuMap.get(input).run();
             } catch (NullPointerException e) {
                 System.out.println("No such option");
             }
@@ -82,9 +84,5 @@ public class AdminMenuOperator extends MenuOperator {
         return new OrderDao().getOrders("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders"
                                         + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON"
                                         + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");
-    }
-
-    public Map<String, Runnable> getMainMenuMap() {
-        return mainMenuMap;
     }
 }
