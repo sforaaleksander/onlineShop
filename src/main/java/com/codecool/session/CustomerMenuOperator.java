@@ -9,11 +9,10 @@ import com.codecool.ui.UI;
 public class CustomerMenuOperator extends MenuOperator {
     private Map<String, Runnable> mainMenuMap;
 
-    CustomerMenuOperator(User user, UI ui) {
+    public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
         createMainMenuMap();
     }
-
 
     private void createMainMenuMap() {
         mainMenuMap = new HashMap<>();
@@ -24,11 +23,11 @@ public class CustomerMenuOperator extends MenuOperator {
         mainMenuMap.put("0", this::exitProgram);
     }
 
-    private void customerProfileDetails(){
+    private void customerProfileDetails() {
         // TODO profile defails - with possibility of edition?
     }
 
-    private void customerHistoryOrder(){
+    private void customerHistoryOrder() {
         // TODO view previous orders
     }
 
@@ -40,9 +39,7 @@ public class CustomerMenuOperator extends MenuOperator {
         this.mainMenuMap = mainMenuMap;
     }
 
-
     public UI getUi() {
         return ui;
     }
-
 }

@@ -58,7 +58,11 @@ public class Session {
             ui.displayMenu(loggedAsAdmin);
             String input = ui.gatherInput("What to do?: ");
             try {
-                // handleMenuOperation.getMainMenuMap().get(input).run();
+                if (loggedAsAdmin) {
+                    new AdminMenuOperator(loggedUser, ui).getMainMenuMap().get(input).run();
+                } else {
+                    new CustomerMenuOperator(loggedUser, ui).getMainMenuMap().get(input).run();
+                }
             } catch (NullPointerException e) {
                 System.out.println("No such option");
             }
@@ -97,9 +101,7 @@ public class Session {
         return cart;
     }
 
-
     public MenuOperator getMenuOperator() {
         return menuOperator;
     }
-    
 }
