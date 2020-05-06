@@ -17,6 +17,14 @@ public class UI {
         }
     }
 
+    public void displayBrowseUsersMenu() {
+        print(new String[] { "    Browse users menu",
+                             "(1) printAllUsers",
+                             "(2) printuUsersByUserId",
+                             "(3) printUsersContaining",
+                             "(0) Exit" });
+    }
+
     private void displayCustomerMenu() {
         print(new String[] { "    Admin menu",
                              "(1) Display all products",
@@ -27,9 +35,9 @@ public class UI {
 
     private void displayAdminMenu() {
         print(new String[] { "    Admin menu",
-                             "(1) Display all products",
-                             "(2) Browse by category",
-                             "(3) Search for products by column",
+                             "(1) browseProducts",
+                             "(2) browseUsers",
+                             "(3) browseOrders",
                              "(0) Exit" });
     }
 
@@ -42,12 +50,12 @@ public class UI {
     }
 
     public void print(String toPrint) {
-        System.out.print(toPrint);
+        System.out.println(toPrint);
     }
 
     public void print(String[] toPrint) {
         for (String string : toPrint) {
-            System.out.print(string);
+            System.out.println(string);
         }
     }
 
