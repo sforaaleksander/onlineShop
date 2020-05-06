@@ -22,7 +22,7 @@ public class UI {
                              "(1) printAllUsers",
                              "(2) printuUsersByUserId",
                              "(3) printUsersContaining",
-                             "(0) Exit" });
+                             "(0) Back" });
     }
 
     private void displayCustomerMenu() {
