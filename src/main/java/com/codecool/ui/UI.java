@@ -104,6 +104,10 @@ public class UI {
         return io.gatherIntInput(message, rangeMin, rangeMax);
     }
 
+    public int gatherIntInput(String message) {
+        return io.gatherIntInput(message);
+    }
+
     public void clearScreen() {
         System.out.print("\033[H\033[2J");
     }

@@ -38,15 +38,27 @@ public class CustomerMenuOperator extends MenuOperator {
     private void addToCart() {
         System.out.println("ADDING TO CART");
         String productId = ui.gatherInput("Provide product ID to add to cart: ");
+        int productAmount = ui.gatherIntInput("Provide amount of given product: ");
 
         // TODO abstract to outer method
 
         ProductDao productDao = new ProductDao();
-        List<Product> products = productDao.getProducts("SELECT * FROM Products WHERE id =" + productId + ";");
-        if (!products.isEmpty()) {
-            this.cart.addToCart(products.get(0));
-        } else {
-            ui.gatherInput("No product found for given ID");
+        List<Product> productsList = productDao.getProducts("SELECT * FROM Products WHERE id =" + productId + ";");
+
+        if (productsList.isEmpty()) {
+            ui.gatherEmptyInput("No product found for given ID");
+            return;
         }
+
+        if (productsList.get(0).getQuantity() < productAmount) {
+            ui.gatherEmptyInput("Not enough products in stock");
+            return;
+        }
+        
+        for (int i = 0; i < productAmount; i++) {
+            this.cart.addToCart(productsList.get(0));
+        }
+
     }
+
 }

@@ -44,6 +44,27 @@ public class IO {
         return Integer.parseInt(userInput);
     }
 
+    public int gatherIntInput(String message) {
+        System.out.println(message);
+        String userInput = "";
+        boolean validInput = false;
+        while (!validInput) {
+            userInput = scan.next();
+            validInput = isInputInt(userInput);
+        }
+        return Integer.parseInt(userInput);
+    }
+
+    private boolean isInputInt(String userInput) {
+        if (!userInput.equals("")) {
+            if (userInput.matches("^[0-9]*$")) {
+                return true;
+            }
+        }
+        System.out.println("Invalid input, please try again: ");
+        return false;
+    }
+
     private boolean isNumberInRange(String userInput, int rangeMin, int rangeMax) {
         int userInt;
         if (!userInput.equals("")) {
