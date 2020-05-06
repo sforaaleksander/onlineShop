@@ -99,8 +99,8 @@ public abstract class MenuOperator extends Dao {
             userId = Integer.toString(user.getId());
         }
 
-        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders"
-                    + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON"
+        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
+                    + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                     + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
     }
 

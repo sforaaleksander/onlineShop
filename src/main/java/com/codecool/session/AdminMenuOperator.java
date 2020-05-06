@@ -70,8 +70,8 @@ public class AdminMenuOperator extends MenuOperator {
         String toSearch;
         column = ui.gatherInput("Provide column: ");
         toSearch = ui.gatherInput("What to look for?: ");
-        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders"
-                                        + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON"
+        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
+                                        + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                                         + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");
     }
 }
