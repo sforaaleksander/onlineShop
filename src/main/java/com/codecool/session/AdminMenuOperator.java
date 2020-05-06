@@ -19,7 +19,6 @@ public class AdminMenuOperator extends MenuOperator {
     }
 
     private void createMainMenuMap() {
-        mainMenuMap = new HashMap<>();
         mainMenuMap.put("1", this::browseProducts);
         mainMenuMap.put("2", this::browseUsers);
         mainMenuMap.put("3", this::browseOrders);

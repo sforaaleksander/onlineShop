@@ -25,6 +25,7 @@ public abstract class MenuOperator extends Dao {
     MenuOperator(User user, UI ui) {
         this.user = user;
         this.ui = ui;
+        this.mainMenuMap = new HashMap<>();
         createBrowseProducts();
     }
 
