@@ -54,11 +54,14 @@ public class AdminMenuOperator extends MenuOperator {
         usersMenuMap.put("1", this::printAllUsers);
         usersMenuMap.put("2", this::printuUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
-        usersMenuMap.put("0", this::exitProgram);
         boolean isRunning = true;
         do {
             ui.displayBrowseUsersMenu();
             String input = ui.gatherInput("What to do?: ");
+            if (input.equals("0")) {
+                isRunning = false;
+                continue;
+            }
             try {
                 usersMenuMap.get(input).run();
             } catch (NullPointerException e) {
