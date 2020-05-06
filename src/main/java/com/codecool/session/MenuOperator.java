@@ -17,8 +17,8 @@ import com.codecool.ui.UI;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 public abstract class MenuOperator extends Dao {
-    protected Map<String, Runnable> mainMenuMap;
     protected Map<String, Runnable> browseProductsMap;
+    protected Map<String, Runnable> mainMenuMap;
     protected UI ui;
     protected User user;
 
