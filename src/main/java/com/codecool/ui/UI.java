@@ -1,6 +1,10 @@
 package com.codecool.ui;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Collection;
+
+import com.jakewharton.fliptables.FlipTableConverters;
 
 public class UI {
     private IO io;
@@ -9,20 +13,12 @@ public class UI {
         io = new IO();
     }
 
-    public void displayMainMenu(boolean loggedAsAdmin) {
-        if (loggedAsAdmin) {
-            displayAdminMainMenu();
-        } else {
-            displayCustomerMainMenu();
-        }
-    }
-
     public void abstractDisplayInnerMenu(String displayWhat) {
         print(new String[] { " Browse " + displayWhat + " Menu",
                              "(1) Show all " + displayWhat ,
                              "(2) Browse " + displayWhat + " by Id",
                              "(3) Browse " + displayWhat + " by name",
-                             "(0) Exit" });
+                             "(0) Back" });
     }
 
     public void displayBrowseUsersMenu() {
@@ -30,10 +26,10 @@ public class UI {
                              "(1) Show all users",
                              "(2) Browse users by Id",
                              "(3) Browse users by name",
-                             "(0) Exit" });
+                             "(0) Back" });
     }
 
-    private void displayCustomerMainMenu() {
+    public void displayCustomerMainMenu() {
         print(new String[] { " Main Menu     Logged as Customer",
                              "(1) Display all products",
                              "(2) Browse by category",
@@ -46,10 +42,10 @@ public class UI {
                              "(1) Display all products",
                              "(2) Browse by category",
                              "(3) Search for products by column",
-                             "(0) Exit" });
+                             "(0) Back" });
     }
 
-    private void displayAdminMainMenu() {
+    public void displayAdminMainMenu() {
         print(new String[] { " Main Menu     Logged as Admin",
                              "(1) Browse products",
                              "(2) Browse users",
@@ -59,6 +55,10 @@ public class UI {
 
     public <T> void printTable(Iterable<T> rows, Class<T> rowType) {
         System.out.println(TableSupport.fromIterable(rows, rowType));
+    }
+
+    public void printTableFromDB(ResultSet resultSet) throws SQLException {
+        System.out.println(FlipTableConverters.fromResultSet(resultSet));
     }
 
     public void print(Collection<String> collection) {
