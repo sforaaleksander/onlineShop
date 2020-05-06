@@ -29,7 +29,7 @@ public class TableSupport {
         List<Method> methods = new ArrayList<>();
         List<String> headers = new ArrayList<>();
         for (Method declaratedMethod : declaredMethods) {
-            if (declaratedMethod.getName().equals("getClass")){
+            if (declaratedMethod.getName().equals("getClass") || declaratedMethod.getName().equals("getProductDao")){
                 continue;
             }
             if (declaratedMethod.getParameterTypes().length > 0) continue;
