@@ -41,12 +41,10 @@ public class AdminMenuOperator extends MenuOperator {
     }
     
     private void browseUsers() {
-        createUsersMenuMap();
         handleMenu(usersMenuMap, ui::displayBrowseUsersMenu);
     }
 
     private void browseOrders() {
-        createOrdersMenuMap();
         handleMenu(ordersMenuMap, ui::displayBrowseOrdersMenu);
     }
 
