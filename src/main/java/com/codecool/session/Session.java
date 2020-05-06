@@ -1,6 +1,7 @@
 package com.codecool.session;
 
 import com.codecool.models.Admin;
+import com.codecool.models.Cart;
 import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
@@ -12,12 +13,13 @@ public class Session {
     private boolean loggedAsAdmin;
     private long sessionTime;
     private final UI ui;
-    private List<Product> cart;
+    private Cart cart;
     private MenuOperator menuOperator;
 
     public Session() {
         ui = new UI();
         User user = logIn();
+        this.cart = new Cart();
         setMenuOperator(user);
         mainMenuChoice(user);
     }
@@ -74,7 +76,7 @@ public class Session {
         return ui;
     }
 
-    public List<Product> getCart() {
+    public Cart getCart() {
         return cart;
     }
 
