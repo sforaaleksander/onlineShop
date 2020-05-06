@@ -4,10 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Cart {
-    List<Product> products;
+    private List<Product> products;
 
     public Cart(){
         products = new ArrayList<>();
+    }
+
+    public void addToCart(Product product){
+        products.add(product);
     }
 
     public List<Product> getProducts() {
