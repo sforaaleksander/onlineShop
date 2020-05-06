@@ -26,7 +26,7 @@ public class UI {
     }
 
     private void displayCustomerMenu() {
-        print(new String[] { "    Admin menu",
+        print(new String[] { "    Customer menu",
                              "(1) Display all products",
                              "(2) Browse by category",
                              "(3) Search for products by column",
@@ -35,9 +35,9 @@ public class UI {
 
     private void displayAdminMenu() {
         print(new String[] { "    Admin menu",
-                             "(1) browseProducts",
-                             "(2) browseUsers",
-                             "(3) browseOrders",
+                             "(1) Browse products",
+                             "(2) Browse users",
+                             "(3) Browse orders",
                              "(0) Exit" });
     }
 
