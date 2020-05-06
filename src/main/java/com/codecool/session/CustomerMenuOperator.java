@@ -7,7 +7,6 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public class CustomerMenuOperator extends MenuOperator {
-    private Map<String, Runnable> mainMenuMap;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);

@@ -10,7 +10,6 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public class AdminMenuOperator extends MenuOperator {
-    private Map<String, Runnable> mainMenuMap;
     private Map<String, Runnable> ordersMenuMap;
     private Map<String, Runnable> usersMenuMap;
 
