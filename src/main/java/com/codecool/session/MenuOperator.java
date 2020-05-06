@@ -36,7 +36,7 @@ public abstract class MenuOperator extends Dao {
 
     protected void browseProducts() {
         if (user instanceof Admin) {
-        handleMenu(productsMenuMap, ui::displayAdminBrowseProductsMenu);
+            handleMenu(productsMenuMap, ui::displayAdminBrowseProductsMenu);
         } else {
             handleMenu(productsMenuMap, ui::displayCustomerBrowseProductsMenu);
         }
@@ -78,29 +78,22 @@ public abstract class MenuOperator extends Dao {
     }
 
     protected void getProductsContaining() {
-        String column;
-        String toSearch;
-        column = ui.gatherInput("Provide column: ");
-        toSearch = ui.gatherInput("What to look for?: ");
+        String column = ui.gatherInput("Provide column: ");
+        String toSearch = ui.gatherInput("What to look for?: ");
+
         printFromDB("SELECT * FROM Products WHERE " + column + " LIKE '%" + toSearch + "%';");
     }
 
     protected void getProductsByCategory() {
-        String category;
-        category = ui.gatherInput("Provide category: ");
+        String category = ui.gatherInput("Provide category: ");
+
         printFromDB("SELECT * FROM Products JOIN Category" 
                     + " ON Products.Id_category = Category.Id WHERE Category.Name = '"
                     + category + "';");
     }
 
     protected void getOrdersByUserId() {
-        String userId;
-
-        if (user instanceof Admin) {
-            userId = ui.gatherInput("Provide userId: ");
-        } else {
-            userId = Integer.toString(user.getId());
-        }
+        String userId = user instanceof Admin ? ui.gatherInput("Provide userId: ") : Integer.toString(user.getId());
 
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                     + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
