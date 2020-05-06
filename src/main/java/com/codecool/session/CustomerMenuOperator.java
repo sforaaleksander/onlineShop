@@ -26,10 +26,6 @@ public class CustomerMenuOperator extends MenuOperator {
         // TODO profile defails - with possibility of edition?
     }
 
-    public Map<String, Runnable> getMainMenuMap() {
-        return mainMenuMap;
-    }
-
     public void setMainMenuMap(Map<String, Runnable> mainMenuMap) {
         this.mainMenuMap = mainMenuMap;
     }

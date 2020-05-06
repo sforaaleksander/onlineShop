@@ -32,6 +32,10 @@ public abstract class MenuOperator extends Dao {
         return ui;
     }
 
+    public Map<String, Runnable> getMainMenuMap() {
+        return mainMenuMap;
+    }
+
     private void createBrowseProducts() {
         browseProductsMap = new HashMap<>();
         browseProductsMap.put("2", this::getAllProducts);

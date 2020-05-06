@@ -58,11 +58,7 @@ public class Session {
             ui.displayMainMenu(loggedAsAdmin);
             String input = ui.gatherInput("What to do?: ");
             try {
-                if (loggedAsAdmin) {
-                    new AdminMenuOperator(loggedUser, ui).getMainMenuMap().get(input).run();
-                } else {
-                    new CustomerMenuOperator(loggedUser, ui).getMainMenuMap().get(input).run();
-                }
+                menuOperator.getMainMenuMap().get(input).run();
             } catch (NullPointerException e) {
                 System.out.println("No such option");
             }
