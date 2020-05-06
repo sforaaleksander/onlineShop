@@ -19,9 +19,9 @@ public class UI {
 
     public void displayBrowseUsersMenu() {
         print(new String[] { "    Browse users menu",
-                             "(1) printAllUsers",
-                             "(2) printuUsersByUserId",
-                             "(3) printUsersContaining",
+                             "(1) Show all Users",
+                             "(2) Browse users by Id",
+                             "(3) Browse users by name",
                              "(0) Exit" });
     }
 
