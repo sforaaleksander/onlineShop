@@ -15,7 +15,6 @@ public class App {
         new Session();
     }
 
-
     private static void testTablePrint() {
         UserDao userDao = new UserDao();
         List<User> users = userDao.getUsers("SELECT * FROM Users;");
