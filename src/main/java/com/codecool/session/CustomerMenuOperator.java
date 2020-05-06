@@ -1,8 +1,13 @@
 package com.codecool.session;
 
 import com.codecool.models.Cart;
+import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
+
+import java.util.List;
+
+import com.codecool.dao.ProductDao;
 
 public class CustomerMenuOperator extends MenuOperator {
     private Cart cart;
@@ -30,8 +35,18 @@ public class CustomerMenuOperator extends MenuOperator {
         return ui;
     }
 
-    private void addToCart(){
+    private void addToCart() {
         System.out.println("ADDING TO CART");
+        String productId = ui.gatherInput("Provide product ID to add to cart: ");
 
+        // TODO abstract to outer method
+
+        ProductDao productDao = new ProductDao();
+        List<Product> products = productDao.getProducts("SELECT * FROM Products WHERE id =" + productId + ";");
+        if (!products.isEmpty()) {
+            this.cart.addToCart(products.get(0));
+        } else {
+            ui.gatherInput("No product found for given ID");
+        }
     }
 }
