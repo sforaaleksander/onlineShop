@@ -55,7 +55,7 @@ public class Session {
     private void mainMenuChoice(User loggedUser) {
         boolean isRunning = true;
         do {
-            ui.displayMenu(loggedAsAdmin);
+            ui.displayMainMenu(loggedAsAdmin);
             String input = ui.gatherInput("What to do?: ");
             try {
                 if (loggedAsAdmin) {

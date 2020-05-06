@@ -9,7 +9,7 @@ public class UI {
         io = new IO();
     }
 
-    public void displayMenu(boolean loggedAsAdmin) {
+    public void displayMainMenu(boolean loggedAsAdmin) {
         if (loggedAsAdmin) {
             displayAdminMenu();
         } else {
