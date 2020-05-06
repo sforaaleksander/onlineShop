@@ -33,7 +33,7 @@ public class UI {
         print(new String[] { " Browse Users Menu",
                              "(1) Show all users",
                              "(2) Browse users by Id",
-                             "(3) Browse users by name",
+                             "(3) Browse users by column",
                              "(0) Back" });
     }
 
