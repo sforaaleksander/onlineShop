@@ -12,6 +12,7 @@ import com.codecool.ui.UI;
 public class AdminMenuOperator extends MenuOperator {
     private Map<String, Runnable> mainMenuMap;
     private Map<String, Runnable> ordersMenuMap;
+    private Map<String, Runnable> usersMenuMap;
 
     public AdminMenuOperator(User user, UI ui) {
         super(user, ui);
@@ -33,8 +34,37 @@ public class AdminMenuOperator extends MenuOperator {
         ordersMenuMap.put("0", this::exitProgram);
     }
 
+    private void printAllUsers() {
+        printFromDB("SELECT * FROM Users;");
+    }
+
+    private void printuUsersByUserId() {
+        String id = ui.gatherInput("Provide user id: ");
+        printFromDB("SELECT * FROM Users WHERE id = " + id + ";");
+    }
+
+    private void printUsersContaining() {
+        String column = ui.gatherInput("Provide column: ");
+        String toSearch = ui.gatherInput("What to look for?: ");
+        printFromDB("SELECT * FROM Users WHERE " + column + " LIKE '%" + toSearch + "%';");
+    }
+
     private void browseUsers() {
-        // TODO
+        usersMenuMap = new HashMap<>();
+        usersMenuMap.put("1", this::printAllUsers);
+        usersMenuMap.put("2", this::printuUsersByUserId);
+        usersMenuMap.put("3", this::printUsersContaining);
+        usersMenuMap.put("0", this::exitProgram);
+        boolean isRunning = true;
+        do {
+            ui.displayBrowseUsersMenu();
+            String input = ui.gatherInput("What to do?: ");
+            try {
+                usersMenuMap.get(input).run();
+            } catch (NullPointerException e) {
+                System.out.println("No such option");
+            }
+        } while (isRunning);
     }
 
     private List<Order> getAllOrders() {
