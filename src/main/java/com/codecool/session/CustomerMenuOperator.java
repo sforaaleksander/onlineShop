@@ -1,13 +1,15 @@
 package com.codecool.session;
 
-
+import com.codecool.models.Cart;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public class CustomerMenuOperator extends MenuOperator {
+    private Cart cart;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
+        this.cart = new Cart();
         createMainMenuMap();
         productsMenuMap.put("4", this::addToCart);
     }

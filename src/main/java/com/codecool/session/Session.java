@@ -11,13 +11,11 @@ public class Session {
     private boolean loggedAsAdmin;
     private long sessionTime;
     private final UI ui;
-    private Cart cart;
     private MenuOperator menuOperator;
 
     public Session() {
         ui = new UI();
         User user = logIn();
-        this.cart = new Cart();
         setMenuOperator(user);
         mainMenuChoice(user);
     }
@@ -72,10 +70,6 @@ public class Session {
 
     public UI getUi() {
         return ui;
-    }
-
-    public Cart getCart() {
-        return cart;
     }
 
     public MenuOperator getMenuOperator() {
