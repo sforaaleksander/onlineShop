@@ -1,7 +1,5 @@
 package com.codecool.session;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import com.codecool.models.User;
 import com.codecool.ui.UI;
@@ -23,10 +21,6 @@ public class CustomerMenuOperator extends MenuOperator {
 
     private void customerProfileDetails() {
         // TODO profile defails - with possibility of edition?
-    }
-
-    private void customerHistoryOrder() {
-        // TODO view previous orders
     }
 
     public UI getUi() {
