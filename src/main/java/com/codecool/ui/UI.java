@@ -11,14 +11,22 @@ public class UI {
 
     public void displayMainMenu(boolean loggedAsAdmin) {
         if (loggedAsAdmin) {
-            displayAdminMenu();
+            displayAdminMainMenu();
         } else {
-            displayCustomerMenu();
+            displayCustomerMainMenu();
         }
     }
 
+    public void abstractDisplayInnerMenu(String displayWhat) {
+        print(new String[] { " Browse " + displayWhat + " Menu",
+                             "(1) Show all " + displayWhat ,
+                             "(2) Browse " + displayWhat + " by Id",
+                             "(3) Browse " + displayWhat + " by name",
+                             "(0) Exit" });
+    }
+
     public void displayBrowseUsersMenu() {
-        print(new String[] { " Browse Users Menu                  Logged as Customer",
+        print(new String[] { " Browse Users Menu",
                              "(1) Show all users",
                              "(2) Browse users by Id",
                              "(3) Browse users by name",
@@ -33,15 +41,15 @@ public class UI {
                              "(0) Exit" });
     }
 
-    private void displayCustomerMenu() {
-        print(new String[] { " Browse Products Menu                  Logged as Customer",
+    private void displayBrowseProductsMenu() {
+        print(new String[] { " Browse Products Menu",
                              "(1) Display all products",
                              "(2) Browse by category",
                              "(3) Search for products by column",
                              "(0) Exit" });
     }
 
-    private void displayAdminMenu() {
+    private void displayAdminMainMenu() {
         print(new String[] { " Main Menu                  Logged as Admin",
                              "(1) Browse products",
                              "(2) Browse users",
