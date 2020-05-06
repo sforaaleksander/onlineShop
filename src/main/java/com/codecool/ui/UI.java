@@ -42,12 +42,12 @@ public class UI {
     }
 
     public void print(String toPrint) {
-        System.out.print(toPrint);
+        System.out.println(toPrint);
     }
 
     public void print(String[] toPrint) {
         for (String string : toPrint) {
-            System.out.print(string);
+            System.out.println(string);
         }
     }
 
