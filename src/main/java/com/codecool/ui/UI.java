@@ -43,6 +43,7 @@ public class UI {
                              "(1) Show all users",
                              "(2) Browse users by Id",
                              "(3) Browse users by column",
+                             "(4) Remove user",
                              "(0) Back" });
     }
 
