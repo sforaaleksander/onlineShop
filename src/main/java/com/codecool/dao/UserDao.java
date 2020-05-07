@@ -43,4 +43,9 @@ public class UserDao extends Dao {
 
         return users;
     }
+
+    public void updateUser(String id, String column, String newValue) {
+        newValue = "'" + newValue + "'";
+        update("Users", id, column, newValue);
+    }
 }

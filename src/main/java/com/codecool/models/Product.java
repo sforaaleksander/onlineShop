@@ -9,13 +9,12 @@ public class Product {
     private int categoryId;
     private Boolean isAvailable;
 
-    public Product(int id, String name, float price, int quantity, int rate,
+    public Product(int id, String name, float price, int quantity,
                    int categoryId, Boolean isAvailable) {
         this.id = id;
         this.name = name;
         this.price = price;
         this.quantity = quantity;
-        this.rate = rate;
         this.categoryId = categoryId;
         this.isAvailable = isAvailable;
     }

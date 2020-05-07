@@ -20,11 +20,10 @@ public class ProductDao extends Dao {
                 String name = results.getString("name");
                 float price = results.getFloat("price");
                 int quantity = results.getInt("quantity");
-                int rate = results.getInt("rate");
                 int categoryId = results.getInt("Id_category");
                 Boolean isAvailable = results.getBoolean("is_available");
 
-                Product product = new Product(id, name, price, quantity, rate, categoryId, isAvailable);
+                Product product = new Product(id, name, price, quantity, categoryId, isAvailable);
                 products.add(product);
             }
             results.close();
@@ -33,7 +32,33 @@ public class ProductDao extends Dao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return products;
+    }
+
+    public void updateProduct(String id, String column, String newValue) {
+        // String[] stringColumns = new String[]
+        // Arrays.stream(stringColumns).anyMatch("s"::equals);
+        newValue = column.toLowerCase().equals("name") ? newValue = "'" + newValue + "'" : newValue;
+        update("Products", id, column, newValue);
+    }
+
+    public void insertProduct(String[] values) {
+        String[] columns = new String[]{
+        "name",
+        "price",
+        "quantity",
+        "Id_category",
+        "is_available"};
+        values[0] = "'" + values[0] + "'";
+        insert("Products", columns, values);
+    }
+
+    public void insertCategory(String categoryName) {
+        categoryName = "'" + categoryName + "'";
+        String[] values = new String[]{
+            categoryName};
+        String[] columns = new String[]{
+            "name"};
+        insert("Categories", columns, values);
     }
 }
