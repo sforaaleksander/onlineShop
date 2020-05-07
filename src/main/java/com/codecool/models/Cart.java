@@ -23,7 +23,7 @@ public class Cart {
         Iterator<Map.Entry<Product, Integer>> iterator = products.entrySet().iterator();
         while (iterator.hasNext()) {
             Map.Entry<Product, Integer> entry = iterator.next();
-            if (entry.getValue() < 0) {
+            if (entry.getValue() <= 0) {
                 iterator.remove();
             }
         }

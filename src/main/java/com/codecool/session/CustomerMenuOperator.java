@@ -45,6 +45,7 @@ public class CustomerMenuOperator extends MenuOperator {
         for (Product product : cart.getProducts().keySet()) {
             if (product.getId() == productId) {
                 cart.editCart(product, productAmount);
+                cart.clearWhenZeroProducts();
             } else {
                 ui.gatherInput("Could not find product for given id ");
             }
