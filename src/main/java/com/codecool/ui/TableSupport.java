@@ -28,17 +28,17 @@ public class TableSupport {
 
         List<Method> methods = new ArrayList<>();
         List<String> headers = new ArrayList<>();
-        for (Method declaratedMethod : declaredMethods) {
-            if (declaratedMethod.getName().equals("getClass") || declaratedMethod.getName().equals("getProductDao")){
+        for (Method declaredMethod : declaredMethods) {
+            if (declaredMethod.getName().equals("getClass") || declaredMethod.getName().equals("getProductDao")){
                 continue;
             }
-            if (declaratedMethod.getParameterTypes().length > 0) continue;
-            if (declaratedMethod.getReturnType() == void.class) continue;
-            Matcher matcher = METHOD.matcher(declaratedMethod.getName());
+            if (declaredMethod.getParameterTypes().length > 0) continue;
+            if (declaredMethod.getReturnType() == void.class) continue;
+            Matcher matcher = METHOD.matcher(declaredMethod.getName());
             if (!matcher.matches()) continue;
 
-            declaratedMethod.setAccessible(true);
-            methods.add(declaratedMethod);
+            declaredMethod.setAccessible(true);
+            methods.add(declaredMethod);
             headers.add(matcher.group(1));
         }
 

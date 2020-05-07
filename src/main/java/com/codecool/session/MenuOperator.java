@@ -52,7 +52,7 @@ public abstract class MenuOperator extends Dao {
 
     protected void userProfile() {
         displayProfileDetails();
-        handleMenu(userProfileMenuMap, ui::displayUserProfileMenuMap);
+        handleMenu(userProfileMenuMap, ui::displayUserProfileMenu);
     }
 
 

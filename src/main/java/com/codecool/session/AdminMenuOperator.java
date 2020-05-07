@@ -39,7 +39,7 @@ public class AdminMenuOperator extends MenuOperator {
     private void createUsersMenuMap() {
         usersMenuMap = new HashMap<>();
         usersMenuMap.put("1", this::printAllUsers);
-        usersMenuMap.put("2", this::printuUsersByUserId);
+        usersMenuMap.put("2", this::printUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
     }
 
@@ -59,7 +59,7 @@ public class AdminMenuOperator extends MenuOperator {
         printFromDB("SELECT * FROM Users;");
     }
 
-    private void printuUsersByUserId() {
+    private void printUsersByUserId() {
         String id = ui.gatherInput("Provide user id: ");
         printFromDB("SELECT * FROM Users WHERE id = " + id + ";");
     }

@@ -60,8 +60,8 @@ public class CustomerMenuOperator extends MenuOperator {
         List<Product> productList = unpackCartToArrayList();
         String orderId = String.valueOf(getLastUserOrder().getId());
         for (Product product : productList) {
-            String[] orderProductvalues = { orderId, String.valueOf(product.getId()) };
-            orderProductsDao.insertOrderProducts(orderProductvalues);
+            String[] orderProductValues = { orderId, String.valueOf(product.getId()) };
+            orderProductsDao.insertOrderProducts(orderProductValues);
         }
     }
 
