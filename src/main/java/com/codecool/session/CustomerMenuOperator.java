@@ -5,6 +5,7 @@ import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -31,8 +32,9 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void createCartMenuMap() {
-        mainMenuMap.put("1", this::payment);
-        mainMenuMap.put("2", this::editCart);
+        cartMenuMap = new HashMap<>();
+        cartMenuMap.put("1", this::payment);
+        cartMenuMap.put("2", this::editCart);
     }
 
     private void payment() {
@@ -46,10 +48,10 @@ public class CustomerMenuOperator extends MenuOperator {
             if (product.getId() == productId) {
                 cart.editCart(product, productAmount);
                 cart.clearWhenZeroProducts();
-            } else {
-                ui.gatherInput("Could not find product for given id ");
+                return;
             }
         }
+        ui.gatherEmptyInput("Could not find product for given id ");
     }
 
     public UI getUi() {
