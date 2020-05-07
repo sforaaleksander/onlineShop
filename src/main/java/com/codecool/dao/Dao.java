@@ -40,12 +40,13 @@ public abstract class Dao {
     }
 
     protected void update(String table, String id, String column, String newValue) {
-        String statement = "UPDATE " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
+        String query = "UPDATE " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
 
-        try (PreparedStatement pstmt = connection.prepareStatement(statement)) {
-            pstmt.executeUpdate();
+        connect();
+        try {
+            statement.execute(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 
