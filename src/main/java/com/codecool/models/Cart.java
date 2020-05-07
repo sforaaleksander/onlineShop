@@ -1,20 +1,32 @@
 package com.codecool.models;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.Map.Entry;
 
 public class Cart {
-    private List<Product> products;
+    private Map<Product, Integer> products;
 
-    public Cart(){
-        products = new ArrayList<>();
+    public Cart() {
+        products = new HashMap<>();
     }
 
-    public void addToCart(Product product){
-        products.add(product);
+    public void addToCart(Product product) {
+        products.merge(product, 1, (prev, one) -> prev + one);
     }
 
-    public List<Product> getProducts() {
+    public void editCart(Product product, int amount) {
+        products.put(product, amount);
+    }
+
+    public void clearWhenZeroProducts() {
+        // Iterator<Map.Entry<Integer, String>> 
+        // iterator = products.entrySet().iterator(); 
+        // }
+    }
+
+    public Map<Product, Integer> getProducts() {
         return products;
     }
 

@@ -63,10 +63,18 @@ public class UI {
                              "(1) Display all products",
                              "(2) Browse by category",
                              "(3) Search for products by column",
-                             "(4) Edit product", 
-                             "(5) Display all categories",
-                             "(6) Add new product",
+                             "(4) Add new product",
+                             "(5) Edit product", 
+                             "(6) Display all categories",
+                             "(7) Add new category",
                              "(0) Back" });
+    }
+
+    public void displayCartMenu() {
+        print(new String[] { " Your Cart",
+                             "(1) Payment",
+                             "(2) Edit cart",
+                             "(0) Back"});
     }
 
     public void displayCustomerMainMenu() {

@@ -30,6 +30,10 @@ public abstract class MenuOperator extends Dao {
         return ui;
     }
 
+    protected void customerProfileDetails() {
+        // TODO profile defails - with possibility of edition?
+    }
+
     private void createBrowseProducts() {
         productsMenuMap = new HashMap<>();
         productsMenuMap.put("1", this::getAllProducts);
@@ -108,7 +112,7 @@ public abstract class MenuOperator extends Dao {
         String category = ui.gatherInput("Provide category: ");
 
         printFromDB("SELECT * FROM Products JOIN Category" 
-                    + " ON Products.Id_category = Category.Id WHERE Category.Name = '"
+                    + " ON Products.Id_category = Categories.Id WHERE Categories.Name = '"
                     + category + "';");
     }
 

@@ -52,4 +52,13 @@ public class ProductDao extends Dao {
         values[0] = "'" + values[0] + "'";
         insert("Products", columns, values);
     }
+
+    public void insertCategory(String categoryName) {
+        categoryName = "'" + categoryName + "'";
+        String[] values = new String[]{
+            categoryName};
+        String[] columns = new String[]{
+            "name"};
+        insert("Categories", columns, values);
+    }
 }

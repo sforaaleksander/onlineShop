@@ -16,9 +16,11 @@ public class AdminMenuOperator extends MenuOperator {
         createMainMenuMap();
         createUsersMenuMap();
         createOrdersMenuMap();
-        productsMenuMap.put("4", this::editProduct);
-        productsMenuMap.put("5", this::getAllCategories);
-        productsMenuMap.put("6", this::addProduct);
+        productsMenuMap.put("4", this::addProduct);
+        productsMenuMap.put("5", this::editProduct);
+        productsMenuMap.put("6", this::getAllCategories);
+        productsMenuMap.put("7", this::addCategory);
+
     }
 
     private void createMainMenuMap() {
@@ -89,6 +91,12 @@ public class AdminMenuOperator extends MenuOperator {
         String productUpdatedValue = ui.gatherInput("Provide new value for given column: ");
 
         new ProductDao().updateProduct(productId, productColumn, productUpdatedValue);
+    }
+
+    private void addCategory() {
+        System.out.println("ADDING CATEGORY");
+        String name = ui.gatherInput("Provide category's name");
+        new ProductDao().insertCategory(name);
     }
 
     private void addProduct(){
