@@ -2,7 +2,9 @@ package com.codecool.session;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.codecool.dao.Dao;
@@ -30,6 +32,12 @@ public abstract class MenuOperator extends Dao {
         return ui;
     }
 
+    protected void displayProfileDetails() {
+        List<User> users= new ArrayList<>();
+        users.add(user);
+        ui.printTable(users, User.class);
+    }
+
     private void createBrowseProducts() {
         productsMenuMap = new HashMap<>();
         productsMenuMap.put("1", this::getAllProducts);
@@ -43,6 +51,7 @@ public abstract class MenuOperator extends Dao {
     }
 
     protected void userProfile() {
+        displayProfileDetails();
         handleMenu(userProfileMenuMap, ui::displayUserProfileMenuMap);
     }
 
@@ -51,7 +60,9 @@ public abstract class MenuOperator extends Dao {
         String id = Integer.toString(user.getId());
         String column = ui.gatherInput("Provide column: ");
         String newValue = ui.gatherInput("New value for the column: ");
-        new UserDao().updateUser(id, column, newValue);
+        UserDao userDao = new UserDao();
+        userDao.updateUser(id, column, newValue);
+        this.user = userDao.getUsers("SELECT * FROM Users WHERE Id = " + id + ";").get(0);
     }
 
     protected void browseProducts() {

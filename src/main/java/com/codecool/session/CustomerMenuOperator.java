@@ -5,17 +5,21 @@ import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.codecool.dao.ProductDao;
 
 public class CustomerMenuOperator extends MenuOperator {
     private Cart cart;
+    private Map<String, Runnable> cartMenuMap;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
         this.cart = new Cart();
         createMainMenuMap();
+        createCartMenuMap();
         productsMenuMap.put("4", this::addToCart);
         productsMenuMap.put("9", this::openCart);
     }
@@ -25,11 +29,29 @@ public class CustomerMenuOperator extends MenuOperator {
         mainMenuMap.put("2", this::getOrdersByUserId);
         mainMenuMap.put("3", this::browseProducts);
         mainMenuMap.put("9", this::openCart);
-        mainMenuMap.put("0", this::exitProgram);
     }
 
-    private void customerProfileDetails() {
-        // TODO profile defails - with possibility of edition?
+    private void createCartMenuMap() {
+        cartMenuMap = new HashMap<>();
+        cartMenuMap.put("1", this::payment);
+        cartMenuMap.put("2", this::editCart);
+    }
+
+    private void payment() {
+    }
+
+    private void editCart() {
+        System.out.println("EDITING CART");
+        int productId = ui.gatherIntInput("Provide product ID which amount you want to change: ");
+        int productAmount = ui.gatherIntInput("Provide new amount of given product: ");
+        for (Product product : cart.getProducts().keySet()) {
+            if (product.getId() == productId) {
+                cart.editCart(product, productAmount);
+                cart.clearWhenZeroProducts();
+                return;
+            }
+        }
+        ui.gatherEmptyInput("Could not find product for given id ");
     }
 
     public UI getUi() {
@@ -55,14 +77,15 @@ public class CustomerMenuOperator extends MenuOperator {
             ui.gatherEmptyInput("Not enough products in stock");
             return;
         }
-        
+
         for (int i = 0; i < productAmount; i++) {
             this.cart.addToCart(productsList.get(0));
         }
     }
 
-    private void openCart(){
-        ui.printTable(cart.getProducts(), Product.class);
+    private void openCart() {
+        ui.printCart(cart.getProducts());
+        handleMenu(cartMenuMap, ui::displayCartMenu);
     }
 
 }
