@@ -5,9 +5,11 @@ import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import com.codecool.dao.ProductDao;
 
@@ -56,6 +58,16 @@ public class CustomerMenuOperator extends MenuOperator {
 
     public UI getUi() {
         return ui;
+    }
+
+    private List<Product> unpackCartToArrayList(){
+        List<Product> cartList = new ArrayList<>();
+        for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
+            for (int i = 0; i < entry.getValue(); i ++) {
+                cartList.add(entry.getKey());
+            }
+        }
+        return cartList;
     }
 
     private void addToCart() {
