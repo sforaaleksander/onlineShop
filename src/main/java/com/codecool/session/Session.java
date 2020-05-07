@@ -31,7 +31,7 @@ public class Session {
             String input = ui.gatherInput("What to do?: ");
             if (input.equals("2")) {
                 new Registration();
-            }else {
+            }else if (input.equals("1")){
                 registered = true;
             }
         }while (!registered);
