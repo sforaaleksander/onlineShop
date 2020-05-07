@@ -24,6 +24,16 @@ public class Registration extends Dao {
         String phone = "'" + ui.gatherInput("Enter your phone: ") + "'";
         String Id_role = "2";
         values = new String[]{name, surname, email, password, phone, Id_role};
+//TODO: change that to work with for each;
+
+//        for (String s : values) {
+//            s = new StringBuilder()
+//                    .append("\'")
+//                    .append(s)
+//                    .append("\'")
+//                    .toString();
+//        }
+//
     }
 
     private void insertUser() {
