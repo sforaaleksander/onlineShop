@@ -30,6 +30,10 @@ public abstract class MenuOperator extends Dao {
         return ui;
     }
 
+    protected void customerProfileDetails() {
+        // TODO profile defails - with possibility of edition?
+    }
+
     private void createBrowseProducts() {
         productsMenuMap = new HashMap<>();
         productsMenuMap.put("1", this::getAllProducts);

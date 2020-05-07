@@ -18,6 +18,7 @@ public class CustomerMenuOperator extends MenuOperator {
         super(user, ui);
         this.cart = new Cart();
         createMainMenuMap();
+        createCartMenuMap();
         productsMenuMap.put("4", this::addToCart);
         productsMenuMap.put("9", this::openCart);
     }
@@ -34,16 +35,20 @@ public class CustomerMenuOperator extends MenuOperator {
         mainMenuMap.put("2", this::editCart);
     }
 
-    private void customerProfileDetails() {
-        // TODO profile defails - with possibility of edition?
+    private void payment() {
     }
-
-    private void payment(){}
 
     private void editCart() {
         System.out.println("EDITING CART");
-        String productId = ui.gatherInput("Provide product ID which amount you want to change: ");
+        int productId = ui.gatherIntInput("Provide product ID which amount you want to change: ");
         int productAmount = ui.gatherIntInput("Provide new amount of given product: ");
+        for (Product product : cart.getProducts().keySet()) {
+            if (product.getId() == productId) {
+                cart.editCart(product, productAmount);
+            } else {
+                ui.gatherInput("Could not find product for given id ");
+            }
+        }
     }
 
     public UI getUi() {
@@ -69,13 +74,13 @@ public class CustomerMenuOperator extends MenuOperator {
             ui.gatherEmptyInput("Not enough products in stock");
             return;
         }
-        
+
         for (int i = 0; i < productAmount; i++) {
             this.cart.addToCart(productsList.get(0));
         }
     }
 
-    private void openCart(){
+    private void openCart() {
         // ui.printTable(cart.getProducts(), Product.class);
         handleMenu(cartMenuMap, ui::displayCartMenu);
     }
