@@ -54,7 +54,7 @@ public class UserDao extends Dao {
     }
 
     public void updateUser(String id, String column, String newValue) {
-        newValue = "'" + newValue + "'";
+        newValue = String.format("'%s'", newValue);
         update("Users", id, column, newValue);
     }
 }

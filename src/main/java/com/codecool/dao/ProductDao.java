@@ -43,7 +43,7 @@ public class ProductDao extends Dao {
     }
 
     public void insertProduct(String[] values) {
-        String[] columns = new String[]{
+        String[] columns = {
         "name",
         "price",
         "quantity",
