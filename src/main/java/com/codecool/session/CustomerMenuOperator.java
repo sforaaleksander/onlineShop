@@ -6,11 +6,13 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 import java.util.List;
+import java.util.Map;
 
 import com.codecool.dao.ProductDao;
 
 public class CustomerMenuOperator extends MenuOperator {
     private Cart cart;
+    private Map<String, Runnable> cartMenuMap;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
@@ -25,11 +27,23 @@ public class CustomerMenuOperator extends MenuOperator {
         mainMenuMap.put("2", this::getOrdersByUserId);
         mainMenuMap.put("3", this::browseProducts);
         mainMenuMap.put("9", this::openCart);
-        mainMenuMap.put("0", this::exitProgram);
+    }
+
+    private void createCartMenuMap() {
+        mainMenuMap.put("1", this::payment);
+        mainMenuMap.put("2", this::editCart);
     }
 
     private void customerProfileDetails() {
         // TODO profile defails - with possibility of edition?
+    }
+
+    private void payment(){}
+
+    private void editCart() {
+        System.out.println("EDITING CART");
+        String productId = ui.gatherInput("Provide product ID which amount you want to change: ");
+        int productAmount = ui.gatherIntInput("Provide new amount of given product: ");
     }
 
     public UI getUi() {
@@ -62,7 +76,8 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void openCart(){
-        ui.printTable(cart.getProducts(), Product.class);
+        // ui.printTable(cart.getProducts(), Product.class);
+        handleMenu(cartMenuMap, ui::displayCartMenu);
     }
 
 }

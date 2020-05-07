@@ -65,6 +65,13 @@ public class UI {
                              "(0) Back" });
     }
 
+    public void displayCartMenu() {
+        print(new String[] { " Your Cart",
+                             "(1) Payment",
+                             "(2) Edit cart",
+                             "(0) Back"});
+    }
+
     public void displayCustomerMainMenu() {
         print(new String[] { " Main Menu     Logged as Customer",
                              "(1) View profile",
