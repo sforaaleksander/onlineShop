@@ -37,7 +37,7 @@ public class AdminMenuOperator extends MenuOperator {
         usersMenuMap.put("2", this::printuUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
     }
-    
+
     private void browseUsers() {
         handleMenu(usersMenuMap, ui::displayBrowseUsersMenu);
     }

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.codecool.dao.Dao;
+import com.codecool.dao.UserDao;
 import com.codecool.models.Admin;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
@@ -13,6 +14,7 @@ import com.codecool.ui.UI;
 public abstract class MenuOperator extends Dao {
     protected Map<String, Runnable> productsMenuMap;
     protected Map<String, Runnable> mainMenuMap;
+    protected Map<String, Runnable> userProfileMenuMap;
     protected UI ui;
     protected User user;
 
@@ -21,6 +23,7 @@ public abstract class MenuOperator extends Dao {
         this.ui = ui;
         mainMenuMap = new HashMap<>();
         createBrowseProducts();
+        createUserProfileMenuMap();
     }
 
     public UI getUi() {
@@ -32,6 +35,22 @@ public abstract class MenuOperator extends Dao {
         productsMenuMap.put("1", this::getAllProducts);
         productsMenuMap.put("2", this::getProductsByCategory);
         productsMenuMap.put("3", this::getProductsContaining);
+    }
+
+    private void createUserProfileMenuMap() {
+        userProfileMenuMap = new HashMap<>();
+        userProfileMenuMap.put("1", this::editUserDetails);
+    }
+
+    protected void userProfile() {
+        handleMenu(userProfileMenuMap, ui::displayUserProfileMenuMap);
+    }
+
+    protected void editUserDetails() {
+        int id = user.getId();
+        String column = ui.gatherInput("Provide column: ");
+        String newValue = ui.gatherInput("New value for the column: ");
+        new UserDao().updateUser(id, column, newValue);
     }
 
     protected void browseProducts() {

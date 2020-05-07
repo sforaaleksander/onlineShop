@@ -33,7 +33,13 @@ public class ProductDao extends Dao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return products;
+    }
+
+    protected void updateProduct(int id, String column, String newValue) {
+        // String[] stringColumns = new String[]
+        // Arrays.stream(stringColumns).anyMatch("s"::equals);
+        newValue = column.toLowerCase().equals("name") ? newValue = "'" + newValue + "'" : newValue;
+        update("Products", id, column, newValue);
     }
 }

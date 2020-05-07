@@ -29,6 +29,12 @@ public class UI {
                              "(0) Back" });
     }
 
+    public void displayUserProfileMenuMap() {
+        print(new String[] { " Browse Orders Menu",
+                             "(1) Edit user details",
+                             "(0) Back" });
+    }
+
     public void displayBrowseUsersMenu() {
         print(new String[] { " Browse Users Menu",
                              "(1) Show all users",
