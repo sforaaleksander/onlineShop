@@ -44,6 +44,15 @@ public class UserDao extends Dao {
         return users;
     }
 
+    public void insertUser(String[] values) {
+        String[] columns = { "name", "surname", "email", "password", "phone", "Id_role" };
+
+        for (String s : values) {
+            s = new StringBuilder().append("\'").append(s).append("\'").toString();
+            insert("Users", columns, values);
+        }
+    }
+
     public void updateUser(String id, String column, String newValue) {
         newValue = "'" + newValue + "'";
         update("Users", id, column, newValue);

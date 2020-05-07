@@ -1,9 +1,8 @@
 package com.codecool.session;
 
+import com.codecool.dao.UserDao;
 import com.codecool.dao.Dao;
 import com.codecool.ui.UI;
-
-import java.sql.SQLException;
 
 public class Registration extends Dao {
     private UI ui;
@@ -13,7 +12,6 @@ public class Registration extends Dao {
         connect();
         ui = new UI();
         enterUserData();
-        insertUser();
     }
 
     private void enterUserData() {
@@ -24,20 +22,6 @@ public class Registration extends Dao {
         String phone = "'" + ui.gatherInput("Enter your phone: ") + "'";
         String Id_role = "2";
         values = new String[]{name, surname, email, password, phone, Id_role};
-//TODO: change that to work with for each;
-
-//        for (String s : values) {
-//            s = new StringBuilder()
-//                    .append("\'")
-//                    .append(s)
-//                    .append("\'")
-//                    .toString();
-//        }
-//
-    }
-
-    private void insertUser() {
-        String[] columns = {"name", "surname", "email", "password", "phone", "Id_role"};
-        insert("Users", columns, values);
+        new UserDao().insertUser(values);
     }
 }
