@@ -98,7 +98,7 @@ public class UI {
         System.out.println(TableSupport.fromIterable(rows, rowType));
     }
 
-    public void print(Map<Product, Integer> map) {
+    public void printCart(Map<Product, Integer> map) {
         String[][] data = new String[map.size()][3];
         int i = 0;
         for (Map.Entry<Product, Integer> entry : map.entrySet()) {

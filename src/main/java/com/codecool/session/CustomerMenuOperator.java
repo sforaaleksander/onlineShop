@@ -82,7 +82,7 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void openCart() {
-        // ui.printTable(cart.getProducts(), Product.class);
+        ui.printCart(cart.getProducts());
         handleMenu(cartMenuMap, ui::displayCartMenu);
     }
 
