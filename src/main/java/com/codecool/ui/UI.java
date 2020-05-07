@@ -3,7 +3,12 @@ package com.codecool.ui;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.stream.Stream;
 
+import com.codecool.models.Product;
+import com.jakewharton.fliptables.FlipTable;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 public class UI {
@@ -83,6 +88,18 @@ public class UI {
 
     public <T> void printTable(Iterable<T> rows, Class<T> rowType) {
         System.out.println(TableSupport.fromIterable(rows, rowType));
+    }
+
+    public void print(Map<Product, Integer> map) {
+        String[][] data = new String[map.size()][3];
+        int i = 0;
+        for (Map.Entry<Product, Integer> entry : map.entrySet()) {
+            data[i][0] = entry.getKey().getId() + "";
+            data[i][1] = entry.getKey().getName();
+            data[i++][3] = entry.getValue() + "";
+        }
+        String[] headers = { "Id", "Product name", "Quantity" };
+        System.out.println(FlipTable.of(headers, data));
     }
 
     public void printTableFromDB(ResultSet resultSet) throws SQLException {
