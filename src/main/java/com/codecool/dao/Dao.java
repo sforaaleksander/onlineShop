@@ -6,6 +6,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.codecool.ui.UI;
 
@@ -50,13 +51,16 @@ public abstract class Dao {
         }
     }
 
-    protected void insert(String table, int id, String column, String newValue) {
-        String statement = "INSERT " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
+    protected void insert(String table, String[] columns, String[] values) {
+        String query = "INSERT INTO " + table
+                     + " ( " + String.join("," , columns) + " ) "
+                     + " VALUES " + " (" + String.join("," , values) + ");";
 
-        try (PreparedStatement pstmt = connection.prepareStatement(statement)) {
-            pstmt.execute();
+        connect();
+        try {
+            statement.execute(query);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
     }
 }

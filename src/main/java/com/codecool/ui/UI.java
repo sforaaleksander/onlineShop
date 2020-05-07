@@ -60,6 +60,7 @@ public class UI {
                              "(3) Search for products by column",
                              "(4) Edit product", 
                              "(5) Display all categories",
+                             "(6) Add new product",
                              "(0) Back" });
     }
 

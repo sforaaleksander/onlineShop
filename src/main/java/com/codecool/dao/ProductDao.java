@@ -41,4 +41,15 @@ public class ProductDao extends Dao {
         newValue = column.toLowerCase().equals("name") ? newValue = "'" + newValue + "'" : newValue;
         update("Products", id, column, newValue);
     }
+
+    public void insertProduct(String[] values) {
+        String[] columns = new String[]{
+        "name",
+        "price",
+        "quantity",
+        "Id_category",
+        "is_available"};
+        values[0] = "'" + values[0] + "'";
+        insert("Products", columns, values);
+    }
 }

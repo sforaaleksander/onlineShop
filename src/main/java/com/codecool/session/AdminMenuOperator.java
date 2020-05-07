@@ -18,6 +18,7 @@ public class AdminMenuOperator extends MenuOperator {
         createOrdersMenuMap();
         productsMenuMap.put("4", this::editProduct);
         productsMenuMap.put("5", this::getAllCategories);
+        productsMenuMap.put("6", this::addProduct);
     }
 
     private void createMainMenuMap() {
@@ -87,7 +88,22 @@ public class AdminMenuOperator extends MenuOperator {
         String productColumn = ui.gatherInput("Provide product's column you want to edit: ");
         String productUpdatedValue = ui.gatherInput("Provide new value for given column: ");
 
-        ProductDao productDao = new ProductDao();
-        productDao.updateProduct(productId, productColumn, productUpdatedValue);
+        new ProductDao().updateProduct(productId, productColumn, productUpdatedValue);
+    }
+
+    private void addProduct(){
+        System.out.println("ADDING PRODUCT");
+        String name = ui.gatherInput("Provide product's name");
+        String price = ui.gatherInput("Provide product's price");
+        String quantity = ui.gatherInput("Provide product's quantity");
+        String categoryId = ui.gatherInput("Provide product's Id_category");
+        String isAvailable = ui.gatherInput("Provide product's is_available");
+        String[] values = new String[]{
+           name,
+           price,
+           quantity,
+           categoryId,
+           isAvailable};
+        new ProductDao().insertProduct(values);
     }
 }
