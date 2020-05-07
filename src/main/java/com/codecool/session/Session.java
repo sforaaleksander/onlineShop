@@ -15,6 +15,7 @@ public class Session {
 
     public Session() {
         ui = new UI();
+        askIfLoginOrRegistration();
         User user = logIn();
         setMenuOperator(user);
         mainMenuChoice(user);
@@ -22,6 +23,19 @@ public class Session {
 
     private void setMenuOperator(User user) {
         menuOperator = loggedAsAdmin ? new AdminMenuOperator(user, ui) : new CustomerMenuOperator(user, ui);
+    }
+
+    private void askIfLoginOrRegistration() {
+        boolean registered = false;
+        do {
+            ui.displayLoginOrRegistrationMenu();
+            String input = ui.gatherInput("What to do?: ");
+            if (input.equals("2")) {
+                Registration registration = new Registration();
+            }else {
+                registered = true;
+            }
+        }while (!registered);
     }
 
     private User logIn() {
