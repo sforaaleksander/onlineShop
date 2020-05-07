@@ -39,7 +39,7 @@ public abstract class Dao {
         }
     }
 
-    protected void update(String table, int id, String column, String newValue) {
+    protected void update(String table, String id, String column, String newValue) {
         String statement = "UPDATE " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
 
         try (PreparedStatement pstmt = connection.prepareStatement(statement)) {

@@ -36,7 +36,7 @@ public class ProductDao extends Dao {
         return products;
     }
 
-    protected void updateProduct(int id, String column, String newValue) {
+    public void updateProduct(String id, String column, String newValue) {
         // String[] stringColumns = new String[]
         // Arrays.stream(stringColumns).anyMatch("s"::equals);
         newValue = column.toLowerCase().equals("name") ? newValue = "'" + newValue + "'" : newValue;

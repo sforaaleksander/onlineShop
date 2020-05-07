@@ -88,6 +88,6 @@ public class AdminMenuOperator extends MenuOperator {
         String productUpdatedValue = ui.gatherInput("Provide new value for given column: ");
 
         ProductDao productDao = new ProductDao();
-        productDao.update(productId, productColumn, productUpdatedValue);
+        productDao.updateProduct(productId, productColumn, productUpdatedValue);
     }
 }
