@@ -1,18 +1,23 @@
 package com.codecool.session;
 
 import com.codecool.models.Cart;
+import com.codecool.models.Order;
+import com.codecool.models.OrderStatus;
 import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
+import com.codecool.dao.OrderDao;
 import com.codecool.dao.ProductDao;
 
 public class CustomerMenuOperator extends MenuOperator {
     private Cart cart;
     private Map<String, Runnable> cartMenuMap;
+    OrderDao orderDao;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
@@ -35,7 +40,36 @@ public class CustomerMenuOperator extends MenuOperator {
         mainMenuMap.put("2", this::editCart);
     }
 
+    private void order() {
+        orderDao = new OrderDao();
+        System.out.println("ORDERING");
+        String idCustomer = Integer.toString(user.getId());
+        String createdAt = LocalDateTime.now().toString().substring(0, 19);
+        String paidAt = "Waiting for payment";
+        String orderStatus = OrderStatus.UNPAID.toString();
+
+        String[] values = {
+            idCustomer,
+            createdAt,
+            paidAt,
+            orderStatus };
+        orderDao.insertOrder(values);
+        
+    }
+
     private void payment() {
+        ui.gatherEmptyInput("Enter credit card number");
+        ui.gatherEmptyInput("Enter CVV");
+        ui.gatherEmptyInput("Enter expiration date");
+        ui.gatherEmptyInput("Payment processing, please wait...");
+        ui.gatherEmptyInput("Payment received");
+        String paidAt = LocalDateTime.now().toString().substring(0, 19);
+        String orderStatus = OrderStatus.PAID.toString();
+        List<Order> lastOrder = orderDao.getOrders("SELECT max(id) FROM Orders");
+        String id = String.valueOf(lastOrder.get(0).getId());
+
+        orderDao.updateOrder(id, "Paid_at", paidAt);
+        orderDao.updateOrder(id, "Order_status", paidAt);
     }
 
     private void editCart() {

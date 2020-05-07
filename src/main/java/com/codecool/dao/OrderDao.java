@@ -45,4 +45,20 @@ public class OrderDao extends Dao {
 
         return orders;
     }
+
+    public void updateOrder(String id, String column, String newValue) {
+        newValue = column.toLowerCase().equals("name") ? String.format("'%s'", newValue) : newValue;
+        update("Orders", id, column, newValue);
+    }
+
+    public void insertOrder(String[] values) {
+        String[] columns = {
+        "Id_customer",
+        "Created_at",
+        "Paid_at",
+        "Order_status" };
+        values[0] = String.format("'%s'", values[0]);
+        insert("Orders", columns, values);
+        insert("Order_products", columns, values);
+    }
 }

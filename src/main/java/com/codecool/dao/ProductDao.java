@@ -38,7 +38,7 @@ public class ProductDao extends Dao {
     public void updateProduct(String id, String column, String newValue) {
         // String[] stringColumns = new String[]
         // Arrays.stream(stringColumns).anyMatch("s"::equals);
-        newValue = column.toLowerCase().equals("name") ? newValue = "'" + newValue + "'" : newValue;
+        newValue = column.toLowerCase().equals("name") ? String.format("'%s'", newValue) : newValue;
         update("Products", id, column, newValue);
     }
 
@@ -49,16 +49,14 @@ public class ProductDao extends Dao {
         "quantity",
         "Id_category",
         "is_available"};
-        values[0] = "'" + values[0] + "'";
+        values[0] = String.format("'%s'", values[0]);
         insert("Products", columns, values);
     }
 
     public void insertCategory(String categoryName) {
         categoryName = "'" + categoryName + "'";
-        String[] values = new String[]{
-            categoryName};
-        String[] columns = new String[]{
-            "name"};
+        String[] values = { categoryName };
+        String[] columns = { "name" };
         insert("Categories", columns, values);
     }
 }

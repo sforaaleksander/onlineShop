@@ -106,7 +106,7 @@ public class AdminMenuOperator extends MenuOperator {
         String quantity = ui.gatherInput("Provide product's quantity");
         String categoryId = ui.gatherInput("Provide product's Id_category");
         String isAvailable = ui.gatherInput("Provide product's is_available");
-        String[] values = new String[]{
+        String[] values = {
            name,
            price,
            quantity,
