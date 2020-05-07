@@ -49,13 +49,10 @@ public class OrderDao extends Dao {
     }
 
     public void insertOrder(String[] values) {
-        String[] columns = {
-        "Id_customer",
-        "Created_at",
-        "Paid_at",
-        "Order_status" };
-        values[0] = String.format("'%s'", values[0]);
+        String[] columns = { "Id_customer", "Created_at", "Paid_at", "Order_status" };
+        for (int i = 1; i < 4; i++) {
+            values[i] = String.format("'%s'", values[i]);
+        }
         insert("Orders", columns, values);
-        insert("Order_products", columns, values);
     }
 }

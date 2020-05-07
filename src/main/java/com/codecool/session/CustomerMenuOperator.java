@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.codecool.dao.OrderDao;
+import com.codecool.dao.OrderProductsDao;
 import com.codecool.dao.ProductDao;
 
 public class CustomerMenuOperator extends MenuOperator {
@@ -39,40 +40,72 @@ public class CustomerMenuOperator extends MenuOperator {
 
     private void createCartMenuMap() {
         cartMenuMap = new HashMap<>();
-        cartMenuMap.put("1", this::payment);
-        cartMenuMap.put("2", this::editCart);
+        cartMenuMap.put("1", this::order);
+        cartMenuMap.put("2", this::payment);
+        cartMenuMap.put("3", this::editCart);
     }
 
     private void order() {
         orderDao = new OrderDao();
+        OrderProductsDao orderProductsDao = new OrderProductsDao();
         System.out.println("ORDERING");
         String idCustomer = Integer.toString(user.getId());
         String createdAt = LocalDateTime.now().toString().substring(0, 19);
         String paidAt = "Waiting for payment";
         String orderStatus = OrderStatus.UNPAID.toString();
 
-        String[] values = {
-            idCustomer,
-            createdAt,
-            paidAt,
-            orderStatus };
+        String[] values = { idCustomer, createdAt, paidAt, orderStatus };
+
         orderDao.insertOrder(values);
-        
+        List<Product> productList = unpackCartToArrayList();
+        String orderId = String.valueOf(getLastUserOrder().getId());
+        for (Product product : productList) {
+            String[] orderProductvalues = { orderId, String.valueOf(product.getId()) };
+            orderProductsDao.insertOrderProducts(orderProductvalues);
+        }
+    }
+
+    private Order getLastUserOrder() {
+        List<Order> lastOrder = orderDao
+                .getOrders("SELECT max(id) FROM Orders WHERE Id_customer = " + user.getId() + ";");
+        return lastOrder.get(0);
     }
 
     private void payment() {
+        System.out.println("PAYMENT");
+        List<Order> unpaidOrders = getUnpaidOrders();
+        if (unpaidOrders.isEmpty()) {
+            ui.gatherEmptyInput("No unpaid orders");
+            return;
+        }
+        displayUnpaidOrders();
+        String orderId = ui.gatherInput("Provide order ID you want to pay for: ");
+        if (!isOrderUnpaid(orderId, unpaidOrders)) {
+            ui.gatherEmptyInput("Order of given ID not found");
+            return;
+        }
         ui.gatherEmptyInput("Enter credit card number");
         ui.gatherEmptyInput("Enter CVV");
         ui.gatherEmptyInput("Enter expiration date");
         ui.gatherEmptyInput("Payment processing, please wait...");
         ui.gatherEmptyInput("Payment received");
         String paidAt = LocalDateTime.now().toString().substring(0, 19);
-        String orderStatus = OrderStatus.PAID.toString();
-        List<Order> lastOrder = orderDao.getOrders("SELECT max(id) FROM Orders");
-        String id = String.valueOf(lastOrder.get(0).getId());
+        orderDao.updateOrder(orderId, "Paid_at", paidAt);
+        orderDao.updateOrder(orderId, "Order_status", OrderStatus.PAID.toString());
+    }
 
-        orderDao.updateOrder(id, "Paid_at", paidAt);
-        orderDao.updateOrder(id, "Order_status", paidAt);
+    private boolean isOrderUnpaid(String orderId, List<Order> unpaidOrders) {
+        return unpaidOrders
+                .stream()
+                .anyMatch(order -> String.valueOf(order.getId()).equals(orderId));
+    }
+
+    private void displayUnpaidOrders() {
+        printFromDB("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
+    }
+
+    private List<Order> getUnpaidOrders(){
+        return orderDao.getOrders("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
     }
 
     private void editCart() {
@@ -93,10 +126,10 @@ public class CustomerMenuOperator extends MenuOperator {
         return ui;
     }
 
-    private List<Product> unpackCartToArrayList(){
+    private List<Product> unpackCartToArrayList() {
         List<Product> cartList = new ArrayList<>();
         for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
-            for (int i = 0; i < entry.getValue(); i ++) {
+            for (int i = 0; i < entry.getValue(); i++) {
                 cartList.add(entry.getKey());
             }
         }

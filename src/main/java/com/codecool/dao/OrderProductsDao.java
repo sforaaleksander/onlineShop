@@ -29,4 +29,11 @@ public class OrderProductsDao extends Dao {
             throw new SQLException ();
         }
     }
+
+    public void insertOrderProducts(String[] values) {
+        String[] columns = {
+        "Id_order",
+        "Id_product"};
+        insert("Order_products", columns, values);
+    }
 }

@@ -70,8 +70,9 @@ public class UI {
 
     public void displayCartMenu() {
         print(new String[] { " Your Cart",
-                             "(1) Payment",
-                             "(2) Edit cart",
+                             "(1) Order",
+                             "(2) Pay for order",
+                             "(3) Edit cart",
                              "(0) Back"});
     }
 
