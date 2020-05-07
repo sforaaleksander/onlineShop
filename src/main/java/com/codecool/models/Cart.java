@@ -29,6 +29,10 @@ public class Cart {
         }
     }
 
+    public void emptyCart(){
+        products.clear();
+    }
+
     public Map<Product, Integer> getProducts() {
         return products;
     }

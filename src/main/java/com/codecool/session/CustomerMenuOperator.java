@@ -63,6 +63,7 @@ public class CustomerMenuOperator extends MenuOperator {
             String[] orderProductValues = { orderId, String.valueOf(product.getId()) };
             orderProductsDao.insertOrderProducts(orderProductValues);
         }
+        this.cart.emptyCart();
     }
 
     private Order getLastUserOrder() {
