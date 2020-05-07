@@ -39,6 +39,10 @@ public abstract class Dao {
     }
 
     protected void update(String table, String id, String column, String newValue) {
+        if (column.toLowerCase().equals("id")) {
+            System.out.println("You can't change id");
+            return;
+        }
         String query = "UPDATE " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
 
         connect();
