@@ -48,4 +48,14 @@ public abstract class Dao {
             System.out.println(e.getMessage());
         }
     }
+
+    protected void insert(String table, int id, String column, String newValue) {
+        String statement = "INSERT " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
+
+        try (PreparedStatement pstmt = connection.prepareStatement(statement)) {
+            pstmt.execute();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
