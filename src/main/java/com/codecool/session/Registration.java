@@ -15,11 +15,11 @@ public class Registration extends Dao {
     }
 
     private void enterUserData() {
-        String name = "'" + ui.gatherInput("Enter your name: ") + "'";
-        String surname = "'" + ui.gatherInput("Enter your surname: ") + "'";
-        String email = "'" + ui.gatherInput("Enter your email: ").toLowerCase() + "'";
-        String password = "'" + ui.gatherInput("Enter your password: ") + "'";
-        String phone = "'" + ui.gatherInput("Enter your phone: ") + "'";
+        String name = ui.gatherInput("Enter your name: ");
+        String surname = ui.gatherInput("Enter your surname: ");
+        String email = ui.gatherInput("Enter your email: ").toLowerCase();
+        String password = ui.gatherInput("Enter your password: ");
+        String phone = ui.gatherInput("Enter your phone: ");
         String Id_role = "2";
         values = new String[]{name, surname, email, password, phone, Id_role};
         new UserDao().insertUser(values);
