@@ -32,7 +32,7 @@ public class UI {
                              "(0) Back" });
     }
 
-    public void displayUserProfileMenuMap() {
+    public void displayUserProfileMenu() {
         print(new String[] { " Browse Orders Menu",
                              "(1) Edit user details",
                              "(0) Back" });
