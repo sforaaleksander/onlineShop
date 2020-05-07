@@ -18,7 +18,7 @@ public class OrderDao extends Dao {
         try {
             ResultSet results = statement.executeQuery(query);
             while (results.next()) {
-                int id = results.getInt("id");
+                int id = results.getInt("Id");
                 OrderProductsDao orderProductsDao = new OrderProductsDao();
 
                 OrderProducts orderProducts = orderProductsDao.getOrderProducts(id);
@@ -29,7 +29,12 @@ public class OrderDao extends Dao {
                 LocalDateTime createdAt = LocalDateTime.parse(createdAtString);
 
                 String paidAtString = results.getString("Paid_at");
-                LocalDateTime paidAt = LocalDateTime.parse(paidAtString);
+                LocalDateTime paidAt;
+                try {
+                    paidAt = LocalDateTime.parse(paidAtString);
+                } catch (java.time.format.DateTimeParseException e) {
+                    paidAt = null;
+                }
 
                 Order order = new Order(id, orderProducts, customerId, createdAt, paidAt, orderStatus);
                 orders.add(order);
@@ -44,7 +49,7 @@ public class OrderDao extends Dao {
     }
 
     public void updateOrder(String id, String column, String newValue) {
-        newValue = column.toLowerCase().equals("name") ? String.format("'%s'", newValue) : newValue;
+        newValue =  String.format("'%s'", newValue);
         update("Orders", id, column, newValue);
     }
 

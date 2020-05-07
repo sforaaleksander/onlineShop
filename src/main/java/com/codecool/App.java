@@ -1,7 +1,9 @@
 package com.codecool;
 
+import com.codecool.dao.OrderDao;
 import com.codecool.dao.ProductDao;
 import com.codecool.dao.UserDao;
+import com.codecool.models.Order;
 import com.codecool.models.Product;
 import com.codecool.models.User;
 import com.codecool.session.Session;
@@ -24,6 +26,12 @@ public class App {
 
         ProductDao productDao = new ProductDao();
         List<Product> products = productDao.getProducts("SELECT * FROM Products;");
+
+        OrderDao orderDao = new OrderDao();
+        List<Order> orders = orderDao.getOrders("SELECT * FROM Orders;");
+
+        ui.printTable(orders, Order.class);
+
 
         ui.printTable(products, Product.class);
     }

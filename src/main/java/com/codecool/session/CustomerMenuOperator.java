@@ -66,8 +66,9 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private Order getLastUserOrder() {
-        List<Order> lastOrder = orderDao
-                .getOrders("SELECT max(id) FROM Orders WHERE Id_customer = " + user.getId() + ";");
+        List<Order> lastOrder = this.orderDao
+                .getOrders("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + 
+                " ORDER BY Id DESC LIMIT 1;");
         return lastOrder.get(0);
     }
 

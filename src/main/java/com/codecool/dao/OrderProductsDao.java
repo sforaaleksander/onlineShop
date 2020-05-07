@@ -14,7 +14,7 @@ public class OrderProductsDao extends Dao {
         connect();
 
         try {
-            ResultSet results = statement.executeQuery("SELECT * FROM Order_products WHERE Id = " + orderId + ";");
+            ResultSet results = statement.executeQuery("SELECT * FROM Order_products WHERE Id_order = " + orderId + ";");
             while (results.next()) {
                 int productId = results.getInt("Id_product");
                 productsIdsOfOrder.add(productId);
