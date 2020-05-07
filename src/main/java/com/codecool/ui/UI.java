@@ -94,6 +94,13 @@ public class UI {
                              "(0) Exit" });
     }
 
+    public void displayLoginOrRegistrationMenu() {
+        print(new String[] {"Welcome to OnlineShop",
+                             "(1) Login",
+                             "(2) Join us"});
+    }
+
+
     public <T> void printTable(Iterable<T> rows, Class<T> rowType) {
         System.out.println(TableSupport.fromIterable(rows, rowType));
     }
