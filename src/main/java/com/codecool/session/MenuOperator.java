@@ -46,8 +46,9 @@ public abstract class MenuOperator extends Dao {
         handleMenu(userProfileMenuMap, ui::displayUserProfileMenuMap);
     }
 
+
     protected void editUserDetails() {
-        int id = user.getId();
+        String id = Integer.toString(user.getId());
         String column = ui.gatherInput("Provide column: ");
         String newValue = ui.gatherInput("New value for the column: ");
         new UserDao().updateUser(id, column, newValue);
