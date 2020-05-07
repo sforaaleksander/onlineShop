@@ -30,7 +30,7 @@ public class Session {
             ui.displayLoginOrRegistrationMenu();
             String input = ui.gatherInput("What to do?: ");
             if (input.equals("2")) {
-                Registration registration = new Registration();
+                new Registration();
             }else {
                 registered = true;
             }

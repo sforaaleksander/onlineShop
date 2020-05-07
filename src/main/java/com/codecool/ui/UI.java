@@ -3,9 +3,7 @@ package com.codecool.ui;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import com.codecool.models.Product;
 import com.jakewharton.fliptables.FlipTable;
@@ -97,7 +95,7 @@ public class UI {
     public void displayLoginOrRegistrationMenu() {
         print(new String[] {"Welcome to OnlineShop",
                              "(1) Login",
-                             "(2) Join us"});
+                             "(2) Register"});
     }
 
 
