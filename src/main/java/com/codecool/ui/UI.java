@@ -63,8 +63,9 @@ public class UI {
                              "(3) Search for products by column",
                              "(4) Add new product",
                              "(5) Edit product", 
-                             "(6) Display all categories",
-                             "(7) Add new category",
+                             "(6) Remove product", 
+                             "(7) Display all categories",
+                             "(8) Add new category",
                              "(0) Back" });
     }
 

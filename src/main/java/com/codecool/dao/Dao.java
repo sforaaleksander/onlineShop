@@ -53,6 +53,17 @@ public abstract class Dao {
         }
     }
 
+    public void remove(String table, String id) {
+        String query = "DELETE FROM " + table + " WHERE Id = " + id + ";";
+
+        connect();
+        try {
+            statement.execute(query);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     protected void insert(String table, String[] columns, String[] values) {
         String query = "INSERT INTO " + table
                      + " ( " + String.join("," , columns) + " ) "
