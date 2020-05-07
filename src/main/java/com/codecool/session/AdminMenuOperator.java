@@ -3,7 +3,7 @@ package com.codecool.session;
 import java.util.HashMap;
 import java.util.Map;
 
-
+import com.codecool.dao.ProductDao;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
@@ -16,6 +16,8 @@ public class AdminMenuOperator extends MenuOperator {
         createMainMenuMap();
         createUsersMenuMap();
         createOrdersMenuMap();
+        productsMenuMap.put("4", this::editProduct);
+        productsMenuMap.put("5", this::getAllCategories);
     }
 
     private void createMainMenuMap() {
@@ -46,6 +48,10 @@ public class AdminMenuOperator extends MenuOperator {
         handleMenu(ordersMenuMap, ui::displayBrowseOrdersMenu);
     }
 
+    private void getAllCategories(){
+        printFromDB("SELECT * FROM Categories;");
+    }
+
     private void printAllUsers() {
         printFromDB("SELECT * FROM Users;");
     }
@@ -73,5 +79,15 @@ public class AdminMenuOperator extends MenuOperator {
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                                         + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                                         + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");
+    }
+
+    private void editProduct(){
+        System.out.println("EDITING PRODUCT");
+        String productId = ui.gatherInput("Provide product ID to edit: ");
+        String productColumn = ui.gatherInput("Provide product's column you want to edit: ");
+        String productUpdatedValue = ui.gatherInput("Provide new value for given column: ");
+
+        ProductDao productDao = new ProductDao();
+        productDao.update(productId, productColumn, productUpdatedValue);
     }
 }
