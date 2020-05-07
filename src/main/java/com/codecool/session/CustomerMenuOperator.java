@@ -8,6 +8,8 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -36,8 +38,9 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void createCartMenuMap() {
-        mainMenuMap.put("1", this::payment);
-        mainMenuMap.put("2", this::editCart);
+        cartMenuMap = new HashMap<>();
+        cartMenuMap.put("1", this::payment);
+        cartMenuMap.put("2", this::editCart);
     }
 
     private void order() {
@@ -79,14 +82,25 @@ public class CustomerMenuOperator extends MenuOperator {
         for (Product product : cart.getProducts().keySet()) {
             if (product.getId() == productId) {
                 cart.editCart(product, productAmount);
-            } else {
-                ui.gatherInput("Could not find product for given id ");
+                cart.clearWhenZeroProducts();
+                return;
             }
         }
+        ui.gatherEmptyInput("Could not find product for given id ");
     }
 
     public UI getUi() {
         return ui;
+    }
+
+    private List<Product> unpackCartToArrayList(){
+        List<Product> cartList = new ArrayList<>();
+        for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {
+            for (int i = 0; i < entry.getValue(); i ++) {
+                cartList.add(entry.getKey());
+            }
+        }
+        return cartList;
     }
 
     private void addToCart() {
@@ -115,7 +129,7 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void openCart() {
-        // ui.printTable(cart.getProducts(), Product.class);
+        ui.printCart(cart.getProducts());
         handleMenu(cartMenuMap, ui::displayCartMenu);
     }
 

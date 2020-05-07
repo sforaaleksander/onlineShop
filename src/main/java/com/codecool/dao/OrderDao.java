@@ -16,7 +16,6 @@ public class OrderDao extends Dao {
         connect();
 
         try {
-            // TODO select orders only for logged user
             ResultSet results = statement.executeQuery(query);
             while (results.next()) {
                 int id = results.getInt("id");
@@ -24,7 +23,6 @@ public class OrderDao extends Dao {
 
                 OrderProducts orderProducts = orderProductsDao.getOrderProducts(id);
                 int customerId = results.getInt("Id_customer");
-                // TODO ENUM
                 OrderStatus orderStatus = OrderStatus.valueOf(results.getString("Order_status"));
 
                 String createdAtString = results.getString("Created_at");
@@ -42,7 +40,6 @@ public class OrderDao extends Dao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return orders;
     }
 

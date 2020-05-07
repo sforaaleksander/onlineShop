@@ -3,9 +3,7 @@ package com.codecool.ui;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Stream;
 
 import com.codecool.models.Product;
 import com.jakewharton.fliptables.FlipTable;
@@ -94,11 +92,18 @@ public class UI {
                              "(0) Exit" });
     }
 
+    public void displayLoginOrRegistrationMenu() {
+        print(new String[] {"Welcome to OnlineShop",
+                             "(1) Login",
+                             "(2) Register"});
+    }
+
+
     public <T> void printTable(Iterable<T> rows, Class<T> rowType) {
         System.out.println(TableSupport.fromIterable(rows, rowType));
     }
 
-    public void print(Map<Product, Integer> map) {
+    public void printCart(Map<Product, Integer> map) {
         String[][] data = new String[map.size()][3];
         int i = 0;
         for (Map.Entry<Product, Integer> entry : map.entrySet()) {
