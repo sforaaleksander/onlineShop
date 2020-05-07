@@ -104,7 +104,7 @@ public class UI {
         for (Map.Entry<Product, Integer> entry : map.entrySet()) {
             data[i][0] = entry.getKey().getId() + "";
             data[i][1] = entry.getKey().getName();
-            data[i++][3] = entry.getValue() + "";
+            data[i++][2] = entry.getValue() + "";
         }
         String[] headers = { "Id", "Product name", "Quantity" };
         System.out.println(FlipTable.of(headers, data));
