@@ -30,7 +30,7 @@ public abstract class MenuOperator extends Dao {
         return ui;
     }
 
-    protected void customerProfileDetails() {
+    protected void displayProfileDetails() {
         // TODO profile defails - with possibility of edition?
     }
 
@@ -47,6 +47,7 @@ public abstract class MenuOperator extends Dao {
     }
 
     protected void userProfile() {
+        displayProfileDetails();
         handleMenu(userProfileMenuMap, ui::displayUserProfileMenuMap);
     }
 
