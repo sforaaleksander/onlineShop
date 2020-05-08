@@ -30,7 +30,7 @@ public abstract class MenuOperator extends Dao {
     }
 
     protected void displayProfileDetails() {
-        List<User> users= new ArrayList<>();
+        List<User> users = new ArrayList<>();
         users.add(user);
         ui.printTable(users, User.class);
     }
@@ -51,7 +51,6 @@ public abstract class MenuOperator extends Dao {
         displayProfileDetails();
         handleMenu(userProfileMenuMap, ui::displayUserProfileMenu);
     }
-
 
     protected void editUserDetails() {
         String id = Integer.toString(user.getId());
@@ -111,17 +110,16 @@ public abstract class MenuOperator extends Dao {
     protected void getProductsByCategory() {
         String category = ui.gatherInput("Provide category: ");
 
-        printFromDB("SELECT * FROM Products JOIN Categories" 
-                    + " ON Products.Id_category = Categories.Id WHERE Categories.Name = '"
-                    + category + "';");
+        printFromDB("SELECT * FROM Products JOIN Categories"
+                + " ON Products.Id_category = Categories.Id WHERE Categories.Name = '" + category + "';");
     }
 
     protected void getOrdersByUserId() {
         String userId = user instanceof Admin ? ui.gatherInput("Provide userId: ") : Integer.toString(user.getId());
         new OrderDao().autoUpdateOrderStatus();
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
-                    + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
-                    + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
+                + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
+                + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
     }
 
     public Map<String, Runnable> getMainMenuMap() {

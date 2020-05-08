@@ -15,8 +15,10 @@ public class TableSupport {
     private static final Comparator<Method> METHOD_COMPARATOR = Comparator.comparing(Method::getName);
 
     public static <T> String fromIterable(Iterable<T> rows, Class<T> rowType) {
-        if (rows == null) throw new NullPointerException("rows == null");
-        if (rowType == null) throw new NullPointerException("rowType == null");
+        if (rows == null)
+            throw new NullPointerException("rows == null");
+        if (rowType == null)
+            throw new NullPointerException("rowType == null");
 
         Method[] declaredMethods = rowType.getMethods();
         Arrays.sort(declaredMethods, METHOD_COMPARATOR);
@@ -24,13 +26,16 @@ public class TableSupport {
         List<Method> methods = new ArrayList<>();
         List<String> headers = new ArrayList<>();
         for (Method declaredMethod : declaredMethods) {
-            if (declaredMethod.getName().equals("getClass") || declaredMethod.getName().equals("getProductDao")){
+            if (declaredMethod.getName().equals("getClass") || declaredMethod.getName().equals("getProductDao")) {
                 continue;
             }
-            if (declaredMethod.getParameterTypes().length > 0) continue;
-            if (declaredMethod.getReturnType() == void.class) continue;
+            if (declaredMethod.getParameterTypes().length > 0)
+                continue;
+            if (declaredMethod.getReturnType() == void.class)
+                continue;
             Matcher matcher = METHOD.matcher(declaredMethod.getName());
-            if (!matcher.matches()) continue;
+            if (!matcher.matches())
+                continue;
 
             declaredMethod.setAccessible(true);
             methods.add(declaredMethod);
