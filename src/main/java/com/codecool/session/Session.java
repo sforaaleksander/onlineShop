@@ -5,7 +5,6 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 public class Session {
-    private String loggedAs;
     private boolean loggedAsAdmin;
     private long sessionTime;
     private final UI ui;
@@ -46,7 +45,6 @@ public class Session {
             loggedUser = login.loginAttempt(userEmail, userPassword);
         } while (loggedUser == null);
         ui.print("Logged in");
-        loggedAs = userEmail;
         loggedAsAdmin = loggedUser instanceof Admin;
         return loggedUser;
     }
@@ -54,10 +52,6 @@ public class Session {
     private void mainMenuChoice(User loggedUser) {
         menuOperator.handleMenu(menuOperator.getMainMenuMap(),
                 loggedAsAdmin ? ui::displayAdminMainMenu : ui::displayCustomerMainMenu);
-    }
-
-    public String getLoggedAs() {
-        return loggedAs;
     }
 
     public long getSessionTime() {
