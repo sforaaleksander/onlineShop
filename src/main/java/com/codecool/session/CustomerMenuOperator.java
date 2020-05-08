@@ -68,8 +68,8 @@ public class CustomerMenuOperator extends MenuOperator {
 
     private Order getLastUserOrder() {
         List<Order> lastOrder = this.orderDao
-                .getOrders("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + 
-                " ORDER BY Id DESC LIMIT 1;");
+                .getOrders("SELECT * FROM Orders WHERE Id_customer = "
+                           + user.getId() + " ORDER BY Id DESC LIMIT 1;");
         return lastOrder.get(0);
     }
 
@@ -107,7 +107,8 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private List<Order> getUnpaidOrders(){
-        return orderDao.getOrders("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
+        return orderDao.getOrders("SELECT * FROM Orders WHERE Id_customer = "
+                                  + user.getId() + " AND Order_status = 'UNPAID';");
     }
 
     private void editCart() {
@@ -163,5 +164,4 @@ public class CustomerMenuOperator extends MenuOperator {
         ui.printCart(cart.getProducts());
         handleMenu(cartMenuMap, ui::displayCartMenu);
     }
-
 }

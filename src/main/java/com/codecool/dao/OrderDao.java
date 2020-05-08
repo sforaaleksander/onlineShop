@@ -49,7 +49,7 @@ public class OrderDao extends Dao {
     }
 
     public void updateOrder(String id, String column, String newValue) {
-        newValue =  String.format("'%s'", newValue);
+        newValue = String.format("'%s'", newValue);
         update("Orders", id, column, newValue);
     }
 

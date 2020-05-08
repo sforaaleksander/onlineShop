@@ -4,7 +4,6 @@ import com.codecool.models.Admin;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-
 public class Session {
     private String loggedAs;
     private boolean loggedAsAdmin;
@@ -31,10 +30,10 @@ public class Session {
             String input = ui.gatherInput("What to do?: ");
             if (input.equals("2")) {
                 new Registration();
-            }else if (input.equals("1")){
+            } else if (input.equals("1")) {
                 registered = true;
             }
-        }while (!registered);
+        } while (!registered);
     }
 
     private User logIn() {
@@ -53,8 +52,8 @@ public class Session {
     }
 
     private void mainMenuChoice(User loggedUser) {
-        menuOperator.handleMenu(
-            menuOperator.getMainMenuMap(), loggedAsAdmin ? ui::displayAdminMainMenu : ui::displayCustomerMainMenu);
+        menuOperator.handleMenu(menuOperator.getMainMenuMap(),
+                loggedAsAdmin ? ui::displayAdminMainMenu : ui::displayCustomerMainMenu);
     }
 
     public String getLoggedAs() {

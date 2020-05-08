@@ -2,7 +2,6 @@ package com.codecool.ui;
 
 import java.util.Scanner;
 
-
 public class IO {
     public Scanner scan;
 

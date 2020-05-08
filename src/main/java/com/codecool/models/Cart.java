@@ -22,7 +22,7 @@ public class Cart {
         products.entrySet().removeIf(entry -> entry.getValue() <= 0);
     }
 
-    public void emptyCart(){
+    public void emptyCart() {
         products.clear();
     }
 

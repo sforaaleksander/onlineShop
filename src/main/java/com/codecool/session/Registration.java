@@ -29,7 +29,7 @@ public class Registration extends Dao {
         String surname = ui.gatherInput("Enter your surname: ");
         String phone = ui.gatherInput("Enter your phone: ");
         String Id_role = "2";
-        String[] values = {name, surname, email, password, phone, Id_role};
+        String[] values = { name, surname, email, password, phone, Id_role };
         new UserDao().insertUser(values);
     }
 }
