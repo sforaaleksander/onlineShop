@@ -3,6 +3,7 @@ package com.codecool.session;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.codecool.dao.OrderDao;
 import com.codecool.dao.ProductDao;
 import com.codecool.dao.UserDao;
 import com.codecool.models.User;
@@ -75,6 +76,7 @@ public class AdminMenuOperator extends MenuOperator {
     }
 
     private void getAllOrders() {
+        new OrderDao().autoUpdateOrderStatus();
         printFromDB("SELECT * FROM Orders;");
     }
 
@@ -83,6 +85,7 @@ public class AdminMenuOperator extends MenuOperator {
         String toSearch;
         column = ui.gatherInput("Provide column: ");
         toSearch = ui.gatherInput("What to look for?: ");
+        new OrderDao().autoUpdateOrderStatus();
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                 + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                 + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");

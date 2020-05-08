@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.codecool.dao.Dao;
+import com.codecool.dao.OrderDao;
 import com.codecool.dao.UserDao;
 import com.codecool.models.Admin;
 import com.codecool.models.User;
@@ -125,7 +126,7 @@ public abstract class MenuOperator extends Dao {
 
     protected void getOrdersByUserId() {
         String userId = user instanceof Admin ? ui.gatherInput("Provide userId: ") : Integer.toString(user.getId());
-
+        new OrderDao().autoUpdateOrderStatus();
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                     + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                     + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
