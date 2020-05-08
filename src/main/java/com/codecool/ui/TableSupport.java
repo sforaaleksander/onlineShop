@@ -12,12 +12,7 @@ import java.util.regex.Pattern;
 
 public class TableSupport {
     private static final Pattern METHOD = Pattern.compile("^(?:get|is|has)([A-Z][a-zA-Z0-9]*)+$");
-    private static final Comparator<Method> METHOD_COMPARATOR = new Comparator<Method>() {
-        @Override
-        public int compare(Method o1, Method o2) {
-            return o1.getName().compareTo(o2.getName());
-        }
-    };
+    private static final Comparator<Method> METHOD_COMPARATOR = Comparator.comparing(Method::getName);
 
     public static <T> String fromIterable(Iterable<T> rows, Class<T> rowType) {
         if (rows == null) throw new NullPointerException("rows == null");

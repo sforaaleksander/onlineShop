@@ -15,15 +15,7 @@ public class OrderProducts {
         return oderId;
     }
 
-    public void setOderId(int oderId) {
-        this.oderId = oderId;
-    }
-
     public List<Integer> getProductsIdsForOrder() {
         return productsIdsForOrder;
-    }
-
-    public void setProductsIdsForOrder(List<Integer> productsIdsForOrder) {
-        this.productsIdsForOrder = productsIdsForOrder;
     }
 }

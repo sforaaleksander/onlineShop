@@ -2,7 +2,6 @@ package com.codecool.ui;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Collection;
 import java.util.Map;
 
 import com.codecool.models.Product;
@@ -16,18 +15,10 @@ public class UI {
         io = new IO();
     }
 
-    public void abstractDisplayInnerMenu(String displayWhat) {
-        print(new String[] { " Browse " + displayWhat + " Menu",
-                             "(1) Show all " + displayWhat ,
-                             "(2) Browse " + displayWhat + " by Id",
-                             "(3) Browse " + displayWhat + " by name",
-                             "(0) Back" });
-    }
-
     public void displayBrowseOrdersMenu() {
         print(new String[] { " Browse Orders Menu",
                              "(1) Show all Orders",
-                             "(2) Browse Orders by Id",
+                             "(2) Browse Orders by id",
                              "(3) Search for orders by column",
                              "(0) Back" });
     }
@@ -41,7 +32,7 @@ public class UI {
     public void displayBrowseUsersMenu() {
         print(new String[] { " Browse Users Menu",
                              "(1) Show all users",
-                             "(2) Browse users by Id",
+                             "(2) Browse users by id",
                              "(3) Browse users by column",
                              "(4) Remove user",
                              "(0) Back" });
@@ -52,7 +43,7 @@ public class UI {
                              "(1) Display all products",
                              "(2) Browse by category",
                              "(3) Search for products by column",
-                             "(4) Add to cart by product's ID",
+                             "(4) Add to cart by the product's ID",
                              "(9) Open Cart",
                              "(0) Back" });
     }
@@ -101,7 +92,6 @@ public class UI {
                              "(2) Register"});
     }
 
-
     public <T> void printTable(Iterable<T> rows, Class<T> rowType) {
         System.out.println(TableSupport.fromIterable(rows, rowType));
     }
@@ -120,10 +110,6 @@ public class UI {
 
     public void printTableFromDB(ResultSet resultSet) throws SQLException {
         System.out.println(FlipTableConverters.fromResultSet(resultSet));
-    }
-
-    public void print(Collection<String> collection) {
-        collection.forEach(System.out::println);
     }
 
     public void print(String toPrint) {

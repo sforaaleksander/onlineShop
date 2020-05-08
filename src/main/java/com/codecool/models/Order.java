@@ -32,40 +32,19 @@ public class Order {
         return orderProducts;
     }
 
-    public void setOrderProducts(OrderProducts orderProducts) {
-        this.orderProducts = orderProducts;
-    }
-
     public int getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(int customerId) {
-        this.customerId = customerId;
-    }
-
     public LocalDateTime getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(LocalDateTime createdAt) {
-        this.createdAt = createdAt;
-    }
+}
 
     public LocalDateTime getPaidAt() {
         return paidAt;
     }
 
-    public void setPaidAt(LocalDateTime paidAt) {
-        this.paidAt = paidAt;
-    }
-
     public OrderStatus getStatus() {
         return status;
     }
-
-    public void setStatus(OrderStatus status) {
-        this.status = status;
-    }
 }
-

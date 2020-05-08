@@ -94,7 +94,7 @@ public class AdminMenuOperator extends MenuOperator {
     private void editProduct() {
         System.out.println("EDITING PRODUCT");
         String productId = ui.gatherInput("Provide product ID to edit: ");
-        String productColumn = ui.gatherInput("Provide product's column you want to edit: ");
+        String productColumn = ui.gatherInput("Provide the product's column you want to edit: ");
         String productUpdatedValue = ui.gatherInput("Provide new value for given column: ");
 
         productDao.updateProduct(productId, productColumn, productUpdatedValue);
@@ -102,17 +102,17 @@ public class AdminMenuOperator extends MenuOperator {
 
     private void addCategory() {
         System.out.println("ADDING CATEGORY");
-        String name = ui.gatherInput("Provide category's name");
+        String name = ui.gatherInput("Provide the category's name");
         productDao.insertCategory(name);
     }
 
     private void addProduct() {
         System.out.println("ADDING PRODUCT");
-        String name = ui.gatherInput("Provide product's name");
-        String price = ui.gatherInput("Provide product's price");
-        String quantity = ui.gatherInput("Provide product's quantity");
-        String categoryId = ui.gatherInput("Provide product's Id_category");
-        String isAvailable = ui.gatherInput("Provide product's is_available");
+        String name = ui.gatherInput("Provide the product's name");
+        String price = ui.gatherInput("Provide the product's price");
+        String quantity = ui.gatherInput("Provide the product's quantity");
+        String categoryId = ui.gatherInput("Provide the product's Id_category");
+        String isAvailable = ui.gatherInput("Provide the product's is_available");
         String[] values = { name, price, quantity, categoryId, isAvailable };
         productDao.insertProduct(values);
     }

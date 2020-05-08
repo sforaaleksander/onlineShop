@@ -38,7 +38,7 @@ public class Session {
     }
 
     private User logIn() {
-        User loggedUser = null;
+        User loggedUser;
         String userEmail;
         Login login = new Login();
         do {
@@ -61,31 +61,7 @@ public class Session {
         return loggedAs;
     }
 
-    public void setLoggedAs(String loggedAs) {
-        this.loggedAs = loggedAs;
-    }
-
-    public boolean isLoggedAsAdmin() {
-        return loggedAsAdmin;
-    }
-
-    public void setLoggedAsAdmin(boolean loggedAsAdmin) {
-        this.loggedAsAdmin = loggedAsAdmin;
-    }
-
     public long getSessionTime() {
         return sessionTime;
-    }
-
-    public void setSessionTime(long sessionTime) {
-        this.sessionTime = sessionTime;
-    }
-
-    public UI getUi() {
-        return ui;
-    }
-
-    public MenuOperator getMenuOperator() {
-        return menuOperator;
     }
 }

@@ -29,10 +29,6 @@ public abstract class MenuOperator extends Dao {
         createUserProfileMenuMap();
     }
 
-    public UI getUi() {
-        return ui;
-    }
-
     protected void displayProfileDetails() {
         List<User> users= new ArrayList<>();
         users.add(user);
@@ -91,10 +87,6 @@ public abstract class MenuOperator extends Dao {
         } while (isRunning);
     }
 
-    public Map<String, Runnable> getBrowseProductsMap() {
-        return productsMenuMap;
-    }
-
     private void getAllProducts() {
         printFromDB("SELECT * FROM Products;");
     }
@@ -130,10 +122,6 @@ public abstract class MenuOperator extends Dao {
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                     + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                     + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = " + userId + ";");
-    }
-
-    protected void exitProgram() {
-
     }
 
     public Map<String, Runnable> getMainMenuMap() {

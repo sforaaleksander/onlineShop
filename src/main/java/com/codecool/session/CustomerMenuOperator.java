@@ -113,7 +113,7 @@ public class CustomerMenuOperator extends MenuOperator {
     private void editCart() {
         System.out.println("EDITING CART");
         int productId = ui.gatherIntInput("Provide product ID which amount you want to change: ");
-        int productAmount = ui.gatherIntInput("Provide new amount of given product: ");
+        int productAmount = ui.gatherIntInput("Provide a new amount of given product: ");
         for (Product product : cart.getProducts().keySet()) {
             if (product.getId() == productId) {
                 cart.editCart(product, productAmount);
@@ -122,10 +122,6 @@ public class CustomerMenuOperator extends MenuOperator {
             }
         }
         ui.gatherEmptyInput("Could not find product for given id ");
-    }
-
-    public UI getUi() {
-        return ui;
     }
 
     private List<Product> unpackCartToArrayList() {
@@ -141,7 +137,7 @@ public class CustomerMenuOperator extends MenuOperator {
     private void addToCart() {
         System.out.println("ADDING TO CART");
         String productId = ui.gatherInput("Provide product ID to add to cart: ");
-        int productAmount = ui.gatherIntInput("Provide amount of given product: ");
+        int productAmount = ui.gatherIntInput("Provide an amount of given product: ");
 
         // TODO abstract to outer method
 
