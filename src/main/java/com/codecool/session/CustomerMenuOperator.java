@@ -124,10 +124,6 @@ public class CustomerMenuOperator extends MenuOperator {
         ui.gatherEmptyInput("Could not find product for given id ");
     }
 
-    public UI getUi() {
-        return ui;
-    }
-
     private List<Product> unpackCartToArrayList() {
         List<Product> cartList = new ArrayList<>();
         for (Map.Entry<Product, Integer> entry : cart.getProducts().entrySet()) {

@@ -10,7 +10,6 @@ import com.codecool.ui.UI;
 
 public class Registration extends Dao {
     private UI ui;
-    private String[] values;
 
     Registration() {
         connect();
@@ -30,7 +29,7 @@ public class Registration extends Dao {
         String surname = ui.gatherInput("Enter your surname: ");
         String phone = ui.gatherInput("Enter your phone: ");
         String Id_role = "2";
-        values = new String[]{name, surname, email, password, phone, Id_role};
+        String[] values = {name, surname, email, password, phone, Id_role};
         new UserDao().insertUser(values);
     }
 }

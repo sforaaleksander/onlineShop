@@ -1,7 +1,6 @@
 package com.codecool.models;
 
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class Cart {
@@ -12,7 +11,7 @@ public class Cart {
     }
 
     public void addToCart(Product product) {
-        products.merge(product, 1, (prev, one) -> prev + one);
+        products.merge(product, 1, Integer::sum);
     }
 
     public void editCart(Product product, int amount) {
@@ -20,13 +19,7 @@ public class Cart {
     }
 
     public void clearWhenZeroProducts() {
-        Iterator<Map.Entry<Product, Integer>> iterator = products.entrySet().iterator();
-        while (iterator.hasNext()) {
-            Map.Entry<Product, Integer> entry = iterator.next();
-            if (entry.getValue() <= 0) {
-                iterator.remove();
-            }
-        }
+        products.entrySet().removeIf(entry -> entry.getValue() <= 0);
     }
 
     public void emptyCart(){
@@ -38,6 +31,7 @@ public class Cart {
     }
 
     public float getTotalPrice() {
+        // TODO
         return 0;
     }
 }

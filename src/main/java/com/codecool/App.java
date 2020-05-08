@@ -32,7 +32,6 @@ public class App {
 
         ui.printTable(orders, Order.class);
 
-
         ui.printTable(products, Product.class);
     }
 }
