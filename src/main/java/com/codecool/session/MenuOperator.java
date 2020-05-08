@@ -123,7 +123,7 @@ public abstract class MenuOperator extends Dao {
         OrderDao orderDao = new OrderDao();
         orderDao.autoUpdateOrderStatus();
 
-        if (!areAnyOrdersByUser(orderDao, userId)){
+        if (!areAnyOrdersByUser(orderDao)){
             return;
         }
         printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
@@ -136,7 +136,7 @@ public abstract class MenuOperator extends Dao {
         return mainMenuMap;
     }
 
-    private boolean areAnyOrdersByUser(OrderDao orderDao, String userId) {
+    private boolean areAnyOrdersByUser(OrderDao orderDao) {
         List<Order> ordersByUser= orderDao.getOrders("SELECT * FROM Orders WHERE Id_customer = " + userId + ";");
         if (ordersByUser.isEmpty()) {
             ui.gatherEmptyInput("No orders yet");
