@@ -14,7 +14,7 @@ import com.codecool.models.Admin;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-public abstract class MenuOperator extends Dao {
+public abstract class MenuOperator extends Dao { // wątpliwej jakości rozwiązanie.
     protected Map<String, Runnable> productsMenuMap;
     protected Map<String, Runnable> mainMenuMap;
     protected Map<String, Runnable> userProfileMenuMap;

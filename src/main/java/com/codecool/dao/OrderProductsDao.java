@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderProductsDao extends Dao {
+public class OrderProductsDao extends Dao<OrderProducts> {
 
     public OrderProducts getOrderProducts(int orderId) throws SQLException {
         List<Integer> productsIdsOfOrder = new ArrayList<>();
@@ -34,5 +34,10 @@ public class OrderProductsDao extends Dao {
     public void insertOrderProducts(String[] values) {
         String[] columns = { "Id_order", "Id_product" };
         insert("Order_products", columns, values);
+    }
+
+    @Override
+    public List<OrderProducts> getAll() {
+        return null;
     }
 }

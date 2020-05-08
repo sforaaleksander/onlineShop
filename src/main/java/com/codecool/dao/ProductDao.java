@@ -6,7 +6,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ProductDao extends Dao {
+public class ProductDao extends Dao<Product> {
 
     public List<Product> getProducts(String query) {
         List<Product> products = new ArrayList<>();
@@ -51,5 +51,10 @@ public class ProductDao extends Dao {
         String[] values = { categoryName };
         String[] columns = { "name" };
         insert("Categories", columns, values);
+    }
+
+    @Override
+    public List<Product> getAll() {
+        return null;
     }
 }

@@ -1,7 +1,10 @@
 package com.codecool.session;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import com.codecool.dao.OrderDao;
 import com.codecool.dao.ProductDao;
@@ -9,7 +12,8 @@ import com.codecool.dao.UserDao;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-public class AdminMenuOperator extends MenuOperator {
+public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozwiązanie.
+    private static final String allCategories = "SELECT * FROM Categories;";
     private Map<String, Runnable> ordersMenuMap;
     private Map<String, Runnable> usersMenuMap;
     private ProductDao productDao;
@@ -57,7 +61,7 @@ public class AdminMenuOperator extends MenuOperator {
     }
 
     private void getAllCategories() {
-        printFromDB("SELECT * FROM Categories;");
+        printFromDB(allCategories);
     }
 
     private void printAllUsers() {
@@ -127,5 +131,10 @@ public class AdminMenuOperator extends MenuOperator {
         System.out.println("REMOVING USER");
         String userId = ui.gatherInput("Provide user ID to remove: ");
         new UserDao().remove("Users", userId);
+    }
+
+    @Override
+    public List getAll() {
+        return null;
     }
 }

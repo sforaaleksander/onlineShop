@@ -3,12 +3,12 @@ package com.codecool.models;
 import com.codecool.dao.ProductDao;
 
 public abstract class User {
-    private int id;
-    private String email;
-    private String password;
-    private String name;
-    private String surname;
-    private ProductDao productDao;
+    private final int id;
+    private final String email;
+    private final String password;
+    private final String name;
+    private final String surname;
+    private final ProductDao productDao;
 
     public User(int id, String email, String password, String name, String surname) {
         this.id = id;
@@ -23,14 +23,11 @@ public abstract class User {
         return id;
     }
 
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public String getName() {
         return name;
     }
 
+    // accessor methods are required by external libraries
     public String getEmail() {
         return email;
     }

@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserDao extends Dao {
+public class UserDao extends Dao<User> {
 
     public List<User> getUsers(String query) {
         List<User> users = new ArrayList<>();
@@ -57,5 +57,10 @@ public class UserDao extends Dao {
     public void updateUser(String id, String column, String newValue) {
         newValue = String.format("'%s'", newValue);
         update("Users", id, column, newValue);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return null;
     }
 }

@@ -17,8 +17,8 @@ import com.codecool.dao.OrderDao;
 import com.codecool.dao.OrderProductsDao;
 import com.codecool.dao.ProductDao;
 
-public class CustomerMenuOperator extends MenuOperator {
-    private Cart cart;
+public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości rozwiązanie.
+    private final Cart cart;
     private Map<String, Runnable> cartMenuMap;
     OrderDao orderDao;
 
@@ -50,7 +50,7 @@ public class CustomerMenuOperator extends MenuOperator {
         OrderProductsDao orderProductsDao = new OrderProductsDao();
         System.out.println("ORDERING");
         String idCustomer = Integer.toString(user.getId());
-        String createdAt = LocalDateTime.now().toString().substring(0, 19);
+        String createdAt = LocalDateTime.now().toString().substring(0, 19); // nani?
         String paidAt = "Waiting for payment";
         String orderStatus = OrderStatus.UNPAID.toString();
 
@@ -163,5 +163,10 @@ public class CustomerMenuOperator extends MenuOperator {
     private void openCart() {
         ui.printCart(cart.getProducts());
         handleMenu(cartMenuMap, ui::displayCartMenu);
+    }
+
+    @Override
+    public List getAll() {
+        return null;
     }
 }

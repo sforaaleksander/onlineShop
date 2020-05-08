@@ -5,10 +5,11 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 import com.codecool.ui.UI;
 
-public abstract class Dao {
+public abstract class Dao<T> {
     protected Connection connection;
     protected Statement statement;
     protected UI ui = new UI();
@@ -65,10 +66,10 @@ public abstract class Dao {
     }
 
     protected void insert(String table, String[] columns, String[] values) {
-        String query = "INSERT INTO " + table
-                     + " ( " + String.join("," , columns) + " ) "
-                     + " VALUES " + " (" + String.join("," , values) + ");";
-
+        String columnsAsQuery = String.join(",", columns);
+        String valuesAsQuery = String.join(",", values);
+        String query = String.format("INSERT INTO %s (%s) VALUES (%s);", table, columnsAsQuery, valuesAsQuery);
+        // .var i Ctrl+W for the win!
         connect();
         try {
             statement.execute(query);
@@ -76,4 +77,6 @@ public abstract class Dao {
             e.printStackTrace();
         }
     }
+
+    public abstract List<T> getAll();
 }
