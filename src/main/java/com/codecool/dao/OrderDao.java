@@ -62,12 +62,13 @@ public class OrderDao extends Dao {
     }
 
     public void autoUpdateOrderStatus() {
-        String query = "UPDATE Orders SET Order_status = 'SENT' WHERE Cast ((julianday('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 5;"
-                + "UPDATE Orders SET Order_status = 'DELIVERED' WHERE Cast ((julianday('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 15;";
+        String query = "UPDATE Orders SET Order_status = 'SENT' WHERE Cast ((julianday('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 5;";
+        String query2 ="UPDATE Orders SET Order_status = 'DELIVERED' WHERE Cast ((julianday('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 15;";
 
         connect();
         try {
             statement.execute(query);
+            statement.execute(query2);
         } catch (SQLException e) {
             e.printStackTrace();
         }
