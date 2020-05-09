@@ -7,7 +7,7 @@ import com.codecool.models.User;
 import java.sql.SQLException;
 import java.util.List;
 
-public class Login extends Dao {
+public class Login extends Dao<String> {
 
     public User loginAttempt(String userEmail, String userPassword) {
         connect();
@@ -17,12 +17,16 @@ public class Login extends Dao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return users.isEmpty() ? null : users.get(0);
-
+        return users.isEmpty() ? null : users.get(0); // to nie działa xd
     }
 
     private List<User> getMatchingUser(String userEmail, String userPassword) throws SQLException {
         return new UserDao().getUsers(
                 "SELECT * FROM Users WHERE email = '" + userEmail + "' AND password = '" + userPassword + "';");
+    }
+
+    @Override
+    public List<String> getAll() {
+        return null;
     }
 }

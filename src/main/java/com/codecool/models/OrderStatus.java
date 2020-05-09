@@ -1,5 +1,5 @@
 package com.codecool.models;
 
-public enum OrderStatus {
+public enum OrderStatus { // (y)
     UNPAID, PAID, SENT, DELIVERED
 }

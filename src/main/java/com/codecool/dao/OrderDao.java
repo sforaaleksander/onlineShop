@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class OrderDao extends Dao {
+public class OrderDao extends Dao<Order> {
     public List<Order> getOrders(String query) {
         List<Order> orders = new ArrayList<>();
         connect();
@@ -72,5 +72,10 @@ public class OrderDao extends Dao {
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<Order> getAll() {
+        return null;
     }
 }

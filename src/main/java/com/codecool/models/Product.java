@@ -1,13 +1,12 @@
 package com.codecool.models;
 
 public class Product {
-    private int id;
-    private String name;
-    private float price;
-    private int quantity;
-    private int rate;
-    private int categoryId;
-    private Boolean isAvailable;
+    private final int id;
+    private final String name;
+    private final float price;
+    private final int quantity;
+    private final int categoryId;
+    private final Boolean isAvailable;
 
     public Product(int id, String name, float price, int quantity,
                    int categoryId, Boolean isAvailable) {
@@ -33,10 +32,6 @@ public class Product {
 
     public String getName() {
         return name;
-    }
-
-    public int getRate() {
-        return rate;
     }
 
     public int getCategoryId() {

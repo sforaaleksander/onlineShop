@@ -11,16 +11,25 @@ import com.jakewharton.fliptables.FlipTableConverters;
 public class UI {
     private IO io;
 
+    private enum Messages {
+        BROWSE_ORDERS(new String[] { " Browse Orders Menu",
+                "(1) Show all Orders",
+                "(2) Browse Orders by id",
+                "(3) Search for orders by column",
+                "(0) Back" });
+
+        private final String[] message;
+
+        Messages(String[] message) {
+            this.message = message;
+        }
+    }
     public UI() {
         io = new IO();
     }
 
     public void displayBrowseOrdersMenu() {
-        print(new String[] { " Browse Orders Menu",
-                             "(1) Show all Orders",
-                             "(2) Browse Orders by id",
-                             "(3) Search for orders by column",
-                             "(0) Back" });
+        print(Messages.BROWSE_ORDERS.message);
     }
 
     public void displayUserProfileMenu() {

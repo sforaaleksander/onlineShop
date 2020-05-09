@@ -4,23 +4,27 @@ import com.codecool.dao.UserDao;
 import com.codecool.models.User;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import com.codecool.dao.Dao;
 import com.codecool.ui.UI;
 
-public class Registration extends Dao {
+public class Registration extends Dao { // wątpliwej jakości rozwiązanie.
     private UI ui;
 
     Registration() {
-        connect();
+        connect();// z czym? z bazą danych; jak? przez tam connection tam klasa statement tam proszę wykasować
+        // ;po co?
+        // żeby dodać użytkownika
         ui = new UI();
         enterUserData();
     }
 
     private void enterUserData() {
         String email = ui.gatherInput("Enter your email: ").toLowerCase();
-        List<User> sameEmailUsers = new UserDao().getUsers("SELECT * FROM Users WHERE Email = '" + email + "';");
-        if (!sameEmailUsers.isEmpty()) {
+        List<User> sameEmailUsers = new UserDao().getUsers("SELECT * FROM Users WHERE email = \"" + email + "\";");
+        if (emailIsAlreadyTaken(sameEmailUsers)) {
             ui.gatherEmptyInput("User with this email already exists");
             return;
         }
@@ -33,14 +37,24 @@ public class Registration extends Dao {
         String surname = ui.gatherInput("Enter your surname: ");
         String phone = ui.gatherInput("Enter your phone: ");
         String Id_role = "2";
-        String[] values = { name, surname, email, password, phone, Id_role };
+        String[] values = {name, surname, email, password, phone, Id_role};
         new UserDao().insertUser(values);
     }
 
+    private boolean emailIsAlreadyTaken(List<User> sameEmailUsers) {
+        return !sameEmailUsers.isEmpty();
+    }
+
     public boolean isValidEmailAddress(String email) {
-        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
-        java.util.regex.Pattern p = java.util.regex.Pattern.compile(ePattern);
-        java.util.regex.Matcher m = p.matcher(email);
+        String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])" +
+                "|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"; // (y)
+        Pattern p = Pattern.compile(ePattern);
+        Matcher m = p.matcher(email);
         return m.matches();
+    }
+
+    @Override
+    public List getAll() {
+        return null;
     }
 }
