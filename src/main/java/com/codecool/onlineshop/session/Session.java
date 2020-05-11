@@ -1,8 +1,8 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
-import com.codecool.models.Admin;
-import com.codecool.models.User;
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.models.Admin;
+import com.codecool.onlineshop.models.User;
+import com.codecool.onlineshop.ui.UI;
 
 public class Session {
     private boolean loggedAsAdmin;

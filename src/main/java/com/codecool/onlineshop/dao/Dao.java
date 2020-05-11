@@ -1,4 +1,4 @@
-package com.codecool.dao;
+package com.codecool.onlineshop.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,12 +7,12 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.ui.UI;
 
 public abstract class Dao<T> {
     protected Connection connection;
     protected Statement statement;
-    protected UI ui = new UI();
+    protected final UI ui = new UI();
 
     public static final String DB_NAME = "src/main/resources/online_shop.db";
     public static final String CONNECTION_STRING = "jdbc:sqlite:" + DB_NAME;
@@ -29,7 +29,7 @@ public abstract class Dao<T> {
         }
     }
 
-    protected void printFromDB(String query) {
+    public void printFromDB(String query) {
         connect();
         try {
             ResultSet results = statement.executeQuery(query);
@@ -39,12 +39,23 @@ public abstract class Dao<T> {
         }
     }
 
-    protected void update(String table, String id, String column, String newValue) {
+    public void printFromDB(String table, String columns, String condition) {
+        String where = condition.isEmpty() ? "" : "WHERE" + condition;
+        String query = String.format("SELECT %s FROM %s %s;", columns, table, where);
+        printFromDB(query);
+    }
+
+    protected void updateById(String table, String id, String column, String newValue) {
+        String condition = String.format("Id = %s", id);
+        update(table, column, newValue, condition);
+    }
+
+    protected void update(String table, String column, String newValue, String condition) {
         if (column.toLowerCase().equals("id")) {
             System.out.println("You can't change id");
             return;
         }
-        String query = "UPDATE " + table + " SET " + column + " = " + newValue + " WHERE Id = " + id + ";";
+        String query = String.format("UPDATE %s SET %s = %s WHERE %s;", table, column, newValue, condition);
 
         connect();
         try {
@@ -55,7 +66,7 @@ public abstract class Dao<T> {
     }
 
     public void remove(String table, String id) {
-        String query = "DELETE FROM " + table + " WHERE Id = " + id + ";";
+        String query = String.format("DELETE FROM %s WHERE Id = %s;", table, id);
 
         connect();
         try {
@@ -69,7 +80,6 @@ public abstract class Dao<T> {
         String columnsAsQuery = String.join(",", columns);
         String valuesAsQuery = String.join(",", values);
         String query = String.format("INSERT INTO %s (%s) VALUES (%s);", table, columnsAsQuery, valuesAsQuery);
-        // .var i Ctrl+W for the win!
         connect();
         try {
             statement.execute(query);
@@ -79,4 +89,6 @@ public abstract class Dao<T> {
     }
 
     public abstract List<T> getAll();
+
+    public abstract void printAll();
 }

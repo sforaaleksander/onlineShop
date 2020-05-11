@@ -1,22 +1,20 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
-import com.codecool.dao.OrderDao;
-import com.codecool.dao.ProductDao;
-import com.codecool.dao.UserDao;
-import com.codecool.models.User;
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.dao.OrderDao;
+import com.codecool.onlineshop.dao.ProductDao;
+import com.codecool.onlineshop.dao.UserDao;
+import com.codecool.onlineshop.models.User;
+import com.codecool.onlineshop.ui.UI;
 
-public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozwiązanie.
-    private static final String allCategories = "SELECT * FROM Categories;";
+public class AdminMenuOperator extends MenuOperator {
     private Map<String, Runnable> ordersMenuMap;
     private Map<String, Runnable> usersMenuMap;
-    private ProductDao productDao;
+    private final ProductDao productDao;
+    private final UserDao userDao;
+    private final OrderDao orderDao;
 
     public AdminMenuOperator(User user, UI ui) {
         super(user, ui);
@@ -24,10 +22,12 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
         createUsersMenuMap();
         createOrdersMenuMap();
         productDao = new ProductDao();
+        userDao = new UserDao();
+        orderDao = new OrderDao();
         productsMenuMap.put("4", this::addProduct);
         productsMenuMap.put("5", this::editProduct);
         productsMenuMap.put("6", this::removeProduct);
-        productsMenuMap.put("7", this::getAllCategories);
+        productsMenuMap.put("7", this::printAllCategories);
         productsMenuMap.put("8", this::addCategory);
     }
 
@@ -46,7 +46,7 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
 
     private void createUsersMenuMap() {
         usersMenuMap = new HashMap<>();
-        usersMenuMap.put("1", this::printAllUsers);
+        usersMenuMap.put("1", userDao::printAll);
         usersMenuMap.put("2", this::printUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
         usersMenuMap.put("4", this::removeUser);
@@ -60,28 +60,25 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
         handleMenu(ordersMenuMap, ui::displayBrowseOrdersMenu);
     }
 
-    private void getAllCategories() {
-        printFromDB(allCategories);
-    }
-
-    private void printAllUsers() {
-        printFromDB("SELECT * FROM Users;");
+    private void printAllCategories() {
+        userDao.printFromDB("Categories", "*", "");
     }
 
     private void printUsersByUserId() {
         String id = ui.gatherInput("Provide user id: ");
-        printFromDB("SELECT * FROM Users WHERE id = " + id + ";");
+        userDao.print("*", "id = " + id);
     }
 
     private void printUsersContaining() {
         String column = ui.gatherInput("Provide column: ");
         String toSearch = ui.gatherInput("What to look for?: ");
-        printFromDB("SELECT * FROM Users WHERE " + column + " LIKE '%" + toSearch + "%';");
+        String condition = column + " LIKE '%" + toSearch + "%'";
+        userDao.print("*", condition);
     }
 
     private void getAllOrders() {
-        new OrderDao().autoUpdateOrderStatus();
-        printFromDB("SELECT * FROM Orders;");
+        orderDao.autoUpdateOrderStatus();
+        orderDao.printAll();
     }
 
     private void getOrdersContaining() {
@@ -89,10 +86,11 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
         String toSearch;
         column = ui.gatherInput("Provide column: ");
         toSearch = ui.gatherInput("What to look for?: ");
-        new OrderDao().autoUpdateOrderStatus();
-        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
-                + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
-                + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");
+        orderDao.autoUpdateOrderStatus();
+        String table = "Orders JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON Products.Id = Order_products.Id_product";
+        String columns = "Order_status, Created_at, Paid_at, Name, Price";
+        String condition = column + " LIKE '%" + toSearch + "%'";
+        orderDao.printFromDB(table, columns, condition);
     }
 
     private void editProduct() {
@@ -130,11 +128,6 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
     private void removeUser() {
         System.out.println("REMOVING USER");
         String userId = ui.gatherInput("Provide user ID to remove: ");
-        new UserDao().remove("Users", userId);
-    }
-
-    @Override
-    public List getAll() {
-        return null;
+        userDao.remove("Users", userId);
     }
 }

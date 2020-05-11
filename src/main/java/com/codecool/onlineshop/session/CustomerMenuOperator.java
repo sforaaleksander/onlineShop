@@ -1,30 +1,33 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
-import com.codecool.models.Cart;
-import com.codecool.models.Order;
-import com.codecool.models.OrderStatus;
-import com.codecool.models.Product;
-import com.codecool.models.User;
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.models.Cart;
+import com.codecool.onlineshop.models.Order;
+import com.codecool.onlineshop.models.OrderStatus;
+import com.codecool.onlineshop.models.Product;
+import com.codecool.onlineshop.models.User;
+import com.codecool.onlineshop.ui.UI;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.codecool.dao.OrderDao;
-import com.codecool.dao.OrderProductsDao;
-import com.codecool.dao.ProductDao;
+import com.codecool.onlineshop.dao.OrderDao;
+import com.codecool.onlineshop.dao.ProductDao;
 
-public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości rozwiązanie.
+public class CustomerMenuOperator extends MenuOperator {
     private final Cart cart;
     private Map<String, Runnable> cartMenuMap;
     OrderDao orderDao;
+    ProductDao productDao;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
-        this.cart = new Cart();
+        orderDao = new OrderDao();
+        productDao = new ProductDao();
+        cart = new Cart();
         createMainMenuMap();
         createCartMenuMap();
         productsMenuMap.put("4", this::addToCart);
@@ -46,11 +49,13 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
     }
 
     private void order() {
-        orderDao = new OrderDao();
-        OrderProductsDao orderProductsDao = new OrderProductsDao();
         System.out.println("ORDERING");
         String idCustomer = Integer.toString(user.getId());
-        String createdAt = LocalDateTime.now().toString().substring(0, 19); // nani?
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String now = LocalDateTime.now().format(formatter);
+        String createdAt = now.replace(" ", "T");
+
         String paidAt = "Waiting for payment";
         String orderStatus = OrderStatus.UNPAID.toString();
 
@@ -61,13 +66,13 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
         String orderId = String.valueOf(getLastUserOrder().getId());
         for (Product product : productList) {
             String[] orderProductValues = { orderId, String.valueOf(product.getId()) };
-            orderProductsDao.insertOrderProducts(orderProductValues);
+            orderDao.insertOrderProducts(orderProductValues);
         }
         this.cart.emptyCart();
     }
 
     private Order getLastUserOrder() {
-        List<Order> lastOrder = this.orderDao
+        List<Order> lastOrder = orderDao
                 .getOrders("SELECT * FROM Orders WHERE Id_customer = "
                            + user.getId() + " ORDER BY Id DESC LIMIT 1;");
         return lastOrder.get(0);
@@ -103,7 +108,7 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
     }
 
     private void displayUnpaidOrders() {
-        printFromDB("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
+        orderDao.print("*", "Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
     }
 
     private List<Order> getUnpaidOrders(){
@@ -142,7 +147,6 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
 
         // TODO abstract to outer method
 
-        ProductDao productDao = new ProductDao();
         List<Product> productsList = productDao.getProducts("SELECT * FROM Products WHERE id =" + productId + ";");
 
         if (productsList.isEmpty()) {
@@ -163,10 +167,5 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
     private void openCart() {
         ui.printCart(cart.getProducts());
         handleMenu(cartMenuMap, ui::displayCartMenu);
-    }
-
-    @Override
-    public List getAll() {
-        return null;
     }
 }

@@ -1,9 +1,9 @@
-package com.codecool.dao;
+package com.codecool.onlineshop.dao;
 
-import com.codecool.models.Admin;
-import com.codecool.models.Customer;
-import com.codecool.models.Role;
-import com.codecool.models.User;
+import com.codecool.onlineshop.models.Admin;
+import com.codecool.onlineshop.models.Customer;
+import com.codecool.onlineshop.models.Role;
+import com.codecool.onlineshop.models.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -56,11 +56,20 @@ public class UserDao extends Dao<User> {
 
     public void updateUser(String id, String column, String newValue) {
         newValue = String.format("'%s'", newValue);
-        update("Users", id, column, newValue);
+        updateById("Users", id, column, newValue);
+    }
+
+    public void print(String columns, String condition) {
+        printFromDB("Users", columns, condition);
     }
 
     @Override
     public List<User> getAll() {
-        return null;
+        return getUsers("SELECT * FROM users;");
+    }
+
+    @Override
+    public void printAll() {
+        printFromDB("SELECT * FROM Users;");
     }
 }

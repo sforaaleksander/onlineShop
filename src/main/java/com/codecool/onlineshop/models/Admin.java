@@ -1,4 +1,4 @@
-package com.codecool.models;
+package com.codecool.onlineshop.models;
 
 public class Admin extends User {
 
