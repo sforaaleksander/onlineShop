@@ -7,16 +7,12 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.codecool.dao.Dao;
 import com.codecool.ui.UI;
 
-public class Registration extends Dao { // wątpliwej jakości rozwiązanie.
-    private UI ui;
+public class Registration {
+    private final UI ui;
 
     Registration() {
-        connect();// z czym? z bazą danych; jak? przez tam connection tam klasa statement tam proszę wykasować
-        // ;po co?
-        // żeby dodać użytkownika
         ui = new UI();
         enterUserData();
     }
@@ -47,14 +43,9 @@ public class Registration extends Dao { // wątpliwej jakości rozwiązanie.
 
     public boolean isValidEmailAddress(String email) {
         String ePattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}])" +
-                "|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$"; // (y)
+                "|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         Pattern p = Pattern.compile(ePattern);
         Matcher m = p.matcher(email);
         return m.matches();
-    }
-
-    @Override
-    public List getAll() {
-        return null;
     }
 }

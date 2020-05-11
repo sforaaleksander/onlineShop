@@ -35,9 +35,14 @@ public class ProductDao extends Dao<Product> {
         return products;
     }
 
+    public List<Product> getOrderProducts(int orderId) {
+        String query = String.format("SELECT * FROM Order_products LEFT JOIN Products ON Id_product = Id WHERE Id_order = %s;", orderId);
+        return getProducts(query);
+    }
+
     public void updateProduct(String id, String column, String newValue) {
         newValue = column.toLowerCase().equals("name") ? String.format("'%s'", newValue) : newValue;
-        update("Products", id, column, newValue);
+        updateById("Products", id, column, newValue);
     }
 
     public void insertProduct(String[] values) {
@@ -55,6 +60,11 @@ public class ProductDao extends Dao<Product> {
 
     @Override
     public List<Product> getAll() {
-        return null;
+        return getProducts("SELECT * FROM products;");
+    }
+
+    @Override
+    public void printAll() {
+        printFromDB("SELECT * FROM Products;");
     }
 }

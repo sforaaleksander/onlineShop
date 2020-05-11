@@ -8,16 +8,16 @@ import com.codecool.models.User;
 import com.codecool.ui.UI;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import com.codecool.dao.OrderDao;
-import com.codecool.dao.OrderProductsDao;
 import com.codecool.dao.ProductDao;
 
-public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości rozwiązanie.
+public class CustomerMenuOperator extends MenuOperator {
     private final Cart cart;
     private Map<String, Runnable> cartMenuMap;
     OrderDao orderDao;
@@ -47,10 +47,14 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
 
     private void order() {
         orderDao = new OrderDao();
-        OrderProductsDao orderProductsDao = new OrderProductsDao();
+        OrderDao orderDao = new OrderDao();
         System.out.println("ORDERING");
         String idCustomer = Integer.toString(user.getId());
-        String createdAt = LocalDateTime.now().toString().substring(0, 19); // nani?
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String now = LocalDateTime.now().format(formatter);
+        String createdAt = now.replace(" ", "T");
+
         String paidAt = "Waiting for payment";
         String orderStatus = OrderStatus.UNPAID.toString();
 
@@ -61,7 +65,7 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
         String orderId = String.valueOf(getLastUserOrder().getId());
         for (Product product : productList) {
             String[] orderProductValues = { orderId, String.valueOf(product.getId()) };
-            orderProductsDao.insertOrderProducts(orderProductValues);
+            orderDao.insertOrderProducts(orderProductValues);
         }
         this.cart.emptyCart();
     }
@@ -103,7 +107,7 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
     }
 
     private void displayUnpaidOrders() {
-        printFromDB("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
+        new OrderDao().printFromDB("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
     }
 
     private List<Order> getUnpaidOrders(){
@@ -163,10 +167,5 @@ public class CustomerMenuOperator extends MenuOperator { // wątpliwej jakości 
     private void openCart() {
         ui.printCart(cart.getProducts());
         handleMenu(cartMenuMap, ui::displayCartMenu);
-    }
-
-    @Override
-    public List getAll() {
-        return null;
     }
 }

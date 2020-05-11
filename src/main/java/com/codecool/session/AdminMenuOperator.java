@@ -1,10 +1,7 @@
 package com.codecool.session;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import com.codecool.dao.OrderDao;
 import com.codecool.dao.ProductDao;
@@ -12,11 +9,13 @@ import com.codecool.dao.UserDao;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozwiązanie.
+public class AdminMenuOperator extends MenuOperator {
     private static final String allCategories = "SELECT * FROM Categories;";
     private Map<String, Runnable> ordersMenuMap;
     private Map<String, Runnable> usersMenuMap;
-    private ProductDao productDao;
+    private final ProductDao productDao;
+    private final UserDao userDao;
+    private final OrderDao orderDao;
 
     public AdminMenuOperator(User user, UI ui) {
         super(user, ui);
@@ -24,6 +23,8 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
         createUsersMenuMap();
         createOrdersMenuMap();
         productDao = new ProductDao();
+        userDao = new UserDao();
+        orderDao = new OrderDao();
         productsMenuMap.put("4", this::addProduct);
         productsMenuMap.put("5", this::editProduct);
         productsMenuMap.put("6", this::removeProduct);
@@ -61,27 +62,27 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
     }
 
     private void getAllCategories() {
-        printFromDB(allCategories);
+        userDao.printFromDB(allCategories);
     }
 
     private void printAllUsers() {
-        printFromDB("SELECT * FROM Users;");
+        userDao.printAll();
     }
 
     private void printUsersByUserId() {
         String id = ui.gatherInput("Provide user id: ");
-        printFromDB("SELECT * FROM Users WHERE id = " + id + ";");
+        userDao.printFromDB("SELECT * FROM Users WHERE id = " + id + ";");
     }
 
     private void printUsersContaining() {
         String column = ui.gatherInput("Provide column: ");
         String toSearch = ui.gatherInput("What to look for?: ");
-        printFromDB("SELECT * FROM Users WHERE " + column + " LIKE '%" + toSearch + "%';");
+        userDao.printFromDB("SELECT * FROM Users WHERE " + column + " LIKE '%" + toSearch + "%';");
     }
 
     private void getAllOrders() {
-        new OrderDao().autoUpdateOrderStatus();
-        printFromDB("SELECT * FROM Orders;");
+        orderDao.autoUpdateOrderStatus();
+        orderDao.printAll();
     }
 
     private void getOrdersContaining() {
@@ -89,8 +90,8 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
         String toSearch;
         column = ui.gatherInput("Provide column: ");
         toSearch = ui.gatherInput("What to look for?: ");
-        new OrderDao().autoUpdateOrderStatus();
-        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
+        orderDao.autoUpdateOrderStatus();
+        orderDao.printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                 + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                 + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");
     }
@@ -130,11 +131,6 @@ public class AdminMenuOperator extends MenuOperator {// wątpliwej jakości rozw
     private void removeUser() {
         System.out.println("REMOVING USER");
         String userId = ui.gatherInput("Provide user ID to remove: ");
-        new UserDao().remove("Users", userId);
-    }
-
-    @Override
-    public List getAll() {
-        return null;
+        userDao.remove("Users", userId);
     }
 }

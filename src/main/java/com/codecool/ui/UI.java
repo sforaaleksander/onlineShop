@@ -9,7 +9,7 @@ import com.jakewharton.fliptables.FlipTable;
 import com.jakewharton.fliptables.FlipTableConverters;
 
 public class UI {
-    private IO io;
+    private final IO io;
 
     private enum Messages {
         BROWSE_ORDERS(new String[] { " Browse Orders Menu",

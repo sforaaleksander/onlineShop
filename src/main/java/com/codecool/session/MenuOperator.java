@@ -1,25 +1,23 @@
 package com.codecool.session;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.codecool.dao.Dao;
 import com.codecool.dao.OrderDao;
+import com.codecool.dao.ProductDao;
 import com.codecool.dao.UserDao;
 import com.codecool.models.Admin;
 import com.codecool.models.Order;
 import com.codecool.models.User;
 import com.codecool.ui.UI;
 
-public abstract class MenuOperator extends Dao { // wątpliwej jakości rozwiązanie.
+public abstract class MenuOperator {
     protected Map<String, Runnable> productsMenuMap;
-    protected Map<String, Runnable> mainMenuMap;
+    protected final Map<String, Runnable> mainMenuMap;
     protected Map<String, Runnable> userProfileMenuMap;
-    protected UI ui;
+    protected final UI ui;
     protected User user;
 
     MenuOperator(User user, UI ui) {
@@ -88,30 +86,20 @@ public abstract class MenuOperator extends Dao { // wątpliwej jakości rozwiąz
     }
 
     private void getAllProducts() {
-        printFromDB("SELECT * FROM Products;");
-    }
-
-    protected void printFromDB(String query) {
-        connect();
-        try {
-            ResultSet results = statement.executeQuery(query);
-            ui.printTableFromDB(results);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        new ProductDao().printAll();
     }
 
     protected void getProductsContaining() {
         String column = ui.gatherInput("Provide column: ");
         String toSearch = ui.gatherInput("What to look for?: ");
 
-        printFromDB("SELECT * FROM Products WHERE " + column + " LIKE '%" + toSearch + "%';");
+        new ProductDao().printFromDB("SELECT * FROM Products WHERE " + column + " LIKE '%" + toSearch + "%';");
     }
 
     protected void getProductsByCategory() {
         String category = ui.gatherInput("Provide category: ");
 
-        printFromDB("SELECT * FROM Products JOIN Categories"
+        new ProductDao().printFromDB("SELECT * FROM Products JOIN Categories"
                     + " ON Products.Id_category = Categories.Id WHERE Categories.Name = '"
                     + category + "';");
     }
@@ -126,7 +114,7 @@ public abstract class MenuOperator extends Dao { // wątpliwej jakości rozwiąz
         if (!areAnyOrdersByUser(orderDao, userId)){
             return;
         }
-        printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
+        new OrderDao().printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
                     + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
                     + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = "
                     + userId + ";");

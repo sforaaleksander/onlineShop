@@ -1,8 +1,8 @@
 package com.codecool.dao;
 
 import com.codecool.models.Order;
-import com.codecool.models.OrderProducts;
 import com.codecool.models.OrderStatus;
+import com.codecool.models.Product;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -19,9 +19,9 @@ public class OrderDao extends Dao<Order> {
             ResultSet results = statement.executeQuery(query);
             while (results.next()) {
                 int id = results.getInt("Id");
-                OrderProductsDao orderProductsDao = new OrderProductsDao();
+                ProductDao productDao = new ProductDao();
 
-                OrderProducts orderProducts = orderProductsDao.getOrderProducts(id);
+                List<Product> orderProducts = productDao.getOrderProducts(id);
                 int customerId = results.getInt("Id_customer");
                 OrderStatus orderStatus = OrderStatus.valueOf(results.getString("Order_status"));
 
@@ -48,9 +48,14 @@ public class OrderDao extends Dao<Order> {
         return orders;
     }
 
+    public void insertOrderProducts(String[] values) {
+        String[] columns = { "Id_order", "Id_product" };
+        insert("Order_products", columns, values);
+    }
+
     public void updateOrder(String id, String column, String newValue) {
         newValue = String.format("'%s'", newValue);
-        update("Orders", id, column, newValue);
+        updateById("Orders", id, column, newValue);
     }
 
     public void insertOrder(String[] values) {
@@ -62,20 +67,20 @@ public class OrderDao extends Dao<Order> {
     }
 
     public void autoUpdateOrderStatus() {
-        String query = "UPDATE Orders SET Order_status = 'SENT' WHERE Cast ((julianday('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 5;";
-        String query2 ="UPDATE Orders SET Order_status = 'DELIVERED' WHERE Cast ((julianday('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 15;";
+        String condition = "Cast ((JulianDay('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 5";
+        update("Orders", "Order_status", "'SENT'", condition);
 
-        connect();
-        try {
-            statement.execute(query);
-            statement.execute(query2);
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        condition = "Cast ((JulianDay('now') - JulianDay(Paid_at)) * 24 * 60 As Integer) > 15";
+        update("Orders", "Order_status", "'DELIVERED'", condition);
     }
 
     @Override
     public List<Order> getAll() {
-        return null;
+        return getOrders("SELECT * FROM orders;");
+    }
+
+    @Override
+    public void printAll() {
+        printFromDB("SELECT * FROM Orders;");
     }
 }

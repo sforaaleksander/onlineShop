@@ -56,7 +56,7 @@ public class TableSupport {
             data.add(rowData);
         }
 
-        String[] headerArray = headers.toArray(new String[headers.size()]);
+        String[] headerArray = headers.toArray(new String[0]);
         String[][] dataArray = data.toArray(new String[data.size()][]);
         return FlipTable.of(headerArray, dataArray);
     }
