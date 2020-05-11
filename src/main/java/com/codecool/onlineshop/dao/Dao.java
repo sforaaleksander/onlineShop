@@ -39,6 +39,12 @@ public abstract class Dao<T> {
         }
     }
 
+    public void printFromDB(String table, String columns, String condition) {
+        String where = condition.isEmpty() ? "" : "WHERE" + condition;
+        String query = String.format("SELECT %s FROM %s %s;", columns, table, where);
+        printFromDB(query);
+    }
+
     protected void updateById(String table, String id, String column, String newValue) {
         String condition = String.format("Id = %s", id);
         update(table, column, newValue, condition);

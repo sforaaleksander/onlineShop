@@ -10,7 +10,6 @@ import com.codecool.onlineshop.models.User;
 import com.codecool.onlineshop.ui.UI;
 
 public class AdminMenuOperator extends MenuOperator {
-    private static final String allCategories = "SELECT * FROM Categories;";
     private Map<String, Runnable> ordersMenuMap;
     private Map<String, Runnable> usersMenuMap;
     private final ProductDao productDao;
@@ -28,7 +27,7 @@ public class AdminMenuOperator extends MenuOperator {
         productsMenuMap.put("4", this::addProduct);
         productsMenuMap.put("5", this::editProduct);
         productsMenuMap.put("6", this::removeProduct);
-        productsMenuMap.put("7", this::getAllCategories);
+        productsMenuMap.put("7", this::printAllCategories);
         productsMenuMap.put("8", this::addCategory);
     }
 
@@ -47,7 +46,7 @@ public class AdminMenuOperator extends MenuOperator {
 
     private void createUsersMenuMap() {
         usersMenuMap = new HashMap<>();
-        usersMenuMap.put("1", this::printAllUsers);
+        usersMenuMap.put("1", userDao::printAll);
         usersMenuMap.put("2", this::printUsersByUserId);
         usersMenuMap.put("3", this::printUsersContaining);
         usersMenuMap.put("4", this::removeUser);
@@ -61,23 +60,20 @@ public class AdminMenuOperator extends MenuOperator {
         handleMenu(ordersMenuMap, ui::displayBrowseOrdersMenu);
     }
 
-    private void getAllCategories() {
-        userDao.printFromDB(allCategories);
-    }
-
-    private void printAllUsers() {
-        userDao.printAll();
+    private void printAllCategories() {
+        userDao.printFromDB("Categories", "*", "");
     }
 
     private void printUsersByUserId() {
         String id = ui.gatherInput("Provide user id: ");
-        userDao.printFromDB("SELECT * FROM Users WHERE id = " + id + ";");
+        userDao.print("*", "id = " + id);
     }
 
     private void printUsersContaining() {
         String column = ui.gatherInput("Provide column: ");
         String toSearch = ui.gatherInput("What to look for?: ");
-        userDao.printFromDB("SELECT * FROM Users WHERE " + column + " LIKE '%" + toSearch + "%';");
+        String condition = column + " LIKE '%" + toSearch + "%'";
+        userDao.print("*", condition);
     }
 
     private void getAllOrders() {
@@ -91,9 +87,10 @@ public class AdminMenuOperator extends MenuOperator {
         column = ui.gatherInput("Provide column: ");
         toSearch = ui.gatherInput("What to look for?: ");
         orderDao.autoUpdateOrderStatus();
-        orderDao.printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
-                + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
-                + "Products.Id = Order_products.Id_product WHERE " + column + " LIKE '%" + toSearch + "%';");
+        String table = "Orders JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON Products.Id = Order_products.Id_product";
+        String columns = "Order_status, Created_at, Paid_at, Name, Price";
+        String condition = column + " LIKE '%" + toSearch + "%'";
+        orderDao.printFromDB(table, columns, condition);
     }
 
     private void editProduct() {

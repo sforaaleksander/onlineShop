@@ -19,7 +19,8 @@ public class Registration {
 
     private void enterUserData() {
         String email = ui.gatherInput("Enter your email: ").toLowerCase();
-        List<User> sameEmailUsers = new UserDao().getUsers("SELECT * FROM Users WHERE email = \"" + email + "\";");
+        UserDao userDao = new UserDao();
+        List<User> sameEmailUsers = userDao.getUsers("SELECT * FROM Users WHERE email = \"" + email + "\";");
         if (emailIsAlreadyTaken(sameEmailUsers)) {
             ui.gatherEmptyInput("User with this email already exists");
             return;
@@ -34,7 +35,7 @@ public class Registration {
         String phone = ui.gatherInput("Enter your phone: ");
         String Id_role = "2";
         String[] values = {name, surname, email, password, phone, Id_role};
-        new UserDao().insertUser(values);
+        userDao.insertUser(values);
     }
 
     private boolean emailIsAlreadyTaken(List<User> sameEmailUsers) {

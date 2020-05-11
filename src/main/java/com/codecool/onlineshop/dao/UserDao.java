@@ -59,6 +59,10 @@ public class UserDao extends Dao<User> {
         updateById("Users", id, column, newValue);
     }
 
+    public void print(String columns, String condition) {
+        printFromDB("Users", columns, condition);
+    }
+
     @Override
     public List<User> getAll() {
         return getUsers("SELECT * FROM users;");

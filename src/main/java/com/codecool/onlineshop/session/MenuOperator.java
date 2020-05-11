@@ -14,6 +14,9 @@ import com.codecool.onlineshop.models.User;
 import com.codecool.onlineshop.ui.UI;
 
 public abstract class MenuOperator {
+    private final ProductDao productDao;
+    private final OrderDao orderDao;
+    private final UserDao userDao;
     protected Map<String, Runnable> productsMenuMap;
     protected final Map<String, Runnable> mainMenuMap;
     protected Map<String, Runnable> userProfileMenuMap;
@@ -26,6 +29,9 @@ public abstract class MenuOperator {
         mainMenuMap = new HashMap<>();
         createBrowseProducts();
         createUserProfileMenuMap();
+        this.productDao = new ProductDao();
+        this.orderDao = new OrderDao();
+        this.userDao = new UserDao();
     }
 
     protected void displayProfileDetails() {
@@ -55,7 +61,6 @@ public abstract class MenuOperator {
         String id = Integer.toString(user.getId());
         String column = ui.gatherInput("Provide column: ");
         String newValue = ui.gatherInput("New value for the column: ");
-        UserDao userDao = new UserDao();
         userDao.updateUser(id, column, newValue);
         this.user = userDao.getUsers("SELECT * FROM Users WHERE Id = " + id + ";").get(0);
     }
@@ -86,38 +91,36 @@ public abstract class MenuOperator {
     }
 
     private void getAllProducts() {
-        new ProductDao().printAll();
+        productDao.printAll();
     }
 
     protected void getProductsContaining() {
         String column = ui.gatherInput("Provide column: ");
         String toSearch = ui.gatherInput("What to look for?: ");
 
-        new ProductDao().printFromDB("SELECT * FROM Products WHERE " + column + " LIKE '%" + toSearch + "%';");
+        productDao.print("*", column + " LIKE '%" + toSearch + "%';");
     }
 
     protected void getProductsByCategory() {
         String category = ui.gatherInput("Provide category: ");
-
-        new ProductDao().printFromDB("SELECT * FROM Products JOIN Categories"
-                    + " ON Products.Id_category = Categories.Id WHERE Categories.Name = '"
-                    + category + "';");
+        String table = "Products JOIN Categories ON Products.Id_category = Categories.Id";
+        String condition = "Categories.Name = '" + category + "'";
+        productDao.printFromDB(table, "*", condition);
     }
 
     protected void getOrdersByUserId() {
         String userId = user instanceof Admin
                       ? ui.gatherInput("Provide userId: ")
                       : Integer.toString(user.getId());
-        OrderDao orderDao = new OrderDao();
         orderDao.autoUpdateOrderStatus();
 
         if (!areAnyOrdersByUser(orderDao, userId)){
             return;
         }
-        new OrderDao().printFromDB("SELECT Order_status, Created_at, Paid_at, Name, Price FROM Orders "
-                    + "JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON "
-                    + "Products.Id = Order_products.Id_product WHERE Orders.Id_customer = "
-                    + userId + ";");
+        String columns = "Order_status, Created_at, Paid_at, Name, Price";
+        String table = "Orders JOIN Order_products ON Order_products.Id_order = Orders.Id JOIN Products ON Products.Id = Order_products.Id_product";
+        String condition = "Orders.Id_customer = " + userId;
+        orderDao.printFromDB(table, columns, condition);
     }
 
     public Map<String, Runnable> getMainMenuMap() {

@@ -58,6 +58,10 @@ public class ProductDao extends Dao<Product> {
         insert("Categories", columns, values);
     }
 
+    public void print(String columns, String condition) {
+        printFromDB("Products", columns, condition);
+    }
+
     @Override
     public List<Product> getAll() {
         return getProducts("SELECT * FROM products;");

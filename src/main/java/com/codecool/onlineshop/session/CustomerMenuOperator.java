@@ -21,10 +21,13 @@ public class CustomerMenuOperator extends MenuOperator {
     private final Cart cart;
     private Map<String, Runnable> cartMenuMap;
     OrderDao orderDao;
+    ProductDao productDao;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
-        this.cart = new Cart();
+        orderDao = new OrderDao();
+        productDao = new ProductDao();
+        cart = new Cart();
         createMainMenuMap();
         createCartMenuMap();
         productsMenuMap.put("4", this::addToCart);
@@ -46,8 +49,6 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void order() {
-        orderDao = new OrderDao();
-        OrderDao orderDao = new OrderDao();
         System.out.println("ORDERING");
         String idCustomer = Integer.toString(user.getId());
 
@@ -71,7 +72,7 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private Order getLastUserOrder() {
-        List<Order> lastOrder = this.orderDao
+        List<Order> lastOrder = orderDao
                 .getOrders("SELECT * FROM Orders WHERE Id_customer = "
                            + user.getId() + " ORDER BY Id DESC LIMIT 1;");
         return lastOrder.get(0);
@@ -107,7 +108,7 @@ public class CustomerMenuOperator extends MenuOperator {
     }
 
     private void displayUnpaidOrders() {
-        new OrderDao().printFromDB("SELECT * FROM Orders WHERE Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
+        orderDao.print("*", "Id_customer = " + user.getId() + " AND Order_status = 'UNPAID';");
     }
 
     private List<Order> getUnpaidOrders(){
@@ -146,7 +147,6 @@ public class CustomerMenuOperator extends MenuOperator {
 
         // TODO abstract to outer method
 
-        ProductDao productDao = new ProductDao();
         List<Product> productsList = productDao.getProducts("SELECT * FROM Products WHERE id =" + productId + ";");
 
         if (productsList.isEmpty()) {

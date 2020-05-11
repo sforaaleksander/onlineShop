@@ -74,6 +74,10 @@ public class OrderDao extends Dao<Order> {
         update("Orders", "Order_status", "'DELIVERED'", condition);
     }
 
+    public void print(String columns, String condition) {
+        printFromDB("Orders", columns, condition);
+    }
+
     @Override
     public List<Order> getAll() {
         return getOrders("SELECT * FROM orders;");
