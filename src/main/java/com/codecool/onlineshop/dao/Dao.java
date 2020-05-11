@@ -1,4 +1,4 @@
-package com.codecool.dao;
+package com.codecool.onlineshop.dao;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.List;
 
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.ui.UI;
 
 public abstract class Dao<T> {
     protected Connection connection;

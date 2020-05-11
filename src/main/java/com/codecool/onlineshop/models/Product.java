@@ -1,4 +1,4 @@
-package com.codecool.models;
+package com.codecool.onlineshop.models;
 
 public class Product {
     private final int id;

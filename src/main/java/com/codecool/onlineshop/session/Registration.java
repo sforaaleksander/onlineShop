@@ -1,13 +1,13 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
-import com.codecool.dao.UserDao;
-import com.codecool.models.User;
+import com.codecool.onlineshop.dao.UserDao;
+import com.codecool.onlineshop.models.User;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.ui.UI;
 
 public class Registration {
     private final UI ui;

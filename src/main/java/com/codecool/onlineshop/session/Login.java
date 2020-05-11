@@ -1,7 +1,7 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
-import com.codecool.dao.UserDao;
-import com.codecool.models.User;
+import com.codecool.onlineshop.dao.UserDao;
+import com.codecool.onlineshop.models.User;
 
 import java.util.List;
 

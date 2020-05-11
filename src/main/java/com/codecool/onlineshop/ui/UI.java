@@ -1,10 +1,10 @@
-package com.codecool.ui;
+package com.codecool.onlineshop.ui;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Map;
 
-import com.codecool.models.Product;
+import com.codecool.onlineshop.models.Product;
 import com.jakewharton.fliptables.FlipTable;
 import com.jakewharton.fliptables.FlipTableConverters;
 

@@ -1,4 +1,4 @@
-package com.codecool.models;
+package com.codecool.onlineshop.models;
 
 import java.time.LocalDateTime;
 import java.util.List;

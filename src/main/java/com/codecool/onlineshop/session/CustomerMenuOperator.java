@@ -1,11 +1,11 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
-import com.codecool.models.Cart;
-import com.codecool.models.Order;
-import com.codecool.models.OrderStatus;
-import com.codecool.models.Product;
-import com.codecool.models.User;
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.models.Cart;
+import com.codecool.onlineshop.models.Order;
+import com.codecool.onlineshop.models.OrderStatus;
+import com.codecool.onlineshop.models.Product;
+import com.codecool.onlineshop.models.User;
+import com.codecool.onlineshop.ui.UI;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -14,8 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.codecool.dao.OrderDao;
-import com.codecool.dao.ProductDao;
+import com.codecool.onlineshop.dao.OrderDao;
+import com.codecool.onlineshop.dao.ProductDao;
 
 public class CustomerMenuOperator extends MenuOperator {
     private final Cart cart;

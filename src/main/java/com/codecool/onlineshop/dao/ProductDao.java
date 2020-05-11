@@ -1,6 +1,6 @@
-package com.codecool.dao;
+package com.codecool.onlineshop.dao;
 
-import com.codecool.models.Product;
+import com.codecool.onlineshop.models.Product;
 
 import java.sql.*;
 import java.util.ArrayList;

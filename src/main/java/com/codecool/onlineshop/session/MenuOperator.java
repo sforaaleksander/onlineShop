@@ -1,17 +1,17 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.codecool.dao.OrderDao;
-import com.codecool.dao.ProductDao;
-import com.codecool.dao.UserDao;
-import com.codecool.models.Admin;
-import com.codecool.models.Order;
-import com.codecool.models.User;
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.dao.OrderDao;
+import com.codecool.onlineshop.dao.ProductDao;
+import com.codecool.onlineshop.dao.UserDao;
+import com.codecool.onlineshop.models.Admin;
+import com.codecool.onlineshop.models.Order;
+import com.codecool.onlineshop.models.User;
+import com.codecool.onlineshop.ui.UI;
 
 public abstract class MenuOperator {
     protected Map<String, Runnable> productsMenuMap;

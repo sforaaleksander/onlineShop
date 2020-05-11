@@ -1,13 +1,13 @@
-package com.codecool.session;
+package com.codecool.onlineshop.session;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import com.codecool.dao.OrderDao;
-import com.codecool.dao.ProductDao;
-import com.codecool.dao.UserDao;
-import com.codecool.models.User;
-import com.codecool.ui.UI;
+import com.codecool.onlineshop.dao.OrderDao;
+import com.codecool.onlineshop.dao.ProductDao;
+import com.codecool.onlineshop.dao.UserDao;
+import com.codecool.onlineshop.models.User;
+import com.codecool.onlineshop.ui.UI;
 
 public class AdminMenuOperator extends MenuOperator {
     private static final String allCategories = "SELECT * FROM Categories;";

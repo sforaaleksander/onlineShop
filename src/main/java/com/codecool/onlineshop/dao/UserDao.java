@@ -1,9 +1,9 @@
-package com.codecool.dao;
+package com.codecool.onlineshop.dao;
 
-import com.codecool.models.Admin;
-import com.codecool.models.Customer;
-import com.codecool.models.Role;
-import com.codecool.models.User;
+import com.codecool.onlineshop.models.Admin;
+import com.codecool.onlineshop.models.Customer;
+import com.codecool.onlineshop.models.Role;
+import com.codecool.onlineshop.models.User;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

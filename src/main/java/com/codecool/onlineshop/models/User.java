@@ -1,6 +1,6 @@
-package com.codecool.models;
+package com.codecool.onlineshop.models;
 
-import com.codecool.dao.ProductDao;
+import com.codecool.onlineshop.dao.ProductDao;
 
 public abstract class User {
     private final int id;

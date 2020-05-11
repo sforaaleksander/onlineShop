@@ -1,4 +1,4 @@
-package com.codecool.models;
+package com.codecool.onlineshop.models;
 
 import java.util.HashMap;
 import java.util.Map;
