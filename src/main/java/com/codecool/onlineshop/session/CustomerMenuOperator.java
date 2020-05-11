@@ -20,8 +20,8 @@ import com.codecool.onlineshop.dao.ProductDao;
 public class CustomerMenuOperator extends MenuOperator {
     private final Cart cart;
     private Map<String, Runnable> cartMenuMap;
-    OrderDao orderDao;
-    ProductDao productDao;
+    final OrderDao orderDao;
+    final ProductDao productDao;
 
     public CustomerMenuOperator(User user, UI ui) {
         super(user, ui);
